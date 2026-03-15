@@ -1,9 +1,9 @@
-# BABYLON Academy
+# collecte.ai
 
 > Maîtrise l'art de la conversation.
 
 ## About
-BABYLON Academy is an AI-powered training platform for door-to-door fundraisers. Learn the craft, practice with AI donor simulations, get certified.
+collecte.ai is an AI-powered training platform for door-to-door fundraisers. Learn the craft, practice with AI donor simulations, get certified.
 
 ## Features
 - 4-module curriculum (Fundamentals → Objections → Profiles → Closing)
