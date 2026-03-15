@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — BABYLON Academy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg2: #f8f7f4;
+      --bg3: #f1f0ed;
+      --border: #e8e6e1;
+      --text: #1a1a1a;
+      --muted: #6b6860;
+      --accent: #1a1a2e;
+      --gold: #c9a84c;
+      --gold2: #e8c96e;
+      --gold-dim: rgba(201,168,76,0.12);
+      --green: #16a34a;
+      --blue: #2563eb;
+      --purple: #7c3aed;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.1);
+      --sidebar-width: 240px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg2);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: var(--sidebar-width);
+      background: var(--bg);
+      border-right: 1px solid var(--border);
+      position: fixed;
+      top: 0; left: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      z-index: 50;
+      overflow-y: auto;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .sidebar-header {
+      padding: 24px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-mark {
+      width: 34px; height: 34px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 900;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .logo-text { display: flex; flex-direction: column; line-height: 1; }
+    .logo-name { font-size: 14px; font-weight: 800; color: var(--accent); letter-spacing: 0.06em; }
+    .logo-sub { font-size: 9px; color: var(--purple); font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; }
+
+    .sidebar-nav { flex: 1; padding: 16px 0; }
+
+    .nav-section-label {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--muted);
+      padding: 12px 20px 6px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 20px;
+      font-size: 14px; font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s;
+      cursor: pointer;
+    }
+
+    .nav-item:hover { background: var(--bg2); color: var(--text); }
+
+    .nav-item.active {
+      background: rgba(99,102,241,0.08);
+      color: var(--purple);
+      border-left: 2px solid var(--purple);
+    }
+
+    .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; opacity: 0.7; }
+    .nav-item.active svg { opacity: 1; }
+
+    .nav-badge {
+      margin-left: auto;
+      background: var(--purple);
+      color: #fff;
+      font-size: 10px; font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 100px;
+    }
+
+    .sidebar-footer {
+      padding: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .user-card { display: flex; align-items: center; gap: 12px; }
+
+    .user-avatar {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .user-info { flex: 1; min-width: 0; }
+    .user-name { font-size: 13px; font-weight: 600; color: var(--accent); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .user-level { font-size: 11px; color: var(--gold); }
+
+    /* MAIN */
+    .main {
+      margin-left: var(--sidebar-width);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* TOP BAR */
+    .topbar {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 32px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .topbar-title { font-size: 16px; font-weight: 700; color: var(--accent); }
+
+    .topbar-right { display: flex; align-items: center; gap: 12px; }
+
+    .streak-badge {
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(234,179,8,0.1);
+      border: 1px solid rgba(234,179,8,0.25);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 13px; font-weight: 700;
+      color: #d97706;
+    }
+
+    .xp-badge {
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(99,102,241,0.08);
+      border: 1px solid rgba(99,102,241,0.2);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 13px; font-weight: 700;
+      color: var(--purple);
+    }
+
+    .notif-btn {
+      position: relative;
+      width: 40px; height: 40px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      color: var(--muted);
+      transition: all 0.2s;
+      font-size: 18px;
+    }
+
+    .notif-btn:hover { border-color: var(--purple); color: var(--purple); }
+
+    .notif-dot {
+      position: absolute;
+      top: 7px; right: 7px;
+      width: 8px; height: 8px;
+      background: #ef4444;
+      border-radius: 50%;
+      border: 2px solid var(--bg);
+    }
+
+    .notif-dropdown {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      width: 320px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: var(--shadow-lg);
+      z-index: 100;
+      overflow: hidden;
+    }
+
+    .notif-dropdown.open { display: block; }
+
+    .notif-header {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 13px; font-weight: 700;
+      color: var(--accent);
+    }
+
+    .notif-unread-count {
+      background: #ef4444;
+      color: #fff;
+      font-size: 10px; font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 100px;
+    }
+
+    .notif-item {
+      display: flex;
+      gap: 12px;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(99,102,241,0.03);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .notif-item:hover { background: rgba(99,102,241,0.06); }
+    .notif-item:last-child { border-bottom: none; background: transparent; }
+
+    .notif-icon {
+      width: 36px; height: 36px;
+      background: var(--bg2);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+    }
+
+    .notif-text { font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .notif-text strong { color: var(--text); }
+    .notif-time { font-size: 11px; color: var(--muted); margin-top: 3px; }
+
+    .topbar-right-wrapper { position: relative; display: flex; align-items: center; gap: 12px; }
+
+    /* CONTENT */
+    .content { padding: 36px 32px; flex: 1; }
+
+    .welcome { margin-bottom: 36px; }
+    .welcome h1 { font-size: 28px; font-weight: 800; color: var(--accent); letter-spacing: -0.02em; margin-bottom: 6px; }
+    .welcome p { font-size: 15px; color: var(--muted); }
+
+    /* PROGRESS CARD */
+    .progress-card {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin-bottom: 32px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+      box-shadow: 0 8px 30px rgba(99,102,241,0.25);
+    }
+
+    .level-info { display: flex; align-items: center; gap: 20px; }
+
+    .level-badge {
+      width: 64px; height: 64px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 28px; font-weight: 900; color: #fff;
+      flex-shrink: 0;
+    }
+
+    .level-details h2 { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+    .level-details p { font-size: 14px; color: rgba(255,255,255,0.75); margin-bottom: 12px; }
+
+    .xp-bar-wrapper { display: flex; align-items: center; gap: 12px; }
+
+    .xp-bar {
+      flex: 1;
+      height: 8px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 4px;
+      overflow: hidden;
+      min-width: 200px;
+    }
+
+    .xp-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.9);
+      width: 0%;
+      transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .xp-label { font-size: 12px; color: rgba(255,255,255,0.8); white-space: nowrap; }
+
+    .stats-row { display: flex; gap: 16px; }
+    .mini-stat { text-align: center; }
+    .mini-stat-num { font-size: 22px; font-weight: 800; color: #fff; }
+    .mini-stat-label { font-size: 11px; color: rgba(255,255,255,0.7); margin-top: 2px; }
+
+    /* GRID */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .section-title {
+      font-size: 17px; font-weight: 700; color: var(--accent);
+      margin-bottom: 16px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .section-title a { font-size: 13px; font-weight: 500; color: var(--purple); text-decoration: none; }
+    .section-title a:hover { opacity: 0.75; }
+
+    /* MODULES */
+    .modules-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .module-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .module-card:hover { border-color: var(--purple); box-shadow: var(--shadow-md); }
+    .module-card.locked { opacity: 0.5; cursor: not-allowed; }
+
+    .module-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+
+    .module-info { flex: 1; min-width: 0; }
+    .module-title { font-size: 15px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+    .module-desc { font-size: 13px; color: var(--muted); margin-bottom: 10px; }
+
+    .module-progress-row { display: flex; align-items: center; gap: 10px; }
+
+    .module-progress-bar {
+      flex: 1;
+      height: 5px;
+      background: var(--bg3);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .module-progress-fill {
+      height: 100%;
+      border-radius: 3px;
+      width: 0%;
+      transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .module-progress-label { font-size: 12px; font-weight: 600; white-space: nowrap; }
+
+    .module-status {
+      font-size: 12px; font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    /* CONSEIL DU JOUR */
+    .conseil-card {
+      background: var(--bg);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .conseil-card::before {
+      content: '"';
+      font-family: Georgia, serif;
+      font-size: 120px;
+      color: var(--gold);
+      opacity: 0.08;
+      position: absolute;
+      top: -20px; left: 12px;
+      line-height: 1;
+    }
+
+    .conseil-eyebrow {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .conseil-text {
+      font-size: 15px;
+      color: var(--text);
+      line-height: 1.75;
+      font-style: italic;
+      margin-bottom: 12px;
+    }
+
+    .conseil-author { font-size: 12px; color: var(--muted); }
+
+    .conseil-nav { display: flex; gap: 8px; margin-top: 16px; }
+
+    .conseil-btn {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      width: 28px; height: 28px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 13px;
+      transition: all 0.2s;
+    }
+
+    .conseil-btn:hover { background: var(--bg2); border-color: var(--gold); color: var(--gold); }
+
+    /* SIMULATION CTA */
+    .sim-cta-card {
+      background: linear-gradient(135deg, rgba(99,102,241,0.08) 0%, rgba(139,92,246,0.06) 100%);
+      border: 1px solid rgba(99,102,241,0.2);
+      border-radius: 16px;
+      padding: 32px 28px;
+      margin-bottom: 24px;
+    }
+
+    .sim-cta-top { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 20px; }
+
+    .sim-icon {
+      width: 52px; height: 52px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; flex-shrink: 0;
+      box-shadow: 0 8px 20px rgba(99,102,241,0.3);
+    }
+
+    .sim-cta-card h3 { font-size: 18px; font-weight: 800; color: var(--accent); margin-bottom: 6px; }
+    .sim-cta-card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+    .btn-sim {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 10px;
+      padding: 13px 24px;
+      font-size: 14px; font-weight: 700;
+      transition: opacity 0.2s, transform 0.15s;
+      box-shadow: 0 6px 20px rgba(99,102,241,0.25);
+    }
+
+    .btn-sim:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* LIVE CARD */
+    .live-card {
+      background: var(--bg);
+      border: 1px solid rgba(22,163,74,0.25);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .live-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(22,163,74,0.1);
+      border: 1px solid rgba(22,163,74,0.25);
+      border-radius: 100px;
+      padding: 4px 12px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 14px;
+    }
+
+    .live-dot {
+      width: 6px; height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: livePulse 1.5s infinite;
+    }
+
+    @keyframes livePulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    @keyframes continuePulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0.4); } 50% { box-shadow: 0 0 0 6px rgba(201,168,76,0); } }
+
+    .live-card h3 { font-size: 15px; font-weight: 700; color: var(--accent); margin-bottom: 8px; }
+
+    .live-info {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .live-avatar {
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg, #4ade80, #16a34a);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700; color: #fff;
+      flex-shrink: 0;
+    }
+
+    .live-meta { font-size: 13px; color: var(--muted); }
+    .live-meta strong { color: var(--accent); }
+
+    .live-time {
+      font-size: 13px; font-weight: 700;
+      color: var(--green);
+      margin-bottom: 14px;
+    }
+
+    .btn-live {
+      width: 100%;
+      background: rgba(22,163,74,0.1);
+      color: var(--green);
+      border: 1px solid rgba(22,163,74,0.25);
+      border-radius: 8px;
+      padding: 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px; font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-live:hover { background: rgba(22,163,74,0.15); }
+
+    /* WIDGETS */
+    .widget {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .widget-title {
+      font-size: 14px; font-weight: 700; color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .activity-list { display: flex; flex-direction: column; gap: 0; }
+
+    .activity-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .activity-item:last-child { border-bottom: none; }
+
+    .activity-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+    .activity-text { font-size: 13px; color: var(--muted); line-height: 1.5; }
+    .activity-text strong { color: var(--text); }
+    .activity-time { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+    .leaderboard-list { display: flex; flex-direction: column; gap: 8px; }
+
+    .lb-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: var(--bg2);
+      transition: background 0.2s;
+    }
+
+    .lb-item:hover { background: var(--bg3); }
+
+    .lb-item.current-user {
+      background: rgba(201,168,76,0.08);
+      border: 1px solid rgba(201,168,76,0.2);
+    }
+
+    .lb-rank { font-size: 14px; font-weight: 800; color: var(--muted); width: 24px; text-align: center; flex-shrink: 0; }
+    .lb-rank.top { color: var(--gold); }
+
+    .lb-avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; color: #fff;
+      flex-shrink: 0;
+    }
+
+    .lb-info { flex: 1; }
+    .lb-name { font-size: 13px; font-weight: 600; color: var(--accent); }
+    .lb-score { font-size: 11px; color: var(--muted); }
+
+    .lb-right { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; }
+    .lb-xp { font-size: 13px; font-weight: 700; color: var(--gold); }
+    .lb-change { font-size: 10px; font-weight: 700; }
+    .lb-change.up { color: var(--green); }
+    .lb-change.down { color: #ef4444; }
+    .lb-change.same { color: var(--muted); }
+
+    @media (max-width: 1100px) { .grid-2 { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) {
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .main { margin-left: 0; }
+      .content { padding: 24px 20px; }
+      .progress-card { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <a class="sidebar-logo" href="index.html">
+        <div class="logo-mark">BA</div>
+        <div class="logo-text">
+          <span class="logo-name">BABYLON</span>
+          <span class="logo-sub">Academy</span>
+        </div>
+      </a>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Navigation</div>
+      <a class="nav-item active" href="#">
+        <svg viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Tableau de bord
+      </a>
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Modules
+      </a>
+      <a class="nav-item" href="simulation.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Simulations IA
+        <span class="nav-badge">NEW</span>
+      </a>
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Mes stats
+      </a>
+      <a class="nav-item" href="#">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Classement
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-card">
+        <div class="user-avatar">AK</div>
+        <div class="user-info">
+          <div class="user-name">Alexandre Kovač</div>
+          <div class="user-level">⭐ Niveau 3 — Confirmé &nbsp;🔥 7 jours de suite</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-title">Tableau de bord</div>
+      <div class="topbar-right">
+        <div class="streak-badge">🔥 7 jours de streak</div>
+        <div class="xp-badge">⚡ 2 340 XP</div>
+        <div class="topbar-right-wrapper">
+          <div class="notif-btn" onclick="toggleNotif()" title="Notifications">
+            🔔
+            <span class="notif-dot"></span>
+          </div>
+          <div class="notif-dropdown" id="notifDropdown">
+            <div class="notif-header">
+              Notifications
+              <span class="notif-unread-count">1 nouvelle</span>
+            </div>
+            <div class="notif-item" onclick="closeNotif()">
+              <div class="notif-icon">🏆</div>
+              <div>
+                <div class="notif-text"><strong>Session live ce vendredi !</strong> Sophie Moreau anime une session coaching "Closing avancé" — 30 places disponibles.</div>
+                <div class="notif-time">Il y a 2 heures</div>
+              </div>
+            </div>
+            <div class="notif-item" onclick="closeNotif()">
+              <div class="notif-icon">⚡</div>
+              <div>
+                <div class="notif-text"><strong>Module débloqué</strong> — "Profils de donateurs" est maintenant accessible.</div>
+                <div class="notif-time">Hier, 17:00</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <div class="welcome">
+        <h1>Bonjour Alexandre 👋 — Continuez votre progression</h1>
+        <p>Tu es à 660 XP du niveau 4. Continue comme ça !</p>
+      </div>
+
+      <div class="progress-card">
+        <div class="level-info">
+          <div class="level-badge">3</div>
+          <div class="level-details">
+            <h2>Niveau 3 — Confirmé</h2>
+            <p>2 340 / 3 000 XP pour atteindre le niveau 4</p>
+            <div class="xp-bar-wrapper">
+              <div class="xp-bar">
+                <div class="xp-bar-fill" id="xpBarFill"></div>
+              </div>
+              <span class="xp-label">78%</span>
+            </div>
+          </div>
+        </div>
+        <div class="stats-row">
+          <div class="mini-stat">
+            <div class="mini-stat-num">🔥 7</div>
+            <div class="mini-stat-label">streak jours</div>
+          </div>
+          <div class="mini-stat">
+            <div class="mini-stat-num">14</div>
+            <div class="mini-stat-label">simulations</div>
+          </div>
+          <div class="mini-stat">
+            <div class="mini-stat-num">4e</div>
+            <div class="mini-stat-label">classement</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div>
+
+          <div class="conseil-card">
+            <div class="conseil-eyebrow">💡 Conseil du jour</div>
+            <div class="conseil-text" id="conseilText">"Ne combattez pas les objections — accueillez-les. 'C'est une bonne question' est la phrase la plus puissante que vous puissiez dire à un sceptique. Elle valide son intelligence avant de répondre."</div>
+            <div class="conseil-author" id="conseilAuthor">— Marie Castillo, meilleure collectrice du mois</div>
+            <div class="conseil-nav">
+              <button class="conseil-btn" onclick="prevConseil()">←</button>
+              <button class="conseil-btn" onclick="nextConseil()">→</button>
+            </div>
+          </div>
+
+          <!-- MISSION DU JOUR -->
+          <div style="background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.04)); border: 1px solid rgba(201,168,76,0.25); border-radius: 16px; padding: 24px 28px; margin-bottom: 28px;">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+              <span style="font-size:22px;">🎯</span>
+              <div>
+                <div style="font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold);">Mission du jour</div>
+              </div>
+            </div>
+            <div style="font-size:16px; font-weight:700; color:var(--accent); margin-bottom:8px;">Simuler 2 conversations avec un profil Sceptique</div>
+            <div style="font-size:13px; color:var(--muted); margin-bottom:16px;">Score minimum requis : <strong style="color:var(--accent);">70/100</strong></div>
+            <a href="simulation.html" style="display:inline-flex; align-items:center; gap:8px; background:var(--gold); color:var(--accent); padding:10px 20px; border-radius:8px; font-size:14px; font-weight:700; text-decoration:none; transition:opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Démarrer → </a>
+          </div>
+
+          <div class="live-card">
+            <div class="live-badge"><span class="live-dot"></span>Session live</div>
+            <h3>Coaching "Closing éthique" — Vendredi 18h</h3>
+            <div class="live-info">
+              <div class="live-avatar">SM</div>
+              <div class="live-meta">Animé par <strong>Sophie Moreau</strong> · Collectrice senior, 4 ans terrain</div>
+            </div>
+            <div class="live-time">📅 Vendredi 21 mars · 18h00–19h30 · Zoom</div>
+            <button class="btn-live" onclick="this.textContent='✅ Place réservée !'; this.style.background='rgba(22,163,74,0.15)'">
+              Réserver ma place (12 places restantes)
+            </button>
+          </div>
+
+          <div class="section-title">Mes modules <a href="#">Voir tous →</a></div>
+          <div class="modules-list">
+
+            <div class="module-card">
+              <div class="module-icon" style="background: rgba(22,163,74,0.1);">💬</div>
+              <div class="module-info">
+                <div class="module-title">Les fondamentaux de la conversation</div>
+                <div class="module-desc">Posture, accroche, écoute active, rythme. La base de tout.</div>
+                <div class="module-progress-row">
+                  <div class="module-progress-bar">
+                    <div class="module-progress-fill" data-width="100" style="background: linear-gradient(90deg, #16a34a, #4ade80);"></div>
+                  </div>
+                  <span class="module-progress-label" style="color: var(--green);">100%</span>
+                </div>
+              </div>
+              <div class="module-status" style="background: rgba(22,163,74,0.1); color: var(--green);">✓ Complété</div>
+            </div>
+
+            <div class="module-card" style="border-color: rgba(201,168,76,0.4);">
+              <div class="module-icon" style="background: rgba(201,168,76,0.12);">🛡️</div>
+              <div class="module-info">
+                <div class="module-title">Gérer les objections</div>
+                <div class="module-desc">Répondre avec empathie, reformuler, transformer le non en peut-être.</div>
+                <div class="module-progress-row">
+                  <div class="module-progress-bar">
+                    <div class="module-progress-fill" data-width="65" style="background: linear-gradient(90deg, var(--gold), var(--gold2));"></div>
+                  </div>
+                  <span class="module-progress-label" style="color: var(--gold);">65%</span>
+                </div>
+              </div>
+              <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
+                <div class="module-status" style="background: rgba(201,168,76,0.1); color: #8a6a1a;">En cours</div>
+                <a href="#" style="background:var(--gold); color:var(--accent); border:none; border-radius:8px; padding:7px 14px; font-size:12px; font-weight:700; cursor:pointer; text-decoration:none; animation:continuePulse 2s ease-in-out infinite; white-space:nowrap;">Continuer →</a>
+              </div>
+            </div>
+
+            <div class="module-card">
+              <div class="module-icon" style="background: rgba(99,102,241,0.1);">🧠</div>
+              <div class="module-info">
+                <div class="module-title">Profils de donateurs</div>
+                <div class="module-desc">Identifier les typologies, adapter son discours en temps réel.</div>
+                <div class="module-progress-row">
+                  <div class="module-progress-bar">
+                    <div class="module-progress-fill" data-width="30" style="background: linear-gradient(90deg, #6366f1, #8b5cf6);"></div>
+                  </div>
+                  <span class="module-progress-label" style="color: var(--purple);">30%</span>
+                </div>
+              </div>
+              <div class="module-status" style="background: rgba(99,102,241,0.08); color: var(--purple);">En cours</div>
+            </div>
+
+            <div class="module-card locked">
+              <div class="module-icon" style="background: var(--bg3);">🔒</div>
+              <div class="module-info">
+                <div class="module-title">Closing & engagement</div>
+                <div class="module-desc">Techniques de closing éthique. Transformer l'intérêt en engagement.</div>
+                <div class="module-progress-row">
+                  <div class="module-progress-bar">
+                    <div class="module-progress-fill" data-width="0" style="background: var(--border);"></div>
+                  </div>
+                  <span class="module-progress-label" style="color: var(--muted);">Verrouillé</span>
+                </div>
+              </div>
+              <div class="module-status" style="background: var(--bg3); color: var(--muted);">🔒 Niv. 4</div>
+            </div>
+
+          </div>
+
+          <div class="section-title">Simulation IA</div>
+          <div class="sim-cta-card">
+            <div class="sim-cta-top">
+              <div class="sim-icon">🤖</div>
+              <div>
+                <h3>Simuler une conversation avec un donateur IA</h3>
+                <p>Pratique en conditions réelles face à des profils générés par IA. Reçois un feedback détaillé instantané sur ton empathie, ta clarté et ton closing.</p>
+              </div>
+            </div>
+            <a href="simulation.html" class="btn-sim">🚀 Démarrer une simulation</a>
+          </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div>
+
+          <div class="widget">
+            <div class="widget-title">🏆 Classement — Cette semaine</div>
+
+            <!-- PODIUM TOP 3 -->
+            <div style="display:flex; align-items:flex-end; justify-content:center; gap:12px; margin-bottom:16px; padding:16px 8px;">
+              <!-- 2nd -->
+              <div style="text-align:center; flex:1;">
+                <div style="font-size:20px; margin-bottom:4px;">🥈</div>
+                <div style="width:40px; height:40px; background:linear-gradient(135deg,#a78bfa,#7c3aed); border-radius:50%; display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;margin:0 auto 6px;">LB</div>
+                <div style="font-size:11px; font-weight:700; color:var(--accent);">Lucas B.</div>
+                <div style="background:rgba(107,114,128,0.15); border-radius:6px 6px 0 0; height:48px; margin-top:8px; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:var(--muted);">3 910</div>
+              </div>
+              <!-- 1st -->
+              <div style="text-align:center; flex:1;">
+                <div style="font-size:24px; margin-bottom:4px;">🥇</div>
+                <div style="width:44px; height:44px; background:linear-gradient(135deg,#fbbf24,#f59e0b); border-radius:50%; display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;margin:0 auto 6px; box-shadow:0 4px 12px rgba(245,158,11,0.35);">MC</div>
+                <div style="font-size:11px; font-weight:700; color:var(--accent);">Marie C.</div>
+                <div style="background:rgba(201,168,76,0.15); border-radius:6px 6px 0 0; height:64px; margin-top:8px; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; color:var(--gold);">4 820</div>
+              </div>
+              <!-- 3rd -->
+              <div style="text-align:center; flex:1;">
+                <div style="font-size:20px; margin-bottom:4px;">🥉</div>
+                <div style="width:40px; height:40px; background:linear-gradient(135deg,#34d399,#16a34a); border-radius:50%; display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;margin:0 auto 6px;">SD</div>
+                <div style="font-size:11px; font-weight:700; color:var(--accent);">Sarah D.</div>
+                <div style="background:rgba(52,211,153,0.12); border-radius:6px 6px 0 0; height:36px; margin-top:8px; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:var(--green);">3 650</div>
+              </div>
+            </div>
+
+            <div class="leaderboard-list">
+              <div class="lb-item current-user">
+                <div class="lb-rank" style="color: var(--gold);">4</div>
+                <div class="lb-avatar" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">AK</div>
+                <div class="lb-info">
+                  <div class="lb-name">Alexandre Kovač <span style="font-size:11px; color: var(--gold);">(moi)</span></div>
+                  <div class="lb-score">Niveau 3 · 🔥 7 jours</div>
+                </div>
+                <div class="lb-right">
+                  <div class="lb-xp">2 340 XP</div>
+                  <div class="lb-change up">↑ +2</div>
+                </div>
+              </div>
+
+              <div class="lb-item">
+                <div class="lb-rank">5</div>
+                <div class="lb-avatar" style="background: linear-gradient(135deg, #f87171, #dc2626);">RM</div>
+                <div class="lb-info">
+                  <div class="lb-name">Romain Moreau</div>
+                  <div class="lb-score">Niveau 3 · 🔥 5 jours</div>
+                </div>
+                <div class="lb-right">
+                  <div class="lb-xp">2 180 XP</div>
+                  <div class="lb-change down">↓ -2</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="widget">
+            <div class="widget-title">📋 Activité récente</div>
+            <div class="activity-list">
+              <div class="activity-item">
+                <div class="activity-dot" style="background: var(--green);"></div>
+                <div>
+                  <div class="activity-text"><strong>Module complété</strong> — Les fondamentaux de la conversation</div>
+                  <div class="activity-time">Aujourd'hui, 09:14</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-dot" style="background: var(--purple);"></div>
+                <div>
+                  <div class="activity-text"><strong>Simulation IA</strong> — Profil Sceptique · Score 82/100</div>
+                  <div class="activity-time">Hier, 17:32</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-dot" style="background: var(--gold);"></div>
+                <div>
+                  <div class="activity-text"><strong>+200 XP</strong> — Objections avancées (quiz)</div>
+                  <div class="activity-time">Hier, 11:05</div>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-dot" style="background: #fbbf24;"></div>
+                <div>
+                  <div class="activity-text"><strong>Badge débloqué</strong> — "Gestion des objections" 🏅</div>
+                  <div class="activity-time">Lundi, 14:20</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    window.addEventListener('load', () => {
+      setTimeout(() => { document.getElementById('xpBarFill').style.width = '78%'; }, 300);
+      setTimeout(() => {
+        document.querySelectorAll('.module-progress-fill').forEach(bar => {
+          bar.style.width = (parseInt(bar.getAttribute('data-width') || 0)) + '%';
+        });
+      }, 500);
+    });
+
+    function toggleNotif() { document.getElementById('notifDropdown').classList.toggle('open'); }
+
+    function closeNotif() {
+      document.getElementById('notifDropdown').classList.remove('open');
+      document.querySelector('.notif-dot').style.display = 'none';
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.topbar-right-wrapper')) {
+        document.getElementById('notifDropdown').classList.remove('open');
+      }
+    });
+
+    const conseils = [
+      { text: '"Ne combattez pas les objections — accueillez-les. \'C\'est une bonne question\' est la phrase la plus puissante que vous puissiez dire à un sceptique. Elle valide son intelligence avant de répondre."', author: '— Marie Castillo, meilleure collectrice du mois' },
+      { text: '"Votre posture parle avant vous. Tenez-vous droit, souriez des yeux, respirez. La confiance se ressent à 3 mètres de distance — avant même que vous ayez dit un mot."', author: '— Lucas Bernard, Niveau 4' },
+      { text: '"Quand quelqu\'un dit \'Je vais y réfléchir\', c\'est souvent un non poli. Répondez : \'Bien sûr — qu\'est-ce qui vous retient encore?\'. 8 fois sur 10, vous obtenez la vraie objection."', author: '— Coaching terrain BABYLON Academy' },
+      { text: '"Le secret des collecteurs à 12+ validations par semaine ? Ils n\'essaient pas de convaincre. Ils essaient de comprendre. La conviction vient après l\'empathie, jamais avant."', author: '— Ardit X., Fondateur BABYLON' }
+    ];
+
+    let conseilIdx = 0;
+
+    function showConseil(idx) {
+      document.getElementById('conseilText').textContent = conseils[idx].text;
+      document.getElementById('conseilAuthor').textContent = conseils[idx].author;
+    }
+
+    function nextConseil() { conseilIdx = (conseilIdx + 1) % conseils.length; showConseil(conseilIdx); }
+    function prevConseil() { conseilIdx = (conseilIdx - 1 + conseils.length) % conseils.length; showConseil(conseilIdx); }
+  </script>
+</body>
+</html>
