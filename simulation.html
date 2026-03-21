@@ -610,7 +610,7 @@
         </div>
       </div>
       <div class="topbar-right">
-        <a href="dashboard.html" class="btn-back">← Dashboard</a>
+        <a href="dashboard.html" class="btn-back">← Tableau de bord</a>
       </div>
     </div>
 
@@ -1152,7 +1152,7 @@
       const total = Math.round((data.scores.empathy + data.scores.clarity + data.scores.objections + data.scores.closing) / 4);
       const m = String(Math.floor(elapsedSeconds / 60)).padStart(2, '0');
       const s = String(elapsedSeconds % 60).padStart(2, '0');
-      const text = `🏆 J'ai scoré ${total}/100 sur le profil "${currentProfile}" en ${m}:${s} sur collecte.ai ! #BABYLONAcademy #F2F`;
+      const text = `🏆 J'ai scoré ${total}/100 sur le profil "${currentProfile}" en ${m}:${s} sur collecte.ai ! #collecteai #F2F`;
       if (navigator.clipboard) {
         navigator.clipboard.writeText(text);
         const btn = document.getElementById('shareScoreBtn');

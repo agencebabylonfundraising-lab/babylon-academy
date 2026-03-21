@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>collecte.ai — Maîtrise l'art de la conversation.</title>
+  <title>collecte.ai — Maîtrise l'art de la conversation. Propulsé par l'IA.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -618,9 +618,9 @@
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-eyebrow">✦ Formation F2F · Exclusive BABYLON</div>
+    <div class="hero-eyebrow">✦ Formation F2F · collecte.ai</div>
     <h1>Maîtrise<br>l'art de la<br><span class="accent">conversation.</span></h1>
-    <p class="hero-sub">La plateforme de formation exclusive des collecteurs BABYLON. Modules, simulations IA, leaderboard. Deviens le meilleur.</p>
+    <p class="hero-sub">La plateforme de formation des collecteurs. Formez vos collecteurs. Transformez vos résultats. Modules, simulations IA, leaderboard. Deviens le meilleur.</p>
 
     <div class="hero-proof">
       <div class="hero-proof-avatars">
@@ -642,7 +642,7 @@
             <div class="browser-dot" style="background:#febc2e;"></div>
             <div class="browser-dot" style="background:#28c840;"></div>
           </div>
-          <div class="browser-url">academy.babylon-agency.fr/dashboard</div>
+          <div class="browser-url">collecte.ai/dashboard</div>
           <div style="font-size:11px; padding: 4px 10px; background: rgba(22,163,74,0.1); border-radius: 4px; color: var(--green); font-weight:600;">● En ligne</div>
         </div>
         <div class="browser-content">
@@ -792,6 +792,180 @@
     </div>
   </section>
 
+  <!-- QUIZ SECTION -->
+  <section style="background:#f8faff;border-top:1px solid #dbeafe;border-bottom:1px solid #dbeafe;padding:72px 5%;font-family:'Inter',sans-serif;" id="quiz-section">
+    <div style="max-width:680px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:40px;">
+        <div style="font-size:11px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:#2563eb;margin-bottom:10px;">Test gratuit · 2 minutes</div>
+        <h2 style="font-size:clamp(22px,3.5vw,36px);font-weight:900;color:#111827;letter-spacing:-.02em;margin-bottom:10px;">Testez votre niveau de collecteur</h2>
+        <p style="font-size:15px;color:#6b7280;max-width:440px;margin:0 auto;">5 questions. Résultat immédiat. Découvrez où vous en êtes — vraiment.</p>
+      </div>
+
+      <!-- QUIZ CONTAINER -->
+      <div id="quiz-wrap" style="background:white;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06);">
+        <!-- Progress bar -->
+        <div style="height:5px;background:#e5e7eb;"><div id="quiz-progress" style="height:100%;background:#2563eb;transition:width .3s;width:0%;"></div></div>
+        
+        <div style="padding:32px;" id="quiz-question-wrap">
+          <div style="font-size:12px;font-weight:700;color:#9ca3af;margin-bottom:6px;" id="quiz-counter">Question 1 / 5</div>
+          <div style="font-size:18px;font-weight:800;color:#111827;line-height:1.4;margin-bottom:24px;" id="quiz-q-text">—</div>
+          <div style="display:flex;flex-direction:column;gap:10px;" id="quiz-answers"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const QUIZ = [
+        {
+          q: "Un donateur vous dit 'je n'ai pas les moyens'. Vous répondez...?",
+          options: [
+            { text: "\"Je comprends. Bonne journée !\"", correct: false },
+            { text: "\"Même 1€ par jour peut changer une vie.\"", correct: false },
+            { text: "\"Est-ce que c'est vraiment une question de moyens, ou plutôt de priorité en ce moment ?\"", correct: true },
+            { text: "\"On a des formules à partir de 5€ par mois.\"", correct: false }
+          ],
+          explanation: "La bonne technique : reformuler pour comprendre la vraie objection. 'Pas les moyens' cache souvent une question de priorité, pas un refus définitif."
+        },
+        {
+          q: "Quelle est la meilleure heure pour frapper à une porte ?",
+          options: [
+            { text: "10h–12h en semaine", correct: false },
+            { text: "14h–16h le week-end", correct: false },
+            { text: "17h–19h30 en semaine", correct: true },
+            { text: "9h le samedi matin", correct: false }
+          ],
+          explanation: "17h–19h30 en semaine = retour du travail, avant le repas. Contact rate 30% plus élevé qu'en matinée selon les données terrain."
+        },
+        {
+          q: "Un donateur hésite. Vous proposez...?",
+          options: [
+            { text: "De laisser une plaquette et repasser demain", correct: false },
+            { text: "Un don unique pour commencer", correct: false },
+            { text: "\"Est-ce que 5€ par mois ça vous paraît raisonnable pour démarrer ?\"", correct: true },
+            { text: "De le rappeler la semaine prochaine", correct: false }
+          ],
+          explanation: "Proposer le montant minimal avec une question fermée. L'hésitation n'est pas un non — c'est une invitation à aider le prospect à décider."
+        },
+        {
+          q: "Combien de temps dure un pitch F2F idéal ?",
+          options: [
+            { text: "30 secondes — soyez direct", correct: false },
+            { text: "3–5 minutes — le temps de créer la connexion", correct: true },
+            { text: "10 minutes — plus de contexte = plus de confiance", correct: false },
+            { text: "Aussi longtemps que nécessaire", correct: false }
+          ],
+          explanation: "3–5 minutes est la fenêtre idéale : assez pour créer une connexion émotionnelle, pas assez pour perdre l'attention. Au-delà, le taux de conversion chute."
+        },
+        {
+          q: "Quelle phrase déclenche le plus souvent un 'oui' ?",
+          options: [
+            { text: "\"C'est une cause vraiment importante...\"", correct: false },
+            { text: "\"Beaucoup de vos voisins contribuent déjà.\"", correct: false },
+            { text: "\"Est-ce que [impact concret] vous touche ?\"", correct: true },
+            { text: "\"Pour seulement le prix d'un café par jour...\"", correct: false }
+          ],
+          explanation: "La question sur l'impact personnel crée une connexion émotionnelle directe. Le social proof fonctionne, mais l'impact personnel est plus puissant en F2F."
+        }
+      ];
+
+      let current = 0, score = 0, answered = [];
+
+      function renderQ() {
+        const q = QUIZ[current];
+        document.getElementById('quiz-counter').textContent = `Question ${current+1} / ${QUIZ.length}`;
+        document.getElementById('quiz-q-text').textContent = q.q;
+        document.getElementById('quiz-progress').style.width = (current / QUIZ.length * 100) + '%';
+        const wrap = document.getElementById('quiz-answers');
+        wrap.innerHTML = '';
+        q.options.forEach((opt, i) => {
+          const btn = document.createElement('button');
+          btn.textContent = opt.text;
+          btn.style.cssText = 'width:100%;padding:12px 16px;border:2px solid #e5e7eb;border-radius:10px;background:white;font-family:Inter,sans-serif;font-size:14px;color:#374151;text-align:left;cursor:pointer;transition:all .15s;line-height:1.4;';
+          btn.onmouseover = () => { if (!btn.disabled) btn.style.borderColor = '#2563eb'; };
+          btn.onmouseout = () => { if (!btn.disabled && !btn.dataset.chosen) btn.style.borderColor = '#e5e7eb'; };
+          btn.onclick = () => answerQ(opt.correct, q.explanation, i);
+          wrap.appendChild(btn);
+        });
+      }
+
+      function answerQ(correct, explanation, idx) {
+        if (correct) score++;
+        answered.push({ q: current, correct });
+        // Show feedback
+        const btns = document.getElementById('quiz-answers').querySelectorAll('button');
+        btns.forEach((b, i) => {
+          b.disabled = true;
+          if (QUIZ[current].options[i].correct) { b.style.background = '#f0fdf4'; b.style.borderColor = '#16a34a'; b.style.color = '#15803d'; }
+        });
+        btns[idx].style.background = correct ? '#f0fdf4' : '#fef2f2';
+        btns[idx].style.borderColor = correct ? '#16a34a' : '#dc2626';
+        btns[idx].style.color = correct ? '#15803d' : '#dc2626';
+        // Explanation
+        const exp = document.createElement('div');
+        exp.style.cssText = 'margin-top:14px;padding:12px 14px;background:#eff6ff;border-radius:8px;font-size:13px;color:#1d4ed8;line-height:1.6;';
+        exp.textContent = (correct ? '✅ ' : '💡 ') + explanation;
+        document.getElementById('quiz-answers').appendChild(exp);
+        // Next / results
+        const nextBtn = document.createElement('button');
+        nextBtn.textContent = current < QUIZ.length - 1 ? 'Question suivante →' : 'Voir mon résultat →';
+        nextBtn.style.cssText = 'margin-top:14px;width:100%;padding:12px;background:#2563eb;color:white;border:none;border-radius:8px;font-family:Inter,sans-serif;font-size:14px;font-weight:700;cursor:pointer;';
+        nextBtn.onclick = () => {
+          current++;
+          if (current < QUIZ.length) renderQ();
+          else showResult();
+        };
+        document.getElementById('quiz-answers').appendChild(nextBtn);
+      }
+
+      function showResult() {
+        document.getElementById('quiz-progress').style.width = '100%';
+        const levels = [
+          { min:0, max:2, label:'Débutant', emoji:'🌱', msg:'Vous avez le potentiel, il faut structurer votre approche.', color:'#f97316' },
+          { min:3, max:4, label:'Intermédiaire', emoji:'⚡', msg:'Bonne base ! Quelques techniques clés à affiner.', color:'#2563eb' },
+          { min:5, max:5, label:'Expert', emoji:'🏆', msg:'Vous maîtrisez les fondamentaux. Passons au niveau supérieur.', color:'#16a34a' }
+        ];
+        const level = levels.find(l => score >= l.min && score <= l.max) || levels[0];
+        document.getElementById('quiz-question-wrap').innerHTML = `
+          <div style="text-align:center;padding:8px 0;">
+            <div style="font-size:48px;margin-bottom:12px;">${level.emoji}</div>
+            <div style="font-size:14px;font-weight:700;color:${level.color};text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">Niveau ${level.label}</div>
+            <div style="font-size:32px;font-weight:900;color:#111827;margin-bottom:8px;">${score} / 5</div>
+            <p style="font-size:15px;color:#6b7280;max-width:380px;margin:0 auto 24px;">${level.msg}</p>
+            <div style="background:#f8faff;border:1px solid #dbeafe;border-radius:12px;padding:20px;margin-bottom:24px;text-align:left;">
+              <div style="font-size:13px;font-weight:700;color:#374151;margin-bottom:10px;">Votre plan de formation personnalisé sur collecte.ai :</div>
+              <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+                ${score <= 2 ? '<li style="font-size:13px;color:#374151;">✦ Module 1 — Les 5 phases du pitch F2F</li><li style="font-size:13px;color:#374151;">✦ Module 2 — Maîtrise des objections courantes</li><li style="font-size:13px;color:#374151;">✦ Module 3 — Timing et psychologie du don</li>' : score <= 4 ? '<li style="font-size:13px;color:#374151;">✦ Module 4 — Techniques de clôture avancées</li><li style="font-size:13px;color:#374151;">✦ Module 5 — Gestion des refus difficiles</li><li style="font-size:13px;color:#374151;">✦ Module 6 — Performance et métriques terrain</li>' : '<li style="font-size:13px;color:#374151;">✦ Module 7 — Leadership d\'équipe collecte</li><li style="font-size:13px;color:#374151;">✦ Module 8 — Coaching et transmission</li><li style="font-size:13px;color:#374151;">✦ Module 9 — Optimisation avancée des campagnes</li>'}
+              </ul>
+            </div>
+            <div id="quiz-capture">
+              <p style="font-size:14px;color:#374151;margin-bottom:14px;">Recevez votre plan de formation complet sur collecte.ai</p>
+              <div style="display:flex;gap:10px;max-width:380px;margin:0 auto;">
+                <input type="email" id="quiz-email" placeholder="votre@email.fr" style="flex:1;padding:10px 14px;border:2px solid #e5e7eb;border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;outline:none;" onfocus="this.style.borderColor='#2563eb'" onblur="this.style.borderColor='#e5e7eb'"/>
+                <button onclick="submitQuizLead('${level.label}', ${score})" style="background:#2563eb;color:white;border:none;padding:10px 18px;border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer;white-space:nowrap;">Voir mon plan →</button>
+              </div>
+            </div>
+            <div id="quiz-success" style="display:none;font-size:14px;font-weight:700;color:#16a34a;margin-top:10px;">✅ Plan de formation envoyé — vérifiez votre boîte mail !</div>
+          </div>
+        `;
+      }
+
+      async function submitQuizLead(level, score) {
+        const email = document.getElementById('quiz-email').value.trim();
+        if (!email || !email.includes('@')) return;
+        const lead = { email, data: { level, score, product: 'collecte.ai' }, timestamp: new Date().toISOString() };
+        try {
+          await fetch('/api/leads/training-platform', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(lead) });
+        } catch(e) {
+          const s = JSON.parse(localStorage.getItem('quiz-leads')||'[]'); s.push(lead); localStorage.setItem('quiz-leads', JSON.stringify(s));
+        }
+        document.getElementById('quiz-capture').style.display = 'none';
+        document.getElementById('quiz-success').style.display = 'block';
+      }
+
+      renderQ();
+    </script>
+  </section>
+
   <!-- LOGIN -->
   <section class="login-section" id="login">
     <div class="login-card">
@@ -830,9 +1004,9 @@
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-logo-mark">BA</div>
-    <p>© 2026 collecte.ai. Plateforme exclusive pour les équipes BABYLON.</p>
-    <p style="margin-top: 8px;"><a href="dashboard.html">Dashboard</a> · <a href="simulation.html">Simulations IA</a> · <a href="../babylon/website/index.html">BABYLON Agency</a></p>
+    <div class="footer-logo-mark">C</div>
+    <p>© 2026 collecte.ai. Maîtrise l'art de la conversation. Propulsé par l'IA.</p>
+    <p style="margin-top: 8px;"><a href="dashboard.html">Tableau de bord</a> · <a href="simulation.html">Simulations IA</a> · <a href="../babylon/website/index.html">BABYLON Agency</a></p>
   </footer>
 
   <script>
