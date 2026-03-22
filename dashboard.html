@@ -675,7 +675,7 @@
         <div class="logo-mark">C</div>
         <div class="logo-text">
           <span class="logo-name">collecte.ai</span>
-          <span class="logo-sub">Formation Collecteurs</span>
+          <span class="logo-sub">Formation Fundraisers</span>
         </div>
       </a>
     </div>
@@ -796,7 +796,7 @@
           <div class="conseil-card">
             <div class="conseil-eyebrow">💡 Conseil du jour</div>
             <div class="conseil-text" id="conseilText">"Ne combattez pas les objections — accueillez-les. 'C'est une bonne question' est la phrase la plus puissante que vous puissiez dire à un sceptique. Elle valide son intelligence avant de répondre."</div>
-            <div class="conseil-author" id="conseilAuthor">— Marie Castillo, meilleure collectrice du mois</div>
+            <div class="conseil-author" id="conseilAuthor">— Marie Castillo, meilleure fundraiser du mois</div>
             <div class="conseil-nav">
               <button class="conseil-btn" onclick="prevConseil()">←</button>
               <button class="conseil-btn" onclick="nextConseil()">→</button>
@@ -821,7 +821,7 @@
             <h3>Coaching "Closing éthique" — Vendredi 18h</h3>
             <div class="live-info">
               <div class="live-avatar">SM</div>
-              <div class="live-meta">Animé par <strong>Sophie Moreau</strong> · Collectrice senior, 4 ans terrain</div>
+              <div class="live-meta">Animé par <strong>Sophie Moreau</strong> · Fundraiser senior, 4 ans terrain</div>
             </div>
             <div class="live-time">📅 Vendredi 21 mars · 18h00–19h30 · Zoom</div>
             <button class="btn-live" onclick="this.textContent='✅ Place réservée !'; this.style.background='rgba(22,163,74,0.15)'">
@@ -988,7 +988,7 @@
     }
 
     const FUNDRAISER_TYPE_LABELS = {
-      f2f: '🚪 Collecteur F2F',
+      f2f: '🚪 Fundraiser F2F',
       telephone_sortant: '📞 Télémarketeur',
       reception: '📥 Agent de Réception',
       evenementiel: '🎪 Animateur Événementiel',
@@ -998,7 +998,7 @@
 
     function renderProfile(profile) {
       const xpInfo = getXpProgress(profile.xp || 0);
-      const prenom = profile.prenom || 'Collecteur';
+      const prenom = profile.prenom || 'Fundraiser';
       const initials = prenom[0].toUpperCase() + (profile.nom ? profile.nom[0].toUpperCase() : '');
 
       // Sidebar
@@ -1009,7 +1009,7 @@
       // Fundraiser type badge
       const badgeEl = document.getElementById('dbFundraiserBadge');
       if (badgeEl && profile.fundraiser_type) {
-        const label = FUNDRAISER_TYPE_LABELS[profile.fundraiser_type] || '🚪 Collecteur F2F';
+        const label = FUNDRAISER_TYPE_LABELS[profile.fundraiser_type] || '🚪 Fundraiser F2F';
         badgeEl.textContent = label;
         badgeEl.style.display = 'inline-flex';
       }
@@ -1232,10 +1232,10 @@
     // CONSEILS
     // ============================================================
     const conseils = [
-      { text: '"Ne combattez pas les objections — accueillez-les. \'C\'est une bonne question\' est la phrase la plus puissante que vous puissiez dire à un sceptique. Elle valide son intelligence avant de répondre."', author: '— Marie Castillo, meilleure collectrice du mois' },
+      { text: '"Ne combattez pas les objections — accueillez-les. \'C\'est une bonne question\' est la phrase la plus puissante que vous puissiez dire à un sceptique. Elle valide son intelligence avant de répondre."', author: '— Marie Castillo, meilleure fundraiser du mois' },
       { text: '"Votre posture parle avant vous. Tenez-vous droit, souriez des yeux, respirez. La confiance se ressent à 3 mètres de distance — avant même que vous ayez dit un mot."', author: '— Lucas Bernard, Niveau 4' },
       { text: '"Quand quelqu\'un dit \'Je vais y réfléchir\', c\'est souvent un non poli. Répondez : \'Bien sûr — qu\'est-ce qui vous retient encore?\'. 8 fois sur 10, vous obtenez la vraie objection."', author: '— Coaching terrain collecte.ai' },
-      { text: '"Le secret des collecteurs à 12+ validations par semaine ? Ils n\'essaient pas de convaincre. Ils essaient de comprendre. La conviction vient après l\'empathie, jamais avant."', author: '— Ardit X., Fondateur BABYLON' }
+      { text: '"Le secret des fundraisers à 12+ validations par semaine ? Ils n\'essaient pas de convaincre. Ils essaient de comprendre. La conviction vient après l\'empathie, jamais avant."', author: '— Ardit X., Fondateur BABYLON' }
     ];
 
     let conseilIdx = 0;

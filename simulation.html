@@ -498,7 +498,7 @@
         <div class="logo-mark">C</div>
         <div class="logo-text">
           <span class="logo-name">collecte.ai</span>
-          <span class="logo-sub">Formation Collecteurs</span>
+          <span class="logo-sub">Formation Fundraisers</span>
         </div>
       </a>
     </div>
@@ -558,9 +558,9 @@
       <!-- LEFT: PROFILES -->
       <div class="profile-panel">
         <div class="panel-header" style="padding:16px 20px 0;">
-          <div class="panel-title" style="margin-bottom:12px;">Type de collecteur</div>
+          <div class="panel-title" style="margin-bottom:12px;">Type de fundraiser</div>
           <div id="fundraiserTypeSelector" style="display:flex;flex-direction:column;gap:6px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border);">
-            <button class="fundraiser-type-btn active" data-type="f2f" onclick="selectFundraiserType('f2f', this)" style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:rgba(99,102,241,0.08);font-size:12px;font-weight:700;color:var(--purple);cursor:pointer;font-family:'Inter',sans-serif;text-align:left;transition:all 0.15s;">🚪 Collecteur F2F</button>
+            <button class="fundraiser-type-btn active" data-type="f2f" onclick="selectFundraiserType('f2f', this)" style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:rgba(99,102,241,0.08);font-size:12px;font-weight:700;color:var(--purple);cursor:pointer;font-family:'Inter',sans-serif;text-align:left;transition:all 0.15s;">🚪 Fundraiser F2F</button>
             <button class="fundraiser-type-btn" data-type="telephone_sortant" onclick="selectFundraiserType('telephone_sortant', this)" style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:none;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;font-family:'Inter',sans-serif;text-align:left;transition:all 0.15s;">📞 Télémarketeur Sortant</button>
             <button class="fundraiser-type-btn" data-type="reception" onclick="selectFundraiserType('reception', this)" style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:none;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;font-family:'Inter',sans-serif;text-align:left;transition:all 0.15s;">📥 Agent de Réception</button>
             <button class="fundraiser-type-btn" data-type="evenementiel" onclick="selectFundraiserType('evenementiel', this)" style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:none;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;font-family:'Inter',sans-serif;text-align:left;transition:all 0.15s;">🎪 Animateur Événementiel</button>
@@ -934,7 +934,7 @@
         const p = currentUser.profile;
         const initials = (p.prenom || '?')[0].toUpperCase();
         document.getElementById('sidebarAvatar').textContent = initials;
-        document.getElementById('sidebarName').textContent = p.prenom || 'Collecteur';
+        document.getElementById('sidebarName').textContent = p.prenom || 'Fundraiser';
         document.getElementById('sidebarLevel').textContent = `Niveau ${p.niveau || 1} · ${p.xp || 0} XP`;
       }
 
