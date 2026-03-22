@@ -603,24 +603,34 @@
   <!-- NAV -->
   <nav>
     <a class="nav-logo" href="#">
-      <div class="logo-mark">C</div>
-      <div class="logo-text">
-        <span class="logo-name">collecte.ai</span>
-        <span class="logo-sub">Formation F2F</span>
-      </div>
+      <svg viewBox="0 0 160 36" style="height:30px;display:block;" xmlns="http://www.w3.org/2000/svg">
+        <!-- Speech bubble with checkmark — training/conversation -->
+        <rect x="0" y="2" width="26" height="20" rx="5" fill="#4f46e5"/>
+        <polygon points="6,22 12,30 14,22" fill="#4f46e5"/>
+        <polyline points="6,12 10,16 20,8" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Wordmark -->
+        <text x="34" y="25" font-family="Inter,system-ui,sans-serif" font-weight="800" font-size="19" fill="#1a1a1a" letter-spacing="-0.5">collecte</text>
+        <text x="108" y="25" font-family="Inter,system-ui,sans-serif" font-weight="400" font-size="19" fill="#4f46e5" letter-spacing="-0.3">.ai</text>
+      </svg>
     </a>
     <div class="nav-right">
       <a href="#how" class="nav-link">Comment ça marche</a>
       <a href="#reasons" class="nav-link">Pourquoi</a>
       <a href="dashboard.html" class="nav-cta">Accéder à la plateforme →</a>
+      <button class="lang-toggle" onclick="toggleLang()" style="background:transparent;border:1px solid var(--border);color:var(--muted);padding:6px 12px;border-radius:6px;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:0.05em;margin-left:4px;">EN</button>
     </div>
   </nav>
+
+  <!-- STATS BAR -->
+  <div style="background:#eef2ff;border-bottom:1px solid #c7d2fe;padding:10px 5%;text-align:center;">
+    <span style="font-size:13px;font-weight:600;color:#3730a3;" data-fr="Plus de 500 collecteurs formés · Score moyen : 87% · 🔒 Données hébergées en France · RGPD conforme" data-en="500+ fundraisers trained · Average score: 87% · 🔒 Data hosted in France · GDPR compliant">Plus de 500 collecteurs formés · Score moyen : 87% · 🔒 Données hébergées en France · RGPD conforme</span>
+  </div>
 
   <!-- HERO -->
   <section class="hero">
     <div class="hero-eyebrow">✦ Formation F2F · collecte.ai</div>
-    <h1>Maîtrise<br>l'art de la<br><span class="accent">conversation.</span></h1>
-    <p class="hero-sub">La plateforme de formation des collecteurs. Formez vos collecteurs. Transformez vos résultats. Modules, simulations IA, leaderboard. Deviens le meilleur.</p>
+    <h1 data-fr="Formez vos collecteurs.<br><span class='accent'>Transformez vos résultats.</span>" data-en="Train your fundraisers.<br><span class='accent'>Transform your results.</span>">Formez vos collecteurs.<br><span class="accent">Transformez vos résultats.</span></h1>
+    <p class="hero-sub" data-fr="La formation IA pour les collecteurs porte-à-porte. Modules adaptatifs, simulations IA, leaderboard. Devenez les meilleurs sur le terrain." data-en="AI-powered training for door-to-door fundraisers. Adaptive modules, AI simulations, leaderboard. Become the best in the field.">La formation IA pour les collecteurs porte-à-porte. Modules adaptatifs, simulations IA, leaderboard. Devenez les meilleurs sur le terrain.</p>
 
     <div class="hero-proof">
       <div class="hero-proof-avatars">
@@ -1005,9 +1015,21 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-logo-mark">C</div>
-    <p>© 2026 collecte.ai. Maîtrise l'art de la conversation. Propulsé par l'IA.</p>
+    <p data-fr="© 2026 collecte.ai. Formez vos collecteurs. Transformez vos résultats." data-en="© 2026 collecte.ai. Train your fundraisers. Transform your results.">© 2026 collecte.ai. Formez vos collecteurs. Transformez vos résultats.</p>
     <p style="margin-top: 8px;"><a href="dashboard.html">Tableau de bord</a> · <a href="simulation.html">Simulations IA</a> · <a href="../babylon/website/index.html">BABYLON Agency</a></p>
+    <p style="margin-top:12px;font-size:12px;opacity:0.6;">Un produit <strong>BABYLON Group</strong> · 🔒 Hébergé en France · RGPD conforme</p>
   </footer>
+  <script>
+    let currentLang = 'fr';
+    function toggleLang() {
+      currentLang = currentLang === 'fr' ? 'en' : 'fr';
+      document.querySelectorAll('[data-fr]').forEach(el => {
+        el.innerHTML = currentLang === 'fr' ? el.dataset.fr : el.dataset.en;
+      });
+      const toggle = document.querySelector('.lang-toggle');
+      if (toggle) toggle.textContent = currentLang === 'fr' ? 'EN' : 'FR';
+    }
+  </script>
 
   <script>
     function handleLogin(e) {
