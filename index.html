@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>collecte.ai — Maîtrise l'art de la conversation.</title>
+  <title>collecte.ai — Maîtrise l'art de la collecte. Quel que soit ton canal.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -452,6 +452,51 @@
     .testimonial-name { font-size: 13px; font-weight: 800; color: var(--accent); }
     .testimonial-role { font-size: 11px; color: var(--muted); margin-top: 2px; }
 
+    /* ======== PROFILE TYPE SELECTOR ======== */
+    .profile-type-step {
+      display: none; margin-top: 28px; animation: fadeUp 0.4s ease;
+    }
+    .profile-type-step.show { display: block; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+    .profile-type-title { font-size: 15px; font-weight: 700; color: var(--accent); margin-bottom: 6px; text-align:center; }
+    .profile-type-sub { font-size: 12px; color: var(--muted); text-align: center; margin-bottom: 16px; }
+    .profile-type-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
+    }
+    .profile-type-card {
+      border: 2px solid var(--border); border-radius: 12px; padding: 14px 12px;
+      cursor: pointer; text-align: center; transition: all 0.2s; background: var(--bg2);
+      position: relative;
+    }
+    .profile-type-card:hover { border-color: var(--indigo-500); background: rgba(99,102,241,0.04); }
+    .profile-type-card.selected { border-color: var(--indigo-500); background: rgba(99,102,241,0.08); }
+    .profile-type-card .check-mark {
+      display: none; position: absolute; top: 8px; right: 8px;
+      width: 18px; height: 18px; background: var(--indigo-500); border-radius: 50%;
+      color: #fff; font-size: 10px; font-weight: 900;
+      align-items: center; justify-content: center;
+    }
+    .profile-type-card.selected .check-mark { display: flex; }
+    .profile-type-icon { font-size: 22px; margin-bottom: 6px; }
+    .profile-type-label { font-size: 12px; font-weight: 700; color: var(--accent); margin-bottom: 2px; }
+    .profile-type-desc { font-size: 10px; color: var(--muted); line-height: 1.4; }
+    .btn-confirm-profile {
+      display: none; width: 100%; margin-top: 14px;
+      background: linear-gradient(135deg, var(--indigo-600), var(--indigo-500));
+      color: #fff; border: none; border-radius: 10px; padding: 13px;
+      font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 800;
+      cursor: pointer; transition: opacity 0.2s;
+    }
+    .btn-confirm-profile.show { display: block; }
+    .btn-confirm-profile:hover { opacity: 0.9; }
+
+    /* Profile tab active state */
+    .profile-tab { outline: none; }
+    .profile-tab.active {
+      background: linear-gradient(135deg, var(--indigo-600), var(--indigo-500)) !important;
+      color: #fff !important; border-color: transparent !important;
+    }
+
     /* ======== MODULES ======== */
     .modules-section { padding: 100px 5%; background: var(--bg2); }
     .modules-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1100px; margin: 48px auto 0; }
@@ -685,14 +730,14 @@
     <div class="hero-content">
       <div class="hero-eyebrow">
         <span></span>
-        Formation IA · collecte.ai · F2F
+        Formation IA · collecte.ai · 6 profils de collecteurs
       </div>
-      <h1 data-fr="Maîtrise l'art<br>de la conversation." data-en="Master the art<br>of the conversation.">
-        Maîtrise l'art<br>de la conversation.
-        <span class="line2" data-fr="La formation IA pour les collecteurs porte-à-porte." data-en="The AI training for door-to-door fundraisers.">La formation IA pour les collecteurs porte-à-porte.</span>
+      <h1 data-fr="Maîtrise l'art<br>de la collecte." data-en="Master the art<br>of fundraising.">
+        Maîtrise l'art<br>de la collecte.
+        <span class="line2" data-fr="Quel que soit ton canal." data-en="Whatever your channel.">Quel que soit ton canal.</span>
       </h1>
-      <p class="hero-sub" data-fr="Progresse à ton rythme, mesure tes résultats. Simulations IA, feedback immédiat, gamification. Devenez les meilleurs sur le terrain." data-en="Progress at your pace, measure your results. AI simulations, instant feedback, gamification.">
-        Progresse à ton rythme, mesure tes résultats. Simulations IA, feedback immédiat, gamification.
+      <p class="hero-sub" data-fr="F2F, téléphone, événements, grands donateurs — une plateforme pour tous les collecteurs." data-en="F2F, phone, events, major donors — one platform for every fundraiser.">
+        F2F, téléphone, événements, grands donateurs — une plateforme pour tous les collecteurs.
       </p>
 
       <div class="hero-ctas">
@@ -704,7 +749,8 @@
       <div class="hero-proof">
         <div class="proof-pill">⭐ 4.8/5 satisfaction</div>
         <div class="proof-pill">🎓 500+ collecteurs formés</div>
-        <div class="proof-pill">🔥 87% taux de réussite</div>
+        <div class="proof-pill">🔥 F2F, téléphone, événements</div>
+        <div class="proof-pill">📊 87% taux de satisfaction</div>
       </div>
     </div>
 
@@ -728,24 +774,24 @@
   <section class="features-section" id="features">
     <div class="section-header">
       <div class="section-eyebrow">Pourquoi collecte.ai</div>
-      <h2 class="section-title">La formation qui change vraiment<br>ce qui se passe à la porte.</h2>
-      <p class="section-sub">Plus de PowerPoints ennuyeux. Une plateforme IA qui simule, mesure et gamifie ta progression.</p>
+      <h2 class="section-title">La formation qui change vraiment<br>tes résultats terrain.</h2>
+      <p class="section-sub">Plus de PowerPoints génériques. Une plateforme IA adaptée à chaque type de collecte — avec des simulations qui ressemblent au vrai terrain.</p>
     </div>
     <div class="features-grid">
       <div class="feature-card">
-        <div class="feature-icon feature-icon-1">🤖</div>
-        <h3>IA Conversationnelle</h3>
-        <p>Entraîne-toi avec des donateurs IA qui réagissent vraiment. Hostile, sceptique, ouvert — 5 profils différents pour te préparer à tout scénario terrain.</p>
+        <div class="feature-icon feature-icon-1">🎯</div>
+        <h3>6 profils de collecteurs</h3>
+        <p>Porte-à-porte, téléphone, réception, événements, grands donateurs, digital. Chacun son module, ses simulations, sa progression spécifique.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon feature-icon-2">📊</div>
-        <h3>Feedback en temps réel</h3>
-        <p>Score après chaque conversation. Empathie, gestion des objections, timing de closing. Tu sais exactement où progresser — et comment.</p>
+        <div class="feature-icon feature-icon-2">🤖</div>
+        <h3>IA adaptée à ton canal</h3>
+        <p>Les simulations changent selon ton type de collecte. Un appel entrant n'est pas une porte à frapper. Chaque contexte a ses propres profils et scénarios.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-icon feature-icon-3">🏆</div>
-        <h3>Gamification</h3>
-        <p>XP, niveaux, streaks, classement. La formation qui donne envie de revenir chaque jour. Parce qu'apprendre doit être aussi addictif qu'un jeu.</p>
+        <div class="feature-icon feature-icon-3">📊</div>
+        <h3>Progression mesurée</h3>
+        <p>Score après chaque simulation. Empathie, clarté, objections, closing. Tu sais exactement où progresser — et comment y arriver.</p>
       </div>
     </div>
   </section>
@@ -1054,38 +1100,206 @@
   <section class="modules-section" id="modules">
     <div class="section-header">
       <div class="section-eyebrow">Programme de formation</div>
-      <h2 class="section-title">4 modules. Du débutant<br>à l'expert terrain.</h2>
-      <p class="section-sub">Progression structurée, contenus courts et actionnables. Chaque module débloque le suivant.</p>
+      <h2 class="section-title">Des modules pour chaque<br>type de collecteur.</h2>
+      <p class="section-sub">Sélectionne ton profil. Accède aux contenus et simulations faits pour toi.</p>
     </div>
-    <div class="modules-grid">
+
+    <!-- Profile type tabs -->
+    <div style="max-width:1100px;margin:0 auto 32px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+      <button class="profile-tab active" onclick="switchTab('f2f')" id="tab-f2f" style="display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:100px;border:1px solid var(--border);background:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;">🚪 F2F</button>
+      <button class="profile-tab" onclick="switchTab('telephone')" id="tab-telephone" style="display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:100px;border:1px solid var(--border);background:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;">📞 Téléphone</button>
+      <button class="profile-tab" onclick="switchTab('reception')" id="tab-reception" style="display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:100px;border:1px solid var(--border);background:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;">📥 Réception</button>
+      <button class="profile-tab" onclick="switchTab('evenements')" id="tab-evenements" style="display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:100px;border:1px solid var(--border);background:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;">🎪 Événements</button>
+      <button class="profile-tab" onclick="switchTab('majors')" id="tab-majors" style="display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:100px;border:1px solid var(--border);background:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;">🤝 Grands donateurs</button>
+      <button class="profile-tab" onclick="switchTab('digital')" id="tab-digital" style="display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:100px;border:1px solid var(--border);background:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;">✉️ Digital</button>
+    </div>
+
+    <!-- F2F modules -->
+    <div id="modules-f2f" class="modules-grid module-tab-content">
       <div class="module-card">
         <div class="module-icon">🏗️</div>
-        <h3>Les fondamentaux</h3>
-        <p>Ouverture, structure, timing. Les bases qui font toute la différence à la porte.</p>
+        <h3>Les fondamentaux F2F</h3>
+        <p>Ouverture, posture, timing à la porte. Les bases qui font toute la différence sur le terrain.</p>
         <span class="module-tag tag-free">✓ Gratuit</span>
       </div>
       <div class="module-card">
         <div class="lock-badge">🔒</div>
         <div class="module-icon">🛡️</div>
         <h3>Gérer les objections</h3>
-        <p>5 objections fréquentes, 15 réponses testées. Transforme les "non" en conversations.</p>
+        <p>5 objections fréquentes, 15 réponses testées. Transforme les "non" en conversations ouvertes.</p>
         <span class="module-tag tag-premium">🔒 Premium</span>
       </div>
       <div class="module-card">
         <div class="lock-badge">🔒</div>
         <div class="module-icon">👥</div>
         <h3>Profils de donateurs</h3>
-        <p>5 archétypes, stratégies adaptées. Identifie en 30 secondes comment approcher chaque profil.</p>
+        <p>5 archétypes F2F. Identifie en 30 secondes comment approcher chaque personnalité.</p>
         <span class="module-tag tag-premium">🔒 Premium</span>
       </div>
       <div class="module-card">
         <div class="lock-badge">🔒</div>
         <div class="module-icon">🎯</div>
         <h3>Closing & engagement</h3>
-        <p>La technique des 2 options. Comment transformer l'intérêt en engagement durable.</p>
+        <p>La technique des 2 options. Transformer l'intérêt en engagement durable mensuel.</p>
         <span class="module-tag tag-premium">🔒 Premium</span>
       </div>
     </div>
+
+    <!-- Téléphone modules -->
+    <div id="modules-telephone" class="modules-grid module-tab-content" style="display:none;">
+      <div class="module-card">
+        <div class="module-icon">📞</div>
+        <h3>L'accroche téléphonique</h3>
+        <p>Les 10 premières secondes d'un appel sortant. Créer l'intérêt avant que la personne raccroche.</p>
+        <span class="module-tag tag-free">✓ Gratuit</span>
+      </div>
+      <div class="module-card">
+        <div class="lock-badge">🔒</div>
+        <div class="module-icon">📋</div>
+        <h3>Scripts courts qui convertissent</h3>
+        <p>Pas de scripts rigides — des cadres flexibles pour chaque situation : churn, upgrade, réactivation.</p>
+        <span class="module-tag tag-premium">🔒 Premium</span>
+      </div>
+      <div class="module-card">
+        <div class="lock-badge">🔒</div>
+        <div class="module-icon">⏸️</div>
+        <h3>"Je vais y réfléchir"</h3>
+        <p>La phrase la plus courante au téléphone. Savoir rester dans la conversation sans forcer.</p>
+        <span class="module-tag tag-premium">🔒 Premium</span>
+      </div>
+      <div class="module-card">
+        <div class="lock-badge">🔒</div>
+        <div class="module-icon">✅</div>
+        <h3>Closing au téléphone</h3>
+        <p>Conclure un engagement sans se voir. Les techniques qui fonctionnent à distance.</p>
+        <span class="module-tag tag-premium">🔒 Premium</span>
+      </div>
+    </div>
+
+    <!-- Réception modules -->
+    <div id="modules-reception" class="modules-grid module-tab-content" style="display:none;">
+      <div class="module-card">
+        <div class="module-icon">🧘</div>
+        <h3>Désescalade & écoute active</h3>
+        <p>30 secondes pour changer le ton d'un appel. La posture d'accueil qui désamorce la frustration.</p>
+        <span class="module-tag tag-free">✓ Gratuit</span>
+      </div>
+      <div class="module-card">
+        <div class="lock-badge">🔒</div>
+        <div class="module-icon">❤️</div>
+        <h3>Rétention : comprendre la vraie raison</h3>
+        <p>Un donateur qui annule dit rarement la vraie raison. Apprends à creuser avec empathie.</p>
+        <span class="module-tag tag-premium">🔒 Premium</span>
+      </div>
+      <div class="module-card">
+        <div class="lock-badge">🔒</div>
+        <div class="module-icon">🔄</div>
+        <h3>L'offre de pause</h3>
+        <p>Proposer une suspension temporaire plutôt qu'une annulation. Le script qui sauve 40% des appels.</p>
+        <span class="module-tag tag-premium">🔒 Premium</span>
+      </div>
+      <div class="module-card">
+        <div class="lock-badge">🔒</div>
+        <div class="module-icon">📉</div>
+        <h3>Réduction & down-sell</h3>
+        <p>Proposer un montant réduit pour garder le donateur. Mieux que zéro — et ça fidélise.</p>
+        <span class="module-tag tag-premium">🔒 Premium</span>
+      </div>
+    </div>
+
+    <!-- Événements modules -->
+    <div id="modules-evenements" class="modules-grid module-tab-content" style="display:none;">
+      <div class="module-card">
+        <div class="module-icon">🎉</div>
+        <h3>L'approche naturelle en événement</h3>
+        <p>Aborder un inconnu dans un contexte social sans sonner "commercial". L'art de la conversation légère.</p>
+        <span class="module-tag tag-free">✓ Gratuit</span>
+      </div>
+      <div class="module-card">
+        <div class="lock-badge">🔒</div>
+        <div class="module-icon">⚡</div>
+        <h3>Le pitch ultra-court</h3>
+        <p>60 secondes max. Émotions, impact, invitation. La structure qui fonctionne dans un gala ou une course.</p>
+        <span class="module-tag tag-premium">🔒 Premium</span>
+      </div>
+      <div class="module-card">
+        <div class="lock-badge">🔒</div>
+        <div class="module-icon">📱</div>
+        <h3>QR Code & engagement digital</h3>
+        <p>Du contact en présentiel à la signature en ligne. Simplifier le passage à l'acte au maximum.</p>
+        <span class="module-tag tag-premium">🔒 Premium</span>
+      </div>
+      <div class="module-card">
+        <div class="lock-badge">🔒</div>
+        <div class="module-icon">🌊</div>
+        <h3>Lire l'énergie d'une salle</h3>
+        <p>Chaque événement a une dynamique différente. Comment adapter ton approche en temps réel.</p>
+        <span class="module-tag tag-premium">🔒 Premium</span>
+      </div>
+    </div>
+
+    <!-- Grands donateurs modules -->
+    <div id="modules-majors" class="modules-grid module-tab-content" style="display:none;">
+      <div class="module-card">
+        <div class="module-icon">🤝</div>
+        <h3>La relation avant le don</h3>
+        <p>Avec un grand donateur, pas de pitch immédiat. Construire la confiance en plusieurs échanges.</p>
+        <span class="module-tag tag-free">✓ Gratuit</span>
+      </div>
+      <div class="module-card">
+        <div class="lock-badge">🔒</div>
+        <div class="module-icon">📊</div>
+        <h3>Impact storytelling</h3>
+        <p>Les grands donateurs veulent voir l'impact de leur argent. Chiffres, histoires, preuves concrètes.</p>
+        <span class="module-tag tag-premium">🔒 Premium</span>
+      </div>
+      <div class="module-card">
+        <div class="lock-badge">🔒</div>
+        <div class="module-icon">🏛️</div>
+        <h3>Gouvernance & transparence</h3>
+        <p>Répondre aux questions précises sur la structure, les frais, l'utilisation des fonds. Sans hésitation.</p>
+        <span class="module-tag tag-premium">🔒 Premium</span>
+      </div>
+      <div class="module-card">
+        <div class="lock-badge">🔒</div>
+        <div class="module-icon">🎁</div>
+        <h3>Legs & dons majeurs</h3>
+        <p>Aborder les sujets complexes : legs testamentaires, dons en capital. La conversation longue terme.</p>
+        <span class="module-tag tag-premium">🔒 Premium</span>
+      </div>
+    </div>
+
+    <!-- Digital modules -->
+    <div id="modules-digital" class="modules-grid module-tab-content" style="display:none;">
+      <div class="module-card">
+        <div class="module-icon">✉️</div>
+        <h3>Psychologie du donateur digital</h3>
+        <p>Ce qui pousse à cliquer, à donner, à partager en ligne. Les leviers du comportement digital.</p>
+        <span class="module-tag tag-free">✓ Gratuit</span>
+      </div>
+      <div class="module-card">
+        <div class="lock-badge">🔒</div>
+        <div class="module-icon">📝</div>
+        <h3>Email de collecte — analyse IA</h3>
+        <p>Colle ton email, l'IA le score sur 10 critères : objet, accroche, CTA, urgence, clarté. Feedback immédiat.</p>
+        <span class="module-tag tag-premium">🔒 Premium</span>
+      </div>
+      <div class="module-card">
+        <div class="lock-badge">🔒</div>
+        <div class="module-icon">📣</div>
+        <h3>Posts réseaux sociaux</h3>
+        <p>L'IA analyse tes posts : engagement estimé, message principal, forces et faiblesses.</p>
+        <span class="module-tag tag-premium">🔒 Premium</span>
+      </div>
+      <div class="module-card">
+        <div class="lock-badge">🔒</div>
+        <div class="module-icon">🔁</div>
+        <h3>Rétention & relance email</h3>
+        <p>Les séquences email qui gardent les donateurs engagés. Templates, timing, personnalisation.</p>
+        <span class="module-tag tag-premium">🔒 Premium</span>
+      </div>
+    </div>
+
   </section>
 
   <!-- ======== PRICING ======== -->
@@ -1178,6 +1392,10 @@
       </div>
 
       <form id="signupForm" onsubmit="handleSignup(event)">
+        <div class="form-group" id="prenomGroup">
+          <label class="form-label">Prénom</label>
+          <input type="text" class="form-input" id="signupPrenom" placeholder="Votre prénom" required>
+        </div>
         <div class="form-group">
           <label class="form-label">Adresse email</label>
           <input type="email" class="form-input" id="signupEmail" placeholder="prenom.nom@email.fr" required>
@@ -1186,18 +1404,67 @@
           <label class="form-label">Mot de passe</label>
           <input type="password" class="form-input" id="signupPassword" placeholder="Minimum 8 caractères" required minlength="8">
         </div>
-        <button type="submit" class="btn-signup" id="signupBtn">Créer mon compte gratuit →</button>
+
+        <!-- PROFILE TYPE STEP -->
+        <div class="profile-type-step" id="profileTypeStep">
+          <div class="profile-type-title">Quel type de collecteur es-tu ?</div>
+          <div class="profile-type-sub">Ta formation sera adaptée à ton canal.</div>
+          <div class="profile-type-grid">
+            <div class="profile-type-card" onclick="selectProfileType('f2f', this)">
+              <div class="check-mark">✓</div>
+              <div class="profile-type-icon">🚪</div>
+              <div class="profile-type-label">Collecteur F2F</div>
+              <div class="profile-type-desc">Porte-à-porte, donateurs mensuels</div>
+            </div>
+            <div class="profile-type-card" onclick="selectProfileType('telephone_sortant', this)">
+              <div class="check-mark">✓</div>
+              <div class="profile-type-icon">📞</div>
+              <div class="profile-type-label">Télémarketeur Sortant</div>
+              <div class="profile-type-desc">Appels sortants, anti-churn</div>
+            </div>
+            <div class="profile-type-card" onclick="selectProfileType('reception', this)">
+              <div class="check-mark">✓</div>
+              <div class="profile-type-icon">📥</div>
+              <div class="profile-type-label">Agent de Réception</div>
+              <div class="profile-type-desc">Sauver les donateurs qui annulent</div>
+            </div>
+            <div class="profile-type-card" onclick="selectProfileType('evenementiel', this)">
+              <div class="check-mark">✓</div>
+              <div class="profile-type-icon">🎪</div>
+              <div class="profile-type-label">Animateur Événementiel</div>
+              <div class="profile-type-desc">Galas, courses, événements</div>
+            </div>
+            <div class="profile-type-card" onclick="selectProfileType('major_donor', this)">
+              <div class="check-mark">✓</div>
+              <div class="profile-type-icon">🤝</div>
+              <div class="profile-type-label">Major Donor Officer</div>
+              <div class="profile-type-desc">Grands donateurs 500€+/mois</div>
+            </div>
+            <div class="profile-type-card" onclick="selectProfileType('digital', this)">
+              <div class="check-mark">✓</div>
+              <div class="profile-type-icon">✉️</div>
+              <div class="profile-type-label">Fundraiser Digital</div>
+              <div class="profile-type-desc">Email, réseaux sociaux, copywrting</div>
+            </div>
+          </div>
+          <button type="button" class="btn-confirm-profile" id="btnConfirmProfile" onclick="confirmProfileTypeAndSubmit()">Créer mon compte gratuit →</button>
+        </div>
+
+        <div id="signupError" style="display:none;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:10px 14px;font-size:13px;color:#dc2626;margin-bottom:12px;"></div>
+        <button type="submit" class="btn-signup" id="signupBtn">Continuer →</button>
       </form>
 
       <div class="signup-success" id="signupSuccess">
         <div class="success-emoji">🎉</div>
         <p>Compte créé ✓ Bienvenue sur collecte.ai !</p>
-        <p style="font-size:13px;color:#16a34a;margin-top:8px;">Vérifie ta boîte mail pour activer ton compte.</p>
+        <p style="font-size:13px;color:#16a34a;margin-top:8px;">Vérifiez votre boîte mail pour confirmer votre compte.</p>
+        <p style="font-size:13px;margin-top:12px;"><a href="dashboard.html" style="color:#4f46e5;font-weight:700;">Accéder au tableau de bord →</a></p>
       </div>
 
-      <div class="signup-divider">ou se connecter</div>
+      <div class="signup-divider">ou</div>
       <div class="signup-footer">
-        Déjà un compte ? <a href="dashboard.html">Accéder au tableau de bord →</a>
+        Déjà un compte ? <a href="#" onclick="toggleLoginForm(true)">Se connecter →</a>
+        &nbsp;·&nbsp; <a href="#" onclick="handleForgotPassword()" style="font-size:12px;color:var(--muted);">Mot de passe oublié</a>
       </div>
     </div>
   </section>
@@ -1205,12 +1472,42 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-logo-mark">C</div>
-    <p data-fr="© 2026 collecte.ai — La formation IA pour les collecteurs porte-à-porte." data-en="© 2026 collecte.ai — AI training for door-to-door fundraisers.">© 2026 collecte.ai — La formation IA pour les collecteurs porte-à-porte.</p>
+    <p data-fr="© 2026 collecte.ai — La formation IA pour tous les collecteurs." data-en="© 2026 collecte.ai — AI training for every type of fundraiser.">© 2026 collecte.ai — La formation IA pour tous les collecteurs.</p>
     <p style="margin-top:8px;"><a href="dashboard.html">Tableau de bord</a> · <a href="#">Simulations IA</a> · <a href="../babylon/website/index.html">BABYLON Agency</a></p>
     <p style="margin-top:12px;font-size:12px;opacity:0.5;">Un produit <strong>BABYLON Group</strong> · 🔒 Hébergé en France · RGPD conforme</p>
   </footer>
 
+  <!-- Supabase CDN + backend modules -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../collecte-backend/supabase-config.js"></script>
+  <script src="../collecte-backend/auth.js"></script>
   <script>
+    /* ======== INIT ======== */
+    let supabaseReady = false;
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        initSupabase();
+        supabaseReady = true;
+
+        // If already logged in, redirect to dashboard
+        const session = await Auth.getSession();
+        if (session) {
+          const params = new URLSearchParams(window.location.search);
+          const returnTo = params.get('returnTo');
+          window.location.href = returnTo === 'simulation' ? 'simulation.html' : 'dashboard.html';
+          return;
+        }
+
+        // Show login form if returnTo param is present
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('returnTo')) {
+          toggleLoginForm(true);
+        }
+      } catch (e) {
+        console.warn('Supabase init (non-blocking):', e);
+      }
+    });
+
     /* ======== LANG TOGGLE ======== */
     let currentLang = 'fr';
     function toggleLang() {
@@ -1221,22 +1518,142 @@
       document.querySelector('.lang-toggle').textContent = currentLang === 'fr' ? 'EN' : 'FR';
     }
 
-    /* ======== SIGNUP FORM ======== */
-    function handleSignup(e) {
+    /* ======== FORM STATE ======== */
+    let isLoginMode = false;
+
+    function toggleLoginForm(forceLogin = false) {
+      isLoginMode = forceLogin || !isLoginMode;
+      const header = document.querySelector('.signup-header h2');
+      const subtext = document.querySelector('.signup-header p');
+      const btn = document.getElementById('signupBtn');
+      const footer = document.querySelector('.signup-footer');
+      const prenomGroup = document.getElementById('prenomGroup');
+
+      if (isLoginMode) {
+        header.textContent = 'Se connecter';
+        subtext.textContent = 'Accédez à votre espace formation';
+        btn.textContent = 'Se connecter →';
+        btn.style.display = 'block';
+        footer.innerHTML = 'Pas encore de compte ? <a href="#" onclick="toggleLoginForm(false)">Créer un compte gratuit →</a>';
+        if (prenomGroup) prenomGroup.style.display = 'none';
+        const profileStep = document.getElementById('profileTypeStep');
+        if (profileStep) profileStep.classList.remove('show');
+        profileTypeStep1Complete = false;
+        selectedProfileType = null;
+      } else {
+        header.textContent = 'Créer un compte gratuit';
+        subtext.textContent = 'Accès immédiat · Aucune carte requise';
+        btn.textContent = 'Continuer →';
+        btn.style.display = 'block';
+        footer.innerHTML = 'Déjà un compte ? <a href="#" onclick="toggleLoginForm(true)">Se connecter →</a>';
+        if (prenomGroup) prenomGroup.style.display = 'block';
+      }
+    }
+
+    /* ======== MODULE TABS ======== */
+    function switchTab(tab) {
+      document.querySelectorAll('.module-tab-content').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.profile-tab').forEach(btn => btn.classList.remove('active'));
+      const content = document.getElementById('modules-' + tab);
+      if (content) content.style.display = 'grid';
+      const tabBtn = document.getElementById('tab-' + tab);
+      if (tabBtn) tabBtn.classList.add('active');
+    }
+
+    /* ======== PROFILE TYPE SELECTOR ======== */
+    let selectedProfileType = null;
+    let profileTypeStep1Complete = false;
+
+    function selectProfileType(type, el) {
+      selectedProfileType = type;
+      document.querySelectorAll('.profile-type-card').forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+      document.getElementById('btnConfirmProfile').classList.add('show');
+    }
+
+    function confirmProfileTypeAndSubmit() {
+      if (!selectedProfileType) return;
+      // Trigger the actual signup with the selected profile type
+      document.getElementById('signupBtn').click();
+    }
+
+    /* ======== SIGNUP / LOGIN FORM ======== */
+    async function handleSignup(e) {
       e.preventDefault();
       const btn = document.getElementById('signupBtn');
-      btn.textContent = 'Création du compte...';
-      btn.style.opacity = '0.7';
+      const email = document.getElementById('signupEmail').value.trim();
+      const password = document.getElementById('signupPassword').value;
+      const prenomInput = document.getElementById('signupPrenom');
+      const prenom = prenomInput ? prenomInput.value.trim() : '';
+      const errorEl = document.getElementById('signupError');
+
+      // If not in login mode and profile type step not shown yet, show it
+      if (!isLoginMode && !profileTypeStep1Complete) {
+        // Validate fields first
+        if (!prenom) { if (errorEl) { errorEl.textContent = 'Veuillez entrer votre prénom.'; errorEl.style.display = 'block'; } return; }
+        if (!email || !password) { if (errorEl) { errorEl.textContent = 'Veuillez remplir tous les champs.'; errorEl.style.display = 'block'; } return; }
+        if (errorEl) errorEl.style.display = 'none';
+        // Show profile type step
+        profileTypeStep1Complete = true;
+        document.getElementById('profileTypeStep').classList.add('show');
+        btn.style.display = 'none';
+        return;
+      }
+
+      if (errorEl) errorEl.style.display = 'none';
       btn.disabled = true;
-      setTimeout(() => {
-        document.getElementById('signupForm').style.display = 'none';
-        document.getElementById('signupSuccess').style.display = 'block';
-        // Save lead locally
-        const lead = { email: document.getElementById('signupEmail').value, timestamp: new Date().toISOString(), product: 'collecte.ai' };
-        const leads = JSON.parse(localStorage.getItem('collecte-leads') || '[]');
-        leads.push(lead);
-        localStorage.setItem('collecte-leads', JSON.stringify(leads));
-      }, 1000);
+      btn.textContent = isLoginMode ? 'Connexion...' : 'Création du compte...';
+      btn.style.opacity = '0.7';
+
+      try {
+        if (!supabaseReady) {
+          throw new Error('Service non disponible. Réessayez dans quelques secondes.');
+        }
+
+        if (isLoginMode) {
+          // LOGIN
+          await Auth.signIn(email, password);
+          const params = new URLSearchParams(window.location.search);
+          const returnTo = params.get('returnTo');
+          window.location.href = returnTo === 'simulation' ? 'simulation.html' : 'dashboard.html';
+        } else {
+          // SIGNUP
+          if (!prenom) throw new Error('Veuillez entrer votre prénom.');
+          await Auth.signUp(email, password, prenom, { fundraiser_type: selectedProfileType || 'f2f' });
+          document.getElementById('signupForm').style.display = 'none';
+          document.getElementById('signupSuccess').style.display = 'block';
+        }
+
+      } catch (err) {
+        btn.disabled = false;
+        btn.textContent = isLoginMode ? 'Se connecter →' : (profileTypeStep1Complete ? 'Continuer →' : 'Continuer →');
+        btn.style.opacity = '1';
+
+        let msg = err.message || 'Une erreur est survenue.';
+        // Translate common Supabase errors
+        if (msg.includes('Invalid login credentials')) msg = 'Email ou mot de passe incorrect.';
+        if (msg.includes('Email not confirmed')) msg = 'Confirmez votre email avant de vous connecter.';
+        if (msg.includes('already registered')) msg = 'Cet email est déjà utilisé. Connectez-vous !';
+        if (msg.includes('Password should')) msg = 'Mot de passe trop court (minimum 8 caractères).';
+
+        if (errorEl) {
+          errorEl.textContent = msg;
+          errorEl.style.display = 'block';
+        } else {
+          alert(msg);
+        }
+      }
+    }
+
+    async function handleForgotPassword() {
+      const email = document.getElementById('signupEmail').value.trim();
+      if (!email) { alert('Entrez votre email d\'abord.'); return; }
+      try {
+        await Auth.forgotPassword(email);
+        alert('Email de réinitialisation envoyé ! Vérifiez votre boîte mail.');
+      } catch (e) {
+        alert('Erreur: ' + e.message);
+      }
     }
 
     /* ======== INTERSECTION OBSERVER — Feature cards ======== */

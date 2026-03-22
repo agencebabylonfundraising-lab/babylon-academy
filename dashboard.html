@@ -7,6 +7,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Supabase CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Backend modules -->
+  <script src="../collecte-backend/supabase-config.js"></script>
+  <script src="../collecte-backend/auth.js"></script>
+  <script src="../collecte-backend/simulation.js"></script>
   <style>
     :root {
       --bg: #ffffff;
@@ -668,7 +675,7 @@
         <div class="logo-mark">C</div>
         <div class="logo-text">
           <span class="logo-name">collecte.ai</span>
-          <span class="logo-sub">Formation F2F</span>
+          <span class="logo-sub">Formation Collecteurs</span>
         </div>
       </a>
     </div>
@@ -700,10 +707,11 @@
 
     <div class="sidebar-footer">
       <div class="user-card">
-        <div class="user-avatar">AK</div>
+        <div class="user-avatar" id="dbUserAvatar">?</div>
         <div class="user-info">
-          <div class="user-name">Alexandre Kovač</div>
-          <div class="user-level">⭐ Niveau 3 — Confirmé &nbsp;🔥 7 jours de suite</div>
+          <div class="user-name" id="dbUserName">Chargement...</div>
+          <div class="user-level" id="dbUserLevel">⭐ Niveau — &nbsp;🔥 — jours</div>
+          <div id="dbFundraiserBadge" style="display:none;margin-top:6px;display:inline-flex;align-items:center;gap:4px;background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.25);border-radius:100px;padding:3px 10px;font-size:10px;font-weight:700;color:#4f46e5;"></div>
         </div>
       </div>
     </div>
@@ -714,8 +722,8 @@
     <div class="topbar">
       <div class="topbar-title">Tableau de bord</div>
       <div class="topbar-right">
-        <div class="streak-badge">🔥 7 jours de streak</div>
-        <div class="xp-badge">⚡ 2 340 XP</div>
+        <div class="streak-badge" id="dbStreakBadge">🔥 — jours de streak</div>
+        <div class="xp-badge" id="dbXpBadge">⚡ — XP</div>
         <div class="topbar-right-wrapper">
           <div class="notif-btn" onclick="toggleNotif()" title="Notifications">
             🔔
@@ -748,35 +756,35 @@
     <div class="content">
 
       <div class="welcome">
-        <h1>Bonjour Alexandre 👋 — Continuez votre progression</h1>
-        <p>Tu es à 660 XP du niveau 4. Continue comme ça !</p>
+        <h1 id="dbWelcome">Bonjour 👋 — Chargement...</h1>
+        <p id="dbWelcomeSub">Récupération de votre progression...</p>
       </div>
 
       <div class="progress-card">
         <div class="level-info">
-          <div class="level-badge">3</div>
+          <div class="level-badge" id="dbLevelBadge">—</div>
           <div class="level-details">
-            <h2>Niveau 3 — Confirmé</h2>
-            <p>2 340 / 3 000 XP pour atteindre le niveau 4</p>
+            <h2 id="dbLevelTitle">Niveau — — Chargement</h2>
+            <p id="dbLevelXP">— / — XP pour atteindre le niveau suivant</p>
             <div class="xp-bar-wrapper">
               <div class="xp-bar">
                 <div class="xp-bar-fill" id="xpBarFill"></div>
               </div>
-              <span class="xp-label">78%</span>
+              <span class="xp-label" id="dbXpPct">—%</span>
             </div>
           </div>
         </div>
         <div class="stats-row">
           <div class="mini-stat">
-            <div class="mini-stat-num">🔥 7</div>
+            <div class="mini-stat-num" id="dbStreakNum">🔥 —</div>
             <div class="mini-stat-label">streak jours</div>
           </div>
           <div class="mini-stat">
-            <div class="mini-stat-num">14</div>
+            <div class="mini-stat-num" id="dbSimCount">—</div>
             <div class="mini-stat-label">simulations</div>
           </div>
           <div class="mini-stat">
-            <div class="mini-stat-num">4e</div>
+            <div class="mini-stat-num" id="dbRankNum">—</div>
             <div class="mini-stat-label">classement</div>
           </div>
         </div>
@@ -803,9 +811,9 @@
                 <div style="font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold);">Mission du jour</div>
               </div>
             </div>
-            <div style="font-size:16px; font-weight:700; color:var(--accent); margin-bottom:8px;">Simuler 2 conversations avec un profil Sceptique</div>
-            <div style="font-size:13px; color:var(--muted); margin-bottom:16px;">Score minimum requis : <strong style="color:var(--accent);">70/100</strong></div>
-            <a href="simulation.html" style="display:inline-flex; align-items:center; gap:8px; background:var(--gold); color:var(--accent); padding:10px 20px; border-radius:8px; font-size:14px; font-weight:700; text-decoration:none; transition:opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Démarrer → </a>
+            <div style="font-size:16px; font-weight:700; color:var(--accent); margin-bottom:8px;" id="missionTitle">Simuler 2 conversations avec un profil Sceptique</div>
+            <div style="font-size:13px; color:var(--muted); margin-bottom:16px;">Score minimum requis : <strong style="color:var(--accent);">70/100</strong> · Récompense : <strong>+150 XP</strong> 🔥</div>
+            <a href="simulation.html" id="missionBtn" style="display:inline-flex; align-items:center; gap:8px; background:var(--gold); color:var(--accent); padding:10px 20px; border-radius:8px; font-size:14px; font-weight:700; text-decoration:none; transition:opacity 0.2s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Démarrer → </a>
           </div>
 
           <div class="live-card">
@@ -822,8 +830,8 @@
           </div>
 
           <div class="section-title">Mes modules <a href="#">Voir tous →</a></div>
-          <div class="modules-list">
-
+          <div class="modules-list" id="modulesList">
+            <!-- Filled by JS from Supabase -->
             <div class="module-card">
               <div class="module-icon" style="background: rgba(22,163,74,0.1);">💬</div>
               <div class="module-info">
@@ -831,30 +839,27 @@
                 <div class="module-desc">Posture, accroche, écoute active, rythme. La base de tout.</div>
                 <div class="module-progress-row">
                   <div class="module-progress-bar">
-                    <div class="module-progress-fill" data-width="100" style="background: linear-gradient(90deg, #16a34a, #4ade80);"></div>
+                    <div class="module-progress-fill" data-width="0" style="background: linear-gradient(90deg, #16a34a, #4ade80);"></div>
                   </div>
-                  <span class="module-progress-label" style="color: var(--green);">100%</span>
+                  <span class="module-progress-label" style="color: var(--green);">—%</span>
                 </div>
               </div>
-              <div class="module-status" style="background: rgba(22,163,74,0.1); color: var(--green);">✓ Complété</div>
+              <div class="module-status" style="background: rgba(22,163,74,0.1); color: var(--green);" id="mod-fondamentaux-status">— </div>
             </div>
 
-            <div class="module-card" style="border-color: rgba(201,168,76,0.4);">
+            <div class="module-card">
               <div class="module-icon" style="background: rgba(201,168,76,0.12);">🛡️</div>
               <div class="module-info">
                 <div class="module-title">Gérer les objections</div>
                 <div class="module-desc">Répondre avec empathie, reformuler, transformer le non en peut-être.</div>
                 <div class="module-progress-row">
                   <div class="module-progress-bar">
-                    <div class="module-progress-fill" data-width="65" style="background: linear-gradient(90deg, var(--gold), var(--gold2));"></div>
+                    <div class="module-progress-fill" data-width="0" style="background: linear-gradient(90deg, var(--gold), var(--gold2));"></div>
                   </div>
-                  <span class="module-progress-label" style="color: var(--gold);">65%</span>
+                  <span class="module-progress-label" style="color: var(--gold);">—%</span>
                 </div>
               </div>
-              <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
-                <div class="module-status" style="background: rgba(201,168,76,0.1); color: #8a6a1a;">En cours</div>
-                <a href="#" style="background:var(--gold); color:var(--accent); border:none; border-radius:8px; padding:7px 14px; font-size:12px; font-weight:700; cursor:pointer; text-decoration:none; animation:continuePulse 2s ease-in-out infinite; white-space:nowrap;">Continuer →</a>
-              </div>
+              <div class="module-status" style="background: rgba(201,168,76,0.1); color: #8a6a1a;" id="mod-objections-status">—</div>
             </div>
 
             <div class="module-card">
@@ -864,15 +869,15 @@
                 <div class="module-desc">Identifier les typologies, adapter son discours en temps réel.</div>
                 <div class="module-progress-row">
                   <div class="module-progress-bar">
-                    <div class="module-progress-fill" data-width="30" style="background: linear-gradient(90deg, #6366f1, #8b5cf6);"></div>
+                    <div class="module-progress-fill" data-width="0" style="background: linear-gradient(90deg, #6366f1, #8b5cf6);"></div>
                   </div>
-                  <span class="module-progress-label" style="color: var(--purple);">30%</span>
+                  <span class="module-progress-label" style="color: var(--purple);">—%</span>
                 </div>
               </div>
-              <div class="module-status" style="background: rgba(99,102,241,0.08); color: var(--purple);">En cours</div>
+              <div class="module-status" style="background: rgba(99,102,241,0.08); color: var(--purple);" id="mod-profils-status">—</div>
             </div>
 
-            <div class="module-card locked">
+            <div class="module-card locked" id="mod-closing-card">
               <div class="module-icon" style="background: var(--bg3);">🔒</div>
               <div class="module-info">
                 <div class="module-title">Closing & engagement</div>
@@ -886,7 +891,6 @@
               </div>
               <div class="module-status" style="background: var(--bg3); color: var(--muted);">🔒 Niv. 4</div>
             </div>
-
           </div>
 
           <div class="section-title">Simulation IA</div>
@@ -907,93 +911,16 @@
         <div>
 
           <div class="widget">
-            <div class="widget-title">🏆 Classement — Cette semaine</div>
-
-            <!-- PODIUM TOP 3 -->
-            <div style="display:flex; align-items:flex-end; justify-content:center; gap:12px; margin-bottom:16px; padding:16px 8px;">
-              <!-- 2nd -->
-              <div style="text-align:center; flex:1;">
-                <div style="font-size:20px; margin-bottom:4px;">🥈</div>
-                <div style="width:40px; height:40px; background:linear-gradient(135deg,#a78bfa,#7c3aed); border-radius:50%; display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;margin:0 auto 6px;">LB</div>
-                <div style="font-size:11px; font-weight:700; color:var(--accent);">Lucas B.</div>
-                <div style="background:rgba(107,114,128,0.15); border-radius:6px 6px 0 0; height:48px; margin-top:8px; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:var(--muted);">3 910</div>
-              </div>
-              <!-- 1st -->
-              <div style="text-align:center; flex:1;">
-                <div style="font-size:24px; margin-bottom:4px;">🥇</div>
-                <div style="width:44px; height:44px; background:linear-gradient(135deg,#fbbf24,#f59e0b); border-radius:50%; display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;margin:0 auto 6px; box-shadow:0 4px 12px rgba(245,158,11,0.35);">MC</div>
-                <div style="font-size:11px; font-weight:700; color:var(--accent);">Marie C.</div>
-                <div style="background:rgba(201,168,76,0.15); border-radius:6px 6px 0 0; height:64px; margin-top:8px; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; color:var(--gold);">4 820</div>
-              </div>
-              <!-- 3rd -->
-              <div style="text-align:center; flex:1;">
-                <div style="font-size:20px; margin-bottom:4px;">🥉</div>
-                <div style="width:40px; height:40px; background:linear-gradient(135deg,#34d399,#16a34a); border-radius:50%; display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;margin:0 auto 6px;">SD</div>
-                <div style="font-size:11px; font-weight:700; color:var(--accent);">Sarah D.</div>
-                <div style="background:rgba(52,211,153,0.12); border-radius:6px 6px 0 0; height:36px; margin-top:8px; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:var(--green);">3 650</div>
-              </div>
-            </div>
-
-            <div class="leaderboard-list">
-              <div class="lb-item current-user">
-                <div class="lb-rank" style="color: var(--gold);">4</div>
-                <div class="lb-avatar" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">AK</div>
-                <div class="lb-info">
-                  <div class="lb-name">Alexandre Kovač <span style="font-size:11px; color: var(--gold);">(moi)</span></div>
-                  <div class="lb-score">Niveau 3 · 🔥 7 jours</div>
-                </div>
-                <div class="lb-right">
-                  <div class="lb-xp">2 340 XP</div>
-                  <div class="lb-change up">↑ +2</div>
-                </div>
-              </div>
-
-              <div class="lb-item">
-                <div class="lb-rank">5</div>
-                <div class="lb-avatar" style="background: linear-gradient(135deg, #f87171, #dc2626);">RM</div>
-                <div class="lb-info">
-                  <div class="lb-name">Romain Moreau</div>
-                  <div class="lb-score">Niveau 3 · 🔥 5 jours</div>
-                </div>
-                <div class="lb-right">
-                  <div class="lb-xp">2 180 XP</div>
-                  <div class="lb-change down">↓ -2</div>
-                </div>
-              </div>
+            <div class="widget-title">🏆 Classement — Top 10</div>
+            <div id="leaderboardContainer">
+              <div style="text-align:center;padding:20px;font-size:13px;color:var(--muted);">Chargement du classement...</div>
             </div>
           </div>
 
           <div class="widget">
             <div class="widget-title">📋 Activité récente</div>
-            <div class="activity-list">
-              <div class="activity-item">
-                <div class="activity-dot" style="background: var(--green);"></div>
-                <div>
-                  <div class="activity-text"><strong>Module complété</strong> — Les fondamentaux de la conversation</div>
-                  <div class="activity-time">Aujourd'hui, 09:14</div>
-                </div>
-              </div>
-              <div class="activity-item">
-                <div class="activity-dot" style="background: var(--purple);"></div>
-                <div>
-                  <div class="activity-text"><strong>Simulation IA</strong> — Profil Sceptique · Score 82/100</div>
-                  <div class="activity-time">Hier, 17:32</div>
-                </div>
-              </div>
-              <div class="activity-item">
-                <div class="activity-dot" style="background: var(--gold);"></div>
-                <div>
-                  <div class="activity-text"><strong>+200 XP</strong> — Objections avancées (quiz)</div>
-                  <div class="activity-time">Hier, 11:05</div>
-                </div>
-              </div>
-              <div class="activity-item">
-                <div class="activity-dot" style="background: #fbbf24;"></div>
-                <div>
-                  <div class="activity-text"><strong>Badge débloqué</strong> — "Gestion des objections" 🏅</div>
-                  <div class="activity-time">Lundi, 14:20</div>
-                </div>
-              </div>
+            <div class="activity-list" id="activityList">
+              <div style="text-align:center;padding:20px;font-size:13px;color:var(--muted);">Chargement de l'activité...</div>
             </div>
           </div>
 
@@ -1004,20 +931,295 @@
   </div>
 
   <script>
-    window.addEventListener('load', () => {
-      setTimeout(() => { document.getElementById('xpBarFill').style.width = '78%'; }, 300);
+    // ============================================================
+    // DASHBOARD — Supabase data loading
+    // ============================================================
+
+    const MODULES_CONFIG = [
+      { id: 'fondamentaux', title: 'Les fondamentaux', icon: '💬', color: '#16a34a', gradient: 'linear-gradient(90deg,#16a34a,#4ade80)', requiredNiveau: 1 },
+      { id: 'objections', title: 'Gérer les objections', icon: '🛡️', color: '#c9a84c', gradient: 'linear-gradient(90deg,#c9a84c,#e8c96e)', requiredNiveau: 2 },
+      { id: 'profils', title: 'Profils de donateurs', icon: '🧠', color: '#7c3aed', gradient: 'linear-gradient(90deg,#6366f1,#8b5cf6)', requiredNiveau: 2 },
+      { id: 'closing', title: 'Closing & engagement', icon: '🎯', color: '#6b7280', gradient: 'linear-gradient(90deg,#9ca3af,#6b7280)', requiredNiveau: 4 }
+    ];
+
+    async function initDashboard() {
+      try {
+        initSupabase();
+      } catch (e) {
+        console.error('Supabase init failed:', e);
+        return;
+      }
+
+      // Auth guard
+      const session = await Auth.getSession();
+      if (!session) {
+        window.location.href = 'index.html?returnTo=dashboard';
+        return;
+      }
+
+      // Load user + profile
+      const userObj = await Auth.getUser();
+      if (!userObj) {
+        window.location.href = 'index.html?returnTo=dashboard';
+        return;
+      }
+
+      const profile = userObj.profile || {};
+      renderProfile(profile);
+
+      // Load in parallel
+      const [moduleData, simData, leaderboardData] = await Promise.all([
+        loadModules(userObj.id),
+        getUserSimulations(userObj.id, 5),
+        loadLeaderboard(userObj.id)
+      ]);
+
+      renderModules(moduleData, profile.niveau || 1);
+      renderActivity(simData);
+      renderLeaderboard(leaderboardData, userObj.id);
+      renderMission(profile.niveau || 1);
+
+      // Animate bars
       setTimeout(() => {
         document.querySelectorAll('.module-progress-fill').forEach(bar => {
           bar.style.width = (parseInt(bar.getAttribute('data-width') || 0)) + '%';
         });
-      }, 500);
-    });
+      }, 400);
+    }
 
+    const FUNDRAISER_TYPE_LABELS = {
+      f2f: '🚪 Collecteur F2F',
+      telephone_sortant: '📞 Télémarketeur',
+      reception: '📥 Agent de Réception',
+      evenementiel: '🎪 Animateur Événementiel',
+      major_donor: '🤝 Major Donor Officer',
+      digital: '✉️ Fundraiser Digital'
+    };
+
+    function renderProfile(profile) {
+      const xpInfo = getXpProgress(profile.xp || 0);
+      const prenom = profile.prenom || 'Collecteur';
+      const initials = prenom[0].toUpperCase() + (profile.nom ? profile.nom[0].toUpperCase() : '');
+
+      // Sidebar
+      document.getElementById('dbUserAvatar').textContent = initials || '?';
+      document.getElementById('dbUserName').textContent = prenom + (profile.nom ? ' ' + profile.nom : '');
+      document.getElementById('dbUserLevel').textContent = `⭐ Niveau ${xpInfo.niveau} — ${xpInfo.label} &nbsp;🔥 ${profile.streak || 0} jours`;
+
+      // Fundraiser type badge
+      const badgeEl = document.getElementById('dbFundraiserBadge');
+      if (badgeEl && profile.fundraiser_type) {
+        const label = FUNDRAISER_TYPE_LABELS[profile.fundraiser_type] || '🚪 Collecteur F2F';
+        badgeEl.textContent = label;
+        badgeEl.style.display = 'inline-flex';
+      }
+
+      // Topbar
+      document.getElementById('dbStreakBadge').textContent = `🔥 ${profile.streak || 0} jours de streak`;
+      document.getElementById('dbXpBadge').textContent = `⚡ ${(profile.xp || 0).toLocaleString('fr-FR')} XP`;
+
+      // Welcome
+      const fundraiserLabel = profile.fundraiser_type ? FUNDRAISER_TYPE_LABELS[profile.fundraiser_type] : null;
+      document.getElementById('dbWelcome').textContent = `Bonjour ${prenom} 👋 — Continuez votre progression`;
+      document.getElementById('dbWelcomeSub').textContent = xpInfo.xpToNext > 0
+        ? `Tu es à ${xpInfo.xpToNext} XP du niveau ${xpInfo.niveau + 1}. Continue comme ça !${fundraiserLabel ? ' · ' + fundraiserLabel : ''}`
+        : '🏆 Félicitations — Niveau maximum atteint !';
+
+      // XP card
+      document.getElementById('dbLevelBadge').textContent = xpInfo.niveau;
+      document.getElementById('dbLevelTitle').textContent = `Niveau ${xpInfo.niveau} — ${xpInfo.label}`;
+      document.getElementById('dbLevelXP').textContent = `${(profile.xp || 0).toLocaleString('fr-FR')} / ${xpInfo.nextThreshold.toLocaleString('fr-FR')} XP pour le niveau ${xpInfo.niveau + 1}`;
+      document.getElementById('dbXpPct').textContent = `${xpInfo.progressPct}%`;
+      document.getElementById('dbStreakNum').textContent = `🔥 ${profile.streak || 0}`;
+
+      setTimeout(() => {
+        document.getElementById('xpBarFill').style.width = xpInfo.progressPct + '%';
+      }, 300);
+    }
+
+    async function loadModules(userId) {
+      if (!supabase) return [];
+      const { data } = await supabase
+        .from('module_progress')
+        .select('*')
+        .eq('user_id', userId);
+      return data || [];
+    }
+
+    function renderModules(moduleData, userNiveau) {
+      // Build a map for quick lookup
+      const progressMap = {};
+      moduleData.forEach(m => { progressMap[m.module_id] = m; });
+
+      let simCount = 0;
+      MODULES_CONFIG.forEach(mod => {
+        const prog = progressMap[mod.id];
+        const progress = prog ? prog.progress : 0;
+        const completed = prog ? prog.completed : false;
+        const locked = userNiveau < mod.requiredNiveau;
+
+        // Find the matching bar
+        const fills = document.querySelectorAll('.module-progress-fill');
+        fills.forEach(fill => {
+          const card = fill.closest('.module-card');
+          if (!card) return;
+          const title = card.querySelector('.module-title');
+          if (!title) return;
+
+          // Match by config title
+          const modTitles = {
+            'fondamentaux': 'Les fondamentaux de la conversation',
+            'objections': 'Gérer les objections',
+            'profils': 'Profils de donateurs',
+            'closing': 'Closing & engagement'
+          };
+
+          if (title.textContent.includes(modTitles[mod.id]?.split(' ')[1] || mod.title)) {
+            fill.setAttribute('data-width', progress);
+            fill.style.background = locked ? 'var(--border)' : mod.gradient;
+
+            const label = fill.closest('.module-progress-row').querySelector('.module-progress-label');
+            if (label) {
+              label.textContent = locked ? 'Verrouillé' : `${progress}%`;
+              label.style.color = locked ? 'var(--muted)' : mod.color;
+            }
+          }
+        });
+
+        if (prog) simCount++;
+      });
+
+      document.getElementById('dbSimCount').textContent = simCount.toString();
+    }
+
+    function renderActivity(simulations) {
+      const list = document.getElementById('activityList');
+      if (!simulations || simulations.length === 0) {
+        list.innerHTML = `
+          <div style="text-align:center;padding:20px;">
+            <div style="font-size:24px;margin-bottom:8px;">🚀</div>
+            <div style="font-size:13px;color:var(--muted);">Pas encore de simulation. Lancez votre première !</div>
+            <a href="simulation.html" style="display:inline-block;margin-top:12px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;padding:8px 18px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;">Démarrer →</a>
+          </div>
+        `;
+        return;
+      }
+
+      const profileLabels = {
+        sceptique: 'Sceptique', ouvert: 'Ouvert', presse: 'Pressé', hostile: 'Hostile', curieux: 'Curieux'
+      };
+
+      list.innerHTML = simulations.map(sim => {
+        const date = new Date(sim.completed_at);
+        const dateStr = date.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+        const timeStr = date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+        const scoreLabel = sim.score_total >= 75 ? '🏆' : sim.score_total >= 50 ? '📈' : '💪';
+        const profileLabel = profileLabels[sim.profile_type] || sim.profile_type;
+
+        return `
+          <div class="activity-item">
+            <div class="activity-dot" style="background:var(--purple);"></div>
+            <div>
+              <div class="activity-text">
+                <strong>Simulation IA ${scoreLabel}</strong> — Profil ${profileLabel} · Score ${sim.score_total}/100
+              </div>
+              <div class="activity-time">${dateStr}, ${timeStr}</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    async function loadLeaderboard(currentUserId) {
+      if (!supabase) return [];
+      // Leaderboard is a view, we need to query it differently
+      // since it doesn't have user IDs exposed for privacy
+      // Instead, query profiles directly
+      const { data } = await supabase
+        .from('profiles')
+        .select('id, prenom, niveau, xp, streak')
+        .order('xp', { ascending: false })
+        .limit(10);
+      return { entries: data || [], currentUserId };
+    }
+
+    function renderLeaderboard({ entries, currentUserId }) {
+      const container = document.getElementById('leaderboardContainer');
+      if (!entries || entries.length === 0) {
+        container.innerHTML = '<div style="text-align:center;padding:20px;font-size:13px;color:var(--muted);">Classement vide — soyez le premier !</div>';
+        return;
+      }
+
+      const colors = [
+        'linear-gradient(135deg,#fbbf24,#f59e0b)',
+        'linear-gradient(135deg,#a78bfa,#7c3aed)',
+        'linear-gradient(135deg,#34d399,#16a34a)',
+        'linear-gradient(135deg,#6366f1,#8b5cf6)',
+        'linear-gradient(135deg,#f87171,#dc2626)',
+        'linear-gradient(135deg,#60a5fa,#2563eb)',
+        'linear-gradient(135deg,#fb923c,#ea580c)',
+        'linear-gradient(135deg,#a3e635,#65a30d)',
+        'linear-gradient(135deg,#e879f9,#a21caf)',
+        'linear-gradient(135deg,#94a3b8,#475569)',
+      ];
+
+      const medals = ['🥇', '🥈', '🥉'];
+      const userIndex = entries.findIndex(e => e.id === currentUserId);
+      if (userIndex >= 0) {
+        document.getElementById('dbRankNum').textContent = `${userIndex + 1}e`;
+      }
+
+      container.innerHTML = `
+        <div class="leaderboard-list" style="padding:12px;">
+          ${entries.map((entry, i) => {
+            const initials = (entry.prenom || '?')[0].toUpperCase();
+            const isMe = entry.id === currentUserId;
+            return `
+              <div class="lb-item ${isMe ? 'current-user' : ''}" style="padding:10px;margin-bottom:4px;border-radius:8px;${isMe ? 'background:rgba(99,102,241,0.06);border:1px solid rgba(99,102,241,0.15);' : ''}">
+                <div class="lb-rank" style="${i < 3 ? 'color:var(--gold);' : 'color:var(--muted);'}">
+                  ${i < 3 ? medals[i] : `${i+1}`}
+                </div>
+                <div class="lb-avatar" style="background:${colors[i % colors.length]};width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff;flex-shrink:0;">
+                  ${initials}
+                </div>
+                <div class="lb-info" style="flex:1;">
+                  <div class="lb-name" style="font-size:13px;font-weight:700;color:var(--accent);">
+                    ${entry.prenom || 'Anonyme'} ${isMe ? '<span style="font-size:10px;color:var(--gold);">(moi)</span>' : ''}
+                  </div>
+                  <div class="lb-score" style="font-size:11px;color:var(--muted);">Niveau ${entry.niveau} · 🔥 ${entry.streak || 0} jours</div>
+                </div>
+                <div class="lb-xp" style="font-size:12px;font-weight:800;color:var(--purple);">
+                  ${(entry.xp || 0).toLocaleString('fr-FR')} XP
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+    }
+
+    function renderMission(niveau) {
+      const profiles = Object.values(DONOR_PROFILES);
+      // Pick a random challenging profile based on niveau
+      const eligible = profiles.filter(p => {
+        if (niveau <= 2) return p.difficultyStars <= 2;
+        if (niveau <= 4) return p.difficultyStars <= 3;
+        return true;
+      });
+
+      const mission = eligible[Math.floor(Math.random() * eligible.length)] || profiles[0];
+      document.getElementById('missionTitle').textContent = `Simuler 2 conversations avec le profil ${mission.name} (${mission.description.split('.')[0]})`;
+      document.getElementById('missionBtn').href = `simulation.html?profile=${mission.id}`;
+    }
+
+    // ============================================================
+    // NOTIFICATIONS
+    // ============================================================
     function toggleNotif() { document.getElementById('notifDropdown').classList.toggle('open'); }
-
     function closeNotif() {
       document.getElementById('notifDropdown').classList.remove('open');
-      document.querySelector('.notif-dot').style.display = 'none';
+      const dot = document.querySelector('.notif-dot');
+      if (dot) dot.style.display = 'none';
     }
 
     document.addEventListener('click', (e) => {
@@ -1026,6 +1228,9 @@
       }
     });
 
+    // ============================================================
+    // CONSEILS
+    // ============================================================
     const conseils = [
       { text: '"Ne combattez pas les objections — accueillez-les. \'C\'est une bonne question\' est la phrase la plus puissante que vous puissiez dire à un sceptique. Elle valide son intelligence avant de répondre."', author: '— Marie Castillo, meilleure collectrice du mois' },
       { text: '"Votre posture parle avant vous. Tenez-vous droit, souriez des yeux, respirez. La confiance se ressent à 3 mètres de distance — avant même que vous ayez dit un mot."', author: '— Lucas Bernard, Niveau 4' },
@@ -1034,14 +1239,17 @@
     ];
 
     let conseilIdx = 0;
-
     function showConseil(idx) {
       document.getElementById('conseilText').textContent = conseils[idx].text;
       document.getElementById('conseilAuthor').textContent = conseils[idx].author;
     }
-
     function nextConseil() { conseilIdx = (conseilIdx + 1) % conseils.length; showConseil(conseilIdx); }
     function prevConseil() { conseilIdx = (conseilIdx - 1 + conseils.length) % conseils.length; showConseil(conseilIdx); }
+
+    // ============================================================
+    // BOOT
+    // ============================================================
+    document.addEventListener('DOMContentLoaded', initDashboard);
   </script>
 </body>
 </html>

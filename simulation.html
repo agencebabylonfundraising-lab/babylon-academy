@@ -7,6 +7,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Supabase CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Backend modules (loaded in order) -->
+  <script src="../collecte-backend/supabase-config.js"></script>
+  <script src="../collecte-backend/auth.js"></script>
+  <script src="../collecte-backend/simulation.js"></script>
+
   <style>
     :root {
       --bg: #ffffff;
@@ -90,6 +99,23 @@
       padding: 2px 7px; border-radius: 100px;
     }
 
+    .sidebar-user {
+      padding: 16px 20px;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; gap: 10px;
+    }
+
+    .sidebar-user-av {
+      width: 34px; height: 34px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 800; color: #fff;
+    }
+
+    .sidebar-user-name { font-size: 13px; font-weight: 700; color: var(--accent); }
+    .sidebar-user-sub { font-size: 10px; color: var(--muted); }
+
     /* MAIN */
     .main { flex: 1; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
 
@@ -125,22 +151,6 @@
 
     .timer-display.running { color: #d97706; border-color: rgba(234,179,8,0.3); background: rgba(234,179,8,0.06); }
     .timer-display.done { color: var(--green); border-color: rgba(22,163,74,0.3); background: rgba(22,163,74,0.06); }
-
-    .sound-toggle {
-      display: flex; align-items: center; gap: 6px;
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 5px 12px;
-      font-size: 12px; font-weight: 600;
-      color: var(--muted);
-      cursor: pointer;
-      transition: all 0.2s;
-      user-select: none;
-    }
-
-    .sound-toggle:hover { border-color: var(--gold); color: var(--gold); }
-    .sound-toggle.muted { opacity: 0.5; }
 
     .topbar-right { display: flex; align-items: center; gap: 12px; }
 
@@ -230,33 +240,19 @@
     .dialog-actions { display: flex; gap: 12px; }
 
     .btn-dialog-confirm {
-      flex: 1;
-      background: linear-gradient(135deg, #6366f1, #8b5cf6);
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      padding: 12px;
-      font-family: 'Inter', sans-serif;
-      font-size: 14px; font-weight: 700;
-      cursor: pointer;
-      transition: opacity 0.2s;
+      flex: 1; background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff;
+      border: none; border-radius: 10px; padding: 12px;
+      font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700;
+      cursor: pointer; transition: opacity 0.2s;
     }
-
     .btn-dialog-confirm:hover { opacity: 0.9; }
 
     .btn-dialog-cancel {
-      flex: 1;
-      background: none;
-      color: var(--muted);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 12px;
-      font-family: 'Inter', sans-serif;
-      font-size: 14px; font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
+      flex: 1; background: none; color: var(--muted);
+      border: 1px solid var(--border); border-radius: 10px; padding: 12px;
+      font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600;
+      cursor: pointer; transition: all 0.2s;
     }
-
     .btn-dialog-cancel:hover { border-color: var(--accent); color: var(--accent); }
 
     /* CHAT */
@@ -273,7 +269,6 @@
     .chat-donor-info { display: flex; align-items: center; gap: 12px; }
     .chat-donor-avatar { width: 40px; height: 40px; background: var(--bg2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; border: 1px solid var(--border); }
     .chat-donor-name { font-size: 15px; font-weight: 700; color: var(--accent); }
-
     .chat-donor-status { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
     .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: pulse-green 2s infinite; }
 
@@ -282,72 +277,46 @@
     .chat-actions { display: flex; gap: 8px; }
 
     .btn-chat-action {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 7px 14px;
-      font-family: 'Inter', sans-serif;
+      background: var(--bg2); border: 1px solid var(--border); border-radius: 8px;
+      padding: 7px 14px; font-family: 'Inter', sans-serif;
       font-size: 12px; font-weight: 600; color: var(--muted);
       cursor: pointer; transition: all 0.2s;
     }
-
     .btn-chat-action:hover { border-color: var(--accent); color: var(--accent); }
 
     /* MESSAGES */
     .messages {
-      flex: 1;
-      overflow-y: auto;
-      padding: 24px;
-      display: flex; flex-direction: column; gap: 20px;
-      scroll-behavior: smooth;
-      background: var(--bg2);
+      flex: 1; overflow-y: auto;
+      padding: 24px; display: flex; flex-direction: column; gap: 20px;
+      scroll-behavior: smooth; background: var(--bg2);
     }
 
     .messages::-webkit-scrollbar { width: 4px; }
     .messages::-webkit-scrollbar-track { background: transparent; }
     .messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
-    .message {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      animation: fadeInMsg 0.3s ease;
-    }
+    .message { display: flex; align-items: flex-start; gap: 12px; animation: fadeInMsg 0.3s ease; }
 
-    @keyframes fadeInMsg {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes fadeInMsg { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
     .message.user { flex-direction: row-reverse; }
 
     .msg-avatar {
-      width: 36px; height: 36px;
-      border-radius: 50%;
+      width: 36px; height: 36px; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      font-size: 14px; flex-shrink: 0;
-      margin-top: 2px;
+      font-size: 14px; flex-shrink: 0; margin-top: 2px;
     }
 
-    .msg-bubble {
-      max-width: 72%;
-      padding: 12px 16px;
-      border-radius: 16px;
-      font-size: 14px; line-height: 1.65;
-    }
+    .msg-bubble { max-width: 72%; padding: 12px 16px; border-radius: 16px; font-size: 14px; line-height: 1.65; }
 
     .message.donor .msg-bubble {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 4px 16px 16px 16px;
-      color: var(--text);
-      box-shadow: var(--shadow-sm);
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 4px 16px 16px 16px; color: var(--text); box-shadow: var(--shadow-sm);
     }
 
     .message.user .msg-bubble {
       background: linear-gradient(135deg, #6366f1, #8b5cf6);
-      border-radius: 16px 4px 16px 16px;
-      color: #fff;
+      border-radius: 16px 4px 16px 16px; color: #fff;
     }
 
     .msg-meta { font-size: 11px; color: var(--muted); margin-top: 4px; }
@@ -356,21 +325,15 @@
     .typing-indicator { display: flex; align-items: center; gap: 12px; }
 
     .typing-dots {
-      display: flex; gap: 4px;
-      padding: 12px 16px;
-      background: var(--bg);
-      border-radius: 4px 16px 16px 16px;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-sm);
+      display: flex; gap: 4px; padding: 12px 16px;
+      background: var(--bg); border-radius: 4px 16px 16px 16px;
+      border: 1px solid var(--border); box-shadow: var(--shadow-sm);
     }
 
     .typing-dot {
-      width: 7px; height: 7px;
-      background: var(--muted);
-      border-radius: 50%;
-      animation: typing 1.2s infinite;
+      width: 7px; height: 7px; background: var(--muted);
+      border-radius: 50%; animation: typing 1.2s infinite;
     }
-
     .typing-dot:nth-child(2) { animation-delay: 0.2s; }
     .typing-dot:nth-child(3) { animation-delay: 0.4s; }
 
@@ -381,75 +344,39 @@
 
     /* FEEDBACK BANNER */
     .feedback-banner {
-      background: rgba(22,163,74,0.06);
-      border: 1px solid rgba(22,163,74,0.2);
-      border-radius: 12px;
-      padding: 20px;
-      display: none;
-      margin: 8px 24px;
+      background: rgba(22,163,74,0.06); border: 1px solid rgba(22,163,74,0.2);
+      border-radius: 12px; padding: 20px; display: none; margin: 8px 24px;
     }
-
     .feedback-banner.visible { display: block; }
-
     .feedback-title { font-size: 14px; font-weight: 700; color: var(--green); margin-bottom: 12px; }
-
     .feedback-tips { list-style: none; display: flex; flex-direction: column; gap: 8px; }
     .feedback-tips li { font-size: 13px; color: var(--muted); padding-left: 18px; position: relative; line-height: 1.5; }
     .feedback-tips li::before { content: '→'; position: absolute; left: 0; color: var(--green); font-size: 11px; }
 
-    .share-score-btn {
-      display: none;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      margin: 8px 24px 4px;
-      background: rgba(201,168,76,0.1);
-      border: 1px solid rgba(201,168,76,0.25);
-      border-radius: 10px;
-      padding: 12px;
-      font-family: 'Inter', sans-serif;
-      font-size: 13px; font-weight: 700;
-      color: #8a6a1a;
-      cursor: pointer;
-      transition: background 0.2s;
+    /* XP AWARDED BANNER */
+    .xp-banner {
+      display: none; margin: 0 24px 8px;
+      background: linear-gradient(135deg, rgba(99,102,241,0.1), rgba(139,92,246,0.1));
+      border: 1px solid rgba(99,102,241,0.2); border-radius: 12px; padding: 14px 18px;
+      font-size: 14px; font-weight: 700; color: #4f46e5;
+      align-items: center; gap: 8px;
     }
-
-    .share-score-btn.visible { display: flex; }
-    .share-score-btn:hover { background: rgba(201,168,76,0.16); }
+    .xp-banner.visible { display: flex; }
 
     /* CHAT INPUT */
     .chat-input-area {
-      padding: 14px 24px;
-      border-top: 1px solid var(--border);
+      padding: 14px 24px; border-top: 1px solid var(--border);
       display: flex; align-items: center; gap: 10px;
-      flex-shrink: 0;
-      background: var(--bg);
-    }
-
-    .chat-hint {
-      flex: 1;
-      font-size: 12px; color: var(--muted);
-      padding: 10px 14px;
-      background: var(--bg2);
-      border: 1px dashed var(--border);
-      border-radius: 8px;
-      cursor: pointer;
+      flex-shrink: 0; background: var(--bg);
     }
 
     .chat-input {
-      flex: 1;
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 12px 16px;
-      font-family: 'Inter', sans-serif;
-      font-size: 14px; color: var(--text);
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      resize: none;
-      max-height: 100px;
+      flex: 1; background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 12px 16px;
+      font-family: 'Inter', sans-serif; font-size: 14px; color: var(--text);
+      outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+      resize: none; max-height: 100px;
     }
-
     .chat-input:focus { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(124,58,237,0.1); }
     .chat-input::placeholder { color: var(--muted); }
 
@@ -458,108 +385,111 @@
       background: linear-gradient(135deg, #6366f1, #8b5cf6);
       border: none; border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
-      cursor: pointer;
-      transition: opacity 0.2s, transform 0.15s;
-      flex-shrink: 0;
+      cursor: pointer; transition: opacity 0.2s, transform 0.15s; flex-shrink: 0;
     }
-
     .btn-send:hover { opacity: 0.9; transform: scale(1.05); }
     .btn-send:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
 
     /* SCORE PANEL */
-    .score-panel {
-      background: var(--bg);
-      border-left: 1px solid var(--border);
-      display: flex; flex-direction: column;
-      overflow-y: auto;
-    }
-
+    .score-panel { background: var(--bg); border-left: 1px solid var(--border); display: flex; flex-direction: column; overflow-y: auto; }
     .score-header { padding: 20px; border-bottom: 1px solid var(--border); }
     .score-title { font-size: 13px; font-weight: 700; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
-
     .score-content { padding: 16px; }
-
     .score-item { margin-bottom: 20px; }
-
     .score-item-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
     .score-label { font-size: 13px; font-weight: 600; color: var(--text); }
     .score-value { font-size: 14px; font-weight: 800; color: var(--accent); }
-
     .score-bar { height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
     .score-bar-fill { height: 100%; border-radius: 3px; transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1); width: 0%; }
-
     .score-stars { display: flex; gap: 3px; margin-top: 4px; }
     .star { font-size: 12px; color: var(--gold); }
     .star.empty { opacity: 0.2; }
 
     .total-score {
       background: linear-gradient(135deg, #6366f1, #8b5cf6);
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-      margin-top: 8px;
+      border-radius: 12px; padding: 20px; text-align: center; margin-top: 8px;
     }
-
-    .total-score-num {
-      font-size: 52px; font-weight: 900;
-      color: #fff;
-      line-height: 1;
-      margin-bottom: 4px;
-    }
-
+    .total-score-num { font-size: 52px; font-weight: 900; color: #fff; line-height: 1; margin-bottom: 4px; }
     .total-score-label { font-size: 12px; color: rgba(255,255,255,0.75); font-weight: 500; }
+    .total-score-feedback { font-size: 12px; color: rgba(255,255,255,0.85); margin-top: 8px; line-height: 1.5; font-style: italic; }
 
-    .score-actions {
-      padding: 16px;
-      display: flex; flex-direction: column; gap: 10px;
-      border-top: 1px solid var(--border);
-      margin-top: auto;
-    }
+    .score-actions { padding: 16px; display: flex; flex-direction: column; gap: 10px; border-top: 1px solid var(--border); margin-top: auto; }
 
     .btn-reset {
       display: flex; align-items: center; justify-content: center; gap: 6px;
-      background: var(--bg2);
-      color: var(--text);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 11px;
-      font-family: 'Inter', sans-serif;
-      font-size: 13px; font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
+      background: var(--bg2); color: var(--text); border: 1px solid var(--border); border-radius: 8px;
+      padding: 11px; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: all 0.2s;
     }
-
     .btn-reset:hover { border-color: var(--accent); }
 
     .btn-change-profile {
       display: flex; align-items: center; justify-content: center; gap: 6px;
       background: linear-gradient(135deg, #6366f1, #8b5cf6); color: #fff;
-      border: none; border-radius: 8px;
-      padding: 11px;
-      font-family: 'Inter', sans-serif;
-      font-size: 13px; font-weight: 600;
-      cursor: pointer;
-      transition: opacity 0.2s;
+      border: none; border-radius: 8px; padding: 11px;
+      font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: opacity 0.2s;
     }
-
     .btn-change-profile:hover { opacity: 0.9; }
 
-    /* RESPONSIVE */
-    @media (max-width: 1100px) {
-      .sidebar { display: none; }
-      .split-screen { grid-template-columns: 260px 1fr 240px; }
+    /* AUTH GATE */
+    .auth-gate {
+      position: fixed; inset: 0;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      z-index: 500;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .auth-gate-box {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 20px; padding: 48px 40px;
+      max-width: 420px; width: 90%; text-align: center;
+      box-shadow: var(--shadow-lg);
+    }
+    .auth-gate-icon { font-size: 48px; margin-bottom: 16px; }
+    .auth-gate-title { font-size: 22px; font-weight: 800; color: var(--accent); margin-bottom: 8px; }
+    .auth-gate-sub { font-size: 15px; color: var(--muted); margin-bottom: 28px; line-height: 1.6; }
+    .btn-auth-gate {
+      display: inline-block; background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: #fff; padding: 14px 28px; border-radius: 12px;
+      font-size: 15px; font-weight: 700; text-decoration: none;
     }
 
+    /* SCORING LOADING */
+    .scoring-overlay {
+      display: none; position: absolute; inset: 0;
+      background: rgba(255,255,255,0.9); backdrop-filter: blur(4px);
+      z-index: 100; align-items: center; justify-content: center;
+      flex-direction: column; gap: 16px; text-align: center;
+    }
+    .scoring-overlay.visible { display: flex; }
+    .scoring-spinner {
+      width: 48px; height: 48px; border: 3px solid var(--border);
+      border-top-color: var(--purple); border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* RESPONSIVE */
+    @media (max-width: 1100px) { .sidebar { display: none; } .split-screen { grid-template-columns: 260px 1fr 240px; } }
     @media (max-width: 800px) {
       .split-screen { grid-template-columns: 1fr; }
       .profile-panel, .score-panel { display: none; }
-      body { overflow: auto; }
-      .main { height: auto; }
-      .chat-panel { height: 80vh; }
+      body { overflow: auto; } .main { height: auto; } .chat-panel { height: 80vh; }
     }
   </style>
 </head>
 <body>
+
+  <!-- AUTH GATE (shown if not logged in) -->
+  <div class="auth-gate" id="authGate" style="display:none;">
+    <div class="auth-gate-box">
+      <div class="auth-gate-icon">🔐</div>
+      <div class="auth-gate-title">Connexion requise</div>
+      <div class="auth-gate-sub">Pour accéder aux simulations IA et sauvegarder vos progrès, vous devez vous connecter.</div>
+      <a href="index.html?returnTo=simulation" class="btn-auth-gate">Se connecter / Créer un compte →</a>
+    </div>
+  </div>
 
   <!-- SIDEBAR -->
   <aside class="sidebar">
@@ -568,7 +498,7 @@
         <div class="logo-mark">C</div>
         <div class="logo-text">
           <span class="logo-name">collecte.ai</span>
-          <span class="logo-sub">Formation F2F</span>
+          <span class="logo-sub">Formation Collecteurs</span>
         </div>
       </a>
     </div>
@@ -584,7 +514,7 @@
       <a class="nav-item active" href="#">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         Simulations IA
-        <span class="nav-badge">NEW</span>
+        <span class="nav-badge">LIVE</span>
       </a>
       <a class="nav-item" href="#">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
@@ -595,102 +525,187 @@
         Classement
       </a>
     </nav>
+    <div class="sidebar-user">
+      <div class="sidebar-user-av" id="sidebarAvatar">?</div>
+      <div>
+        <div class="sidebar-user-name" id="sidebarName">Chargement...</div>
+        <div class="sidebar-user-sub" id="sidebarLevel">Niveau —</div>
+      </div>
+    </div>
   </aside>
 
   <!-- MAIN -->
   <div class="main">
     <div class="topbar">
       <div class="topbar-left">
-        <div class="topbar-title" id="topbarTitle">🤖 Simulation IA — <span id="topbarProfile">Sceptique</span></div>
+        <div class="topbar-title">🤖 Simulation IA — <span id="topbarProfile">Sceptique</span></div>
         <div class="timer-display" id="timerDisplay">⏱ 00:00</div>
-        <div class="sound-toggle" id="soundToggle" onclick="toggleSound()">
-          <span id="soundIcon">🔊</span>
-          <span id="soundLabel">Son</span>
-          <span style="font-size:10px; color: var(--gold); margin-left:4px;">bientôt</span>
-        </div>
       </div>
       <div class="topbar-right">
         <a href="dashboard.html" class="btn-back">← Tableau de bord</a>
       </div>
     </div>
 
-    <div class="split-screen">
+    <div class="split-screen" style="position:relative;">
+
+      <!-- SCORING OVERLAY -->
+      <div class="scoring-overlay" id="scoringOverlay">
+        <div class="scoring-spinner"></div>
+        <div style="font-size:15px;font-weight:700;color:var(--accent);">Analyse de votre performance...</div>
+        <div style="font-size:13px;color:var(--muted);">L'IA évalue votre conversation 🤖</div>
+      </div>
 
       <!-- LEFT: PROFILES -->
       <div class="profile-panel">
-        <div class="panel-header">
+        <div class="panel-header" style="padding:16px 20px 0;">
+          <div class="panel-title" style="margin-bottom:12px;">Type de collecteur</div>
+          <div id="fundraiserTypeSelector" style="display:flex;flex-direction:column;gap:6px;margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--border);">
+            <button class="fundraiser-type-btn active" data-type="f2f" onclick="selectFundraiserType('f2f', this)" style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:rgba(99,102,241,0.08);font-size:12px;font-weight:700;color:var(--purple);cursor:pointer;font-family:'Inter',sans-serif;text-align:left;transition:all 0.15s;">🚪 Collecteur F2F</button>
+            <button class="fundraiser-type-btn" data-type="telephone_sortant" onclick="selectFundraiserType('telephone_sortant', this)" style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:none;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;font-family:'Inter',sans-serif;text-align:left;transition:all 0.15s;">📞 Télémarketeur Sortant</button>
+            <button class="fundraiser-type-btn" data-type="reception" onclick="selectFundraiserType('reception', this)" style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:none;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;font-family:'Inter',sans-serif;text-align:left;transition:all 0.15s;">📥 Agent de Réception</button>
+            <button class="fundraiser-type-btn" data-type="evenementiel" onclick="selectFundraiserType('evenementiel', this)" style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:none;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;font-family:'Inter',sans-serif;text-align:left;transition:all 0.15s;">🎪 Animateur Événementiel</button>
+            <button class="fundraiser-type-btn" data-type="major_donor" onclick="selectFundraiserType('major_donor', this)" style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:none;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;font-family:'Inter',sans-serif;text-align:left;transition:all 0.15s;">🤝 Major Donor Officer</button>
+            <button class="fundraiser-type-btn" data-type="digital" onclick="selectFundraiserType('digital', this)" style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;border:1px solid var(--border);background:none;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;font-family:'Inter',sans-serif;text-align:left;transition:all 0.15s;">✉️ Fundraiser Digital</button>
+          </div>
           <div class="panel-title">Profil du donateur</div>
         </div>
-        <div class="profile-list">
+        <div class="profile-list" id="profileList">
 
-          <div class="profile-card active" id="profile-Sceptique" onclick="requestProfileChange(this, 'Sceptique')">
+          <div class="profile-card active" id="profile-sceptique" onclick="requestProfileChange('sceptique')">
             <div class="profile-top">
-              <div class="profile-avatar" style="background: rgba(234,179,8,0.1);">🤔</div>
+              <div class="profile-avatar" style="background:rgba(239,68,68,0.1);">👨‍💼</div>
               <div>
-                <div class="profile-name">Sceptique</div>
-                <div class="profile-subtitle">Méfiant mais ouvert</div>
+                <div class="profile-name">Jean-Pierre</div>
+                <div class="profile-subtitle">Sceptique — Difficulté élevée</div>
               </div>
             </div>
-            <div class="profile-desc">Doute de l'efficacité des dons. Déjà sollicité. Dit souvent "je donne déjà" ou "comment je sais que c'est sérieux?".</div>
+            <div class="profile-desc">Cadre supérieur méfiant. Pose des questions sur l'utilisation des fonds. A eu de mauvaises expériences.</div>
             <div class="profile-difficulty">
               <div class="difficulty-dot filled"></div><div class="difficulty-dot filled"></div><div class="difficulty-dot filled"></div><div class="difficulty-dot"></div><div class="difficulty-dot"></div>
             </div>
           </div>
 
-          <div class="profile-card" id="profile-Ouvert" onclick="requestProfileChange(this, 'Ouvert')">
+          <div class="profile-card" id="profile-ouvert" onclick="requestProfileChange('ouvert')">
             <div class="profile-top">
-              <div class="profile-avatar" style="background: rgba(22,163,74,0.1);">😊</div>
+              <div class="profile-avatar" style="background:rgba(22,163,74,0.1);">👩‍🏫</div>
               <div>
-                <div class="profile-name">Ouvert</div>
-                <div class="profile-subtitle">Réceptif et curieux</div>
+                <div class="profile-name">Marie</div>
+                <div class="profile-subtitle">Ouverte — Difficulté facile</div>
               </div>
             </div>
-            <div class="profile-desc">Sensible aux causes humanitaires. Pose des questions pour comprendre. Besoin d'être rassuré sur l'impact concret.</div>
+            <div class="profile-desc">Enseignante sensible aux causes sociales. Ouverte à donner, veut comprendre l'impact concret.</div>
             <div class="profile-difficulty">
               <div class="difficulty-dot filled"></div><div class="difficulty-dot"></div><div class="difficulty-dot"></div><div class="difficulty-dot"></div><div class="difficulty-dot"></div>
             </div>
           </div>
 
-          <div class="profile-card" id="profile-Pressé" onclick="requestProfileChange(this, 'Pressé')">
+          <div class="profile-card" id="profile-presse" onclick="requestProfileChange('presse')">
             <div class="profile-top">
-              <div class="profile-avatar" style="background: rgba(239,68,68,0.1);">⚡</div>
+              <div class="profile-avatar" style="background:rgba(245,158,11,0.1);">👨‍💻</div>
               <div>
-                <div class="profile-name">Pressé</div>
-                <div class="profile-subtitle">Peu de temps, peu patient</div>
+                <div class="profile-name">Thomas</div>
+                <div class="profile-subtitle">Pressé — Difficulté moyenne</div>
               </div>
             </div>
-            <div class="profile-desc">Toujours en mouvement. Coupe les phrases. "J'ai 2 minutes max." Nécessite un pitch ultra-concis.</div>
+            <div class="profile-desc">Entrepreneur très occupé. N'a pas le temps. Veut que ce soit ultra-rapide et efficace.</div>
             <div class="profile-difficulty">
               <div class="difficulty-dot filled"></div><div class="difficulty-dot filled"></div><div class="difficulty-dot"></div><div class="difficulty-dot"></div><div class="difficulty-dot"></div>
             </div>
           </div>
 
-          <div class="profile-card" id="profile-Hostile" onclick="requestProfileChange(this, 'Hostile')">
+          <div class="profile-card" id="profile-hostile" onclick="requestProfileChange('hostile')">
             <div class="profile-top">
-              <div class="profile-avatar" style="background: rgba(220,38,38,0.1);">😤</div>
+              <div class="profile-avatar" style="background:rgba(124,58,237,0.1);">👴</div>
               <div>
-                <div class="profile-name">Hostile</div>
-                <div class="profile-subtitle">Résistance forte</div>
+                <div class="profile-name">Bernard</div>
+                <div class="profile-subtitle">Hostile — Très difficile</div>
               </div>
             </div>
-            <div class="profile-desc">Agacé d'être abordé. Ton défensif. "Foutez-moi la paix." Test de résilience émotionnelle.</div>
+            <div class="profile-desc">Retraité méfiant. N'aime pas le démarchage. A été arnaqué. Résistance forte dès le départ.</div>
             <div class="profile-difficulty">
-              <div class="difficulty-dot filled"></div><div class="difficulty-dot filled"></div><div class="difficulty-dot filled"></div><div class="difficulty-dot filled"></div><div class="difficulty-dot filled"></div>
+              <div class="difficulty-dot filled"></div><div class="difficulty-dot filled"></div><div class="difficulty-dot filled"></div><div class="difficulty-dot filled"></div><div class="difficulty-dot"></div>
             </div>
           </div>
 
-          <div class="profile-card" id="profile-Curieux" onclick="requestProfileChange(this, 'Curieux')">
+          <div class="profile-card" id="profile-curieux" onclick="requestProfileChange('curieux')">
             <div class="profile-top">
-              <div class="profile-avatar" style="background: rgba(99,102,241,0.1);">🔍</div>
+              <div class="profile-avatar" style="background:rgba(99,102,241,0.1);">👩‍🔬</div>
               <div>
-                <div class="profile-name">Curieux</div>
-                <div class="profile-subtitle">Beaucoup de questions</div>
+                <div class="profile-name">Sophie</div>
+                <div class="profile-subtitle">Curieuse — Difficulté moyenne</div>
               </div>
             </div>
-            <div class="profile-desc">Veut tout comprendre. Pose des questions précises sur les chiffres, la gouvernance, l'impact réel.</div>
+            <div class="profile-desc">Jeune professionnelle engagée. Pose beaucoup de questions précises sur l'impact et la transparence.</div>
+            <div class="profile-difficulty">
+              <div class="difficulty-dot filled"></div><div class="difficulty-dot filled"></div><div class="difficulty-dot"></div><div class="difficulty-dot"></div><div class="difficulty-dot"></div>
+            </div>
+          </div>
+
+          <!-- NEW: Outbound phone -->
+          <div class="profile-card" id="profile-appel_sceptique" onclick="requestProfileChange('appel_sceptique')" style="display:none;">
+            <div class="profile-top">
+              <div class="profile-avatar" style="background:rgba(245,158,11,0.1);">📱</div>
+              <div>
+                <div class="profile-name">Marie, 45 ans</div>
+                <div class="profile-subtitle">Appel inattendu — Difficulté moyenne</div>
+              </div>
+            </div>
+            <div class="profile-desc">Donatrice depuis 2 ans. Prélèvement échoué. Occupée, pas envie de régler ça maintenant.</div>
+            <div class="profile-difficulty">
+              <div class="difficulty-dot filled"></div><div class="difficulty-dot filled"></div><div class="difficulty-dot"></div><div class="difficulty-dot"></div><div class="difficulty-dot"></div>
+            </div>
+          </div>
+
+          <!-- NEW: Inbound cancellation -->
+          <div class="profile-card" id="profile-annulation_frustree" onclick="requestProfileChange('annulation_frustree')" style="display:none;">
+            <div class="profile-top">
+              <div class="profile-avatar" style="background:rgba(239,68,68,0.1);">😤</div>
+              <div>
+                <div class="profile-name">Pierre, 58 ans</div>
+                <div class="profile-subtitle">Veut annuler — Difficulté élevée</div>
+              </div>
+            </div>
+            <div class="profile-desc">Appelle pour annuler son don de 20€/mois. Difficultés financières. Lien émotionnel perdu.</div>
             <div class="profile-difficulty">
               <div class="difficulty-dot filled"></div><div class="difficulty-dot filled"></div><div class="difficulty-dot filled"></div><div class="difficulty-dot"></div><div class="difficulty-dot"></div>
             </div>
+          </div>
+
+          <!-- NEW: Event attendee -->
+          <div class="profile-card" id="profile-evenement_convivial" onclick="requestProfileChange('evenement_convivial')" style="display:none;">
+            <div class="profile-top">
+              <div class="profile-avatar" style="background:rgba(22,163,74,0.1);">🥂</div>
+              <div>
+                <div class="profile-name">Isabelle, 38 ans</div>
+                <div class="profile-subtitle">Participante gala — Difficulté facile</div>
+              </div>
+            </div>
+            <div class="profile-desc">Bonne humeur sociale, verre à la main. Connaît vaguement la cause. Pas encore donatrice.</div>
+            <div class="profile-difficulty">
+              <div class="difficulty-dot filled"></div><div class="difficulty-dot"></div><div class="difficulty-dot"></div><div class="difficulty-dot"></div><div class="difficulty-dot"></div>
+            </div>
+          </div>
+
+          <!-- NEW: Major donor -->
+          <div class="profile-card" id="profile-grand_donateur" onclick="requestProfileChange('grand_donateur')" style="display:none;">
+            <div class="profile-top">
+              <div class="profile-avatar" style="background:rgba(124,58,237,0.1);">🎩</div>
+              <div>
+                <div class="profile-name">François, 64 ans</div>
+                <div class="profile-subtitle">Grand donateur — Très difficile</div>
+              </div>
+            </div>
+            <div class="profile-desc">Chef d'entreprise retraité. Peut donner 500–2000€/mois. Veut des preuves d'impact mesurables.</div>
+            <div class="profile-difficulty">
+              <div class="difficulty-dot filled"></div><div class="difficulty-dot filled"></div><div class="difficulty-dot filled"></div><div class="difficulty-dot filled"></div><div class="difficulty-dot"></div>
+            </div>
+          </div>
+
+          <!-- Digital: Copy review tool -->
+          <div id="digital-tool-notice" style="display:none;padding:16px;background:rgba(99,102,241,0.06);border:1px solid rgba(99,102,241,0.2);border-radius:12px;text-align:center;margin:8px;">
+            <div style="font-size:24px;margin-bottom:8px;">✉️</div>
+            <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:6px;">Module Digital</div>
+            <div style="font-size:12px;color:var(--muted);line-height:1.6;">Le module Digital n'utilise pas de simulation conversationnelle. Il propose une analyse IA de tes emails et posts réseaux sociaux.<br><br>Disponible prochainement dans la version Premium.</div>
           </div>
 
         </div>
@@ -700,36 +715,38 @@
       <div class="chat-panel">
         <div class="chat-header">
           <div class="chat-donor-info">
-            <div class="chat-donor-avatar" id="chatDonorAvatar">🤔</div>
+            <div class="chat-donor-avatar" id="chatDonorAvatar">👨‍💼</div>
             <div>
-              <div class="chat-donor-name" id="chatDonorName">Michel, 52 ans — Profil Sceptique</div>
+              <div class="chat-donor-name" id="chatDonorName">Jean-Pierre, 52 ans — Profil Sceptique</div>
               <div class="chat-donor-status">
-                <div class="status-dot"></div>
-                En simulation
+                <div class="status-dot" id="statusDot"></div>
+                <span id="statusText">En simulation IA live</span>
               </div>
             </div>
           </div>
           <div class="chat-actions">
             <button class="btn-chat-action" onclick="resetConversation()">🔄 Recommencer</button>
-            <button class="btn-chat-action" onclick="requestProfileChange(null, null)">👤 Changer de profil</button>
+            <button class="btn-chat-action" onclick="requestProfileChange(null)">👤 Changer de profil</button>
           </div>
         </div>
 
         <div class="messages" id="messages"></div>
 
         <div class="feedback-banner" id="feedbackBanner">
-          <div class="feedback-title" id="feedbackTitle">✅ Simulation terminée — Analyse de votre performance</div>
+          <div class="feedback-title" id="feedbackTitle">✅ Simulation terminée — Feedback IA</div>
           <ul class="feedback-tips" id="feedbackTips"></ul>
         </div>
 
-        <button class="share-score-btn" id="shareScoreBtn" onclick="shareScore()">
-          🏆 Partager mon score
-        </button>
+        <div class="xp-banner" id="xpBanner">
+          <span>⚡</span>
+          <span id="xpBannerText">+50 XP gagnés !</span>
+        </div>
 
         <div class="chat-input-area" id="inputArea">
-          <div class="chat-hint" id="chatHint" style="display:none;">💬 Appuie sur Entrée pour jouer la prochaine réplique du script — ou écris ta propre réponse</div>
-          <textarea class="chat-input" id="chatInput" placeholder="Écris ta réponse ou appuie sur Entrée pour continuer..." rows="1" style="display:none;"></textarea>
-          <button class="btn-send" id="btnSend" onclick="sendUserMessage()" style="display:none;">
+          <textarea class="chat-input" id="chatInput"
+            placeholder="Écris ta réponse au donateur... (Entrée pour envoyer)"
+            rows="2" onkeydown="handleInputKey(event)"></textarea>
+          <button class="btn-send" id="btnSend" onclick="sendUserMessage()">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
           </button>
         </div>
@@ -741,47 +758,43 @@
           <div class="score-title">Évaluation en direct</div>
         </div>
         <div class="score-content">
-
           <div class="score-item">
             <div class="score-item-header">
               <div class="score-label">❤️ Empathie</div>
               <div class="score-value" id="score-empathy">—</div>
             </div>
             <div class="score-bar">
-              <div class="score-bar-fill" id="bar-empathy" style="background: linear-gradient(90deg, #f87171, #ef4444);"></div>
+              <div class="score-bar-fill" id="bar-empathy" style="background:linear-gradient(90deg,#f87171,#ef4444);"></div>
             </div>
             <div class="score-stars" id="stars-empathy"></div>
           </div>
-
           <div class="score-item">
             <div class="score-item-header">
               <div class="score-label">💬 Clarté</div>
               <div class="score-value" id="score-clarity">—</div>
             </div>
             <div class="score-bar">
-              <div class="score-bar-fill" id="bar-clarity" style="background: linear-gradient(90deg, #60a5fa, #3b82f6);"></div>
+              <div class="score-bar-fill" id="bar-clarity" style="background:linear-gradient(90deg,#60a5fa,#3b82f6);"></div>
             </div>
             <div class="score-stars" id="stars-clarity"></div>
           </div>
-
           <div class="score-item">
             <div class="score-item-header">
               <div class="score-label">🛡️ Objections</div>
               <div class="score-value" id="score-objections">—</div>
             </div>
             <div class="score-bar">
-              <div class="score-bar-fill" id="bar-objections" style="background: linear-gradient(90deg, #a78bfa, #7c3aed);"></div>
+              <div class="score-bar-fill" id="bar-objections" style="background:linear-gradient(90deg,#a78bfa,#7c3aed);"></div>
             </div>
             <div class="score-stars" id="stars-objections"></div>
           </div>
-
           <div class="score-item">
             <div class="score-item-header">
               <div class="score-label">🎯 Closing</div>
               <div class="score-value" id="score-closing">—</div>
             </div>
             <div class="score-bar">
-              <div class="score-bar-fill" id="bar-closing" style="background: linear-gradient(90deg, var(--gold), var(--gold2));"></div>
+              <div class="score-bar-fill" id="bar-closing" style="background:linear-gradient(90deg,var(--gold),var(--gold2));"></div>
             </div>
             <div class="score-stars" id="stars-closing"></div>
           </div>
@@ -789,23 +802,23 @@
           <div class="total-score">
             <div class="total-score-num" id="totalScore">—</div>
             <div class="total-score-label">Score global / 100</div>
+            <div class="total-score-feedback" id="totalScoreFeedback" style="display:none;"></div>
           </div>
         </div>
 
         <div class="score-actions">
           <button class="btn-reset" onclick="resetConversation()">🔄 Recommencer</button>
-          <button class="btn-change-profile" onclick="requestProfileChange(null, null)">👤 Changer de profil</button>
+          <button class="btn-change-profile" onclick="requestProfileChange(null)">👤 Changer de profil</button>
         </div>
       </div>
-
     </div>
   </div>
 
   <!-- CHANGE PROFILE DIALOG -->
   <div class="change-dialog" id="changeDialog">
     <div class="change-dialog-box">
-      <h3 id="dialogTitle">Changer de profil ?</h3>
-      <p id="dialogText">Si vous changez de profil maintenant, la conversation en cours sera perdue et votre score ne sera pas enregistré. Voulez-vous continuer ?</p>
+      <h3>Changer de profil ?</h3>
+      <p>Si vous changez de profil maintenant, la conversation en cours sera perdue et le score ne sera pas enregistré. Voulez-vous continuer ?</p>
       <div class="dialog-actions">
         <button class="btn-dialog-confirm" onclick="confirmProfileChange()">Oui, changer</button>
         <button class="btn-dialog-cancel" onclick="cancelProfileChange()">Annuler</button>
@@ -815,119 +828,538 @@
 
   <script>
     // ============================================================
-    // DATA
+    // FUNDRAISER TYPE MAPPING
     // ============================================================
-    const profileData = {
-      'Sceptique': { avatar: '🤔', donorName: 'Michel, 52 ans — Profil Sceptique', scores: { empathy: 78, clarity: 85, objections: 72, closing: 70 }, feedback: ["Bonne reformulation empathique sur 'je donne déjà' — c'est exactement la bonne approche.", "Introduire la preuve chiffrée (82% vers les programmes) plus tôt aurait renforcé la confiance dès le départ.", "Le closing était un peu abrupt — essaie 'Ça vous poserait un problème si je notais votre prénom?' avant l'engagement direct.", "Excellent travail sur la validation des doutes : tu n'as pas défendu, tu as expliqué. C'est la posture juste."] },
-      'Ouvert': { avatar: '😊', donorName: 'Camille, 38 ans — Profil Ouvert', scores: { empathy: 88, clarity: 90, objections: 82, closing: 85 }, feedback: ["Très bon sens de l'écoute — vous avez laissé Camille développer ses questions sans l'interrompre.", "La transition vers l'engagement était fluide et naturelle. Bravo sur le closing progressif.", "Pensez à renforcer l'aspect 'impact concret' avec des exemples vivants ('une consultation médicale = 1€').", "Profil facile bien géré — essayez maintenant le profil Sceptique pour un vrai challenge !"] },
-      'Pressé': { avatar: '⚡', donorName: 'Julien, 44 ans — Profil Pressé', scores: { empathy: 65, clarity: 80, objections: 68, closing: 72 }, feedback: ["Bon instinct d'aller droit au but — mais vous avez perdu 20 secondes sur l'intro. Commencez par l'impact, pas le contexte.", "Le pitch a bien tenu en 90 secondes. C'est la cible à viser avec ce profil.", "Sur les objections courtes ('pas le temps'), répondez en une phrase max.", "Le closing était trop long — avec les Pressés, proposez directement : '5€/mois, je note votre prénom, ça prend 30 secondes.'"] },
-      'Hostile': { avatar: '😤', donorName: 'Patrick, 58 ans — Profil Hostile', scores: { empathy: 70, clarity: 65, objections: 75, closing: 55 }, feedback: ["Excellent sang-froid face à l'hostilité initiale. Ne pas réagir à l'agressivité est une compétence rare.", "L'erreur classique : vouloir convaincre un hostile. L'objectif est de le désarmer, pas de gagner le débat.", "Bonne utilisation du silence tactique après 'foutez-moi la paix'.", "Le closing n'était pas adapté — avec les Hostiles, laissez une ouverture et une carte de visite."] },
-      'Curieux': { avatar: '🔍', donorName: 'Isabelle, 46 ans — Profil Curieux', scores: { empathy: 82, clarity: 88, objections: 79, closing: 76 }, feedback: ["Bonne maîtrise des chiffres — vous avez répondu à toutes les questions de gouvernance avec précision.", "Sur la question des frais de fonctionnement, donnez toujours le chiffre exact en premier, puis expliquez.", "Le Curieux a besoin de sentir que vous êtes autant expert que lui. Votre aisance technique l'a rassuré.", "Le closing était bien préparé — vous avez transformé sa curiosité en engagement."] }
+    const FUNDRAISER_TYPE_PROFILES = {
+      f2f: ['sceptique', 'ouvert', 'presse', 'hostile', 'curieux'],
+      telephone_sortant: ['appel_sceptique', 'sceptique', 'presse'],
+      reception: ['annulation_frustree', 'hostile', 'ouvert'],
+      evenementiel: ['evenement_convivial', 'ouvert', 'presse'],
+      major_donor: ['grand_donateur', 'curieux', 'sceptique'],
+      digital: []
     };
 
-    const sceptiqueScripts = [
-      [
-        { role: 'user', content: "Bonjour ! Je m'appelle Alexandre, je travaille avec Médecins du Monde. J'ai juste quelques secondes — est-ce que vous vous souciez de l'accès aux soins pour les personnes sans abri en France ?" },
-        { role: 'donor', content: "...Je donne déjà à d'autres associations, vous savez. J'en ai plusieurs qui prélèvent chaque mois. Franchement, je suis un peu saturé.", delay: 1400 },
-        { role: 'user', content: "Je comprends tout à fait — et c'est vraiment bien que vous souteniez déjà des causes. Ce que je voulais vous partager, c'est différent : ici en France, 300 000 personnes n'ont pas accès à un médecin faute de papiers ou de ressources. Pas à l'étranger — ici, à Paris." },
-        { role: 'donor', content: "Mouais... Mais comment je sais que mon argent va vraiment là où vous le dites? J'ai lu des articles sur des associations qui gardent 80% en frais de gestion...", delay: 1200 },
-        { role: 'user', content: "Votre méfiance est légitime — c'est une vraie question. Médecins du Monde publie ses comptes certifiés chaque année. 82% de chaque euro va directement aux programmes. Et concrètement : 1€ par jour, c'est une consultation médicale complète pour quelqu'un qui n'a pas d'adresse." },
-        { role: 'donor', content: "82%... C'est mieux que ce que je pensais. Mais 1€ par jour, c'est quand même 30€ par mois en plus...", delay: 1000 },
-        { role: 'user', content: "Je comprends. D'ailleurs, beaucoup de nos donateurs commencent à 5€ par mois — c'est le prix d'un café par semaine. Et vous pouvez ajuster ou arrêter à tout moment, en un appel. Est-ce que 5€ par mois, ça pourrait être envisageable pour vous ?" },
-        { role: 'donor', content: "Hm... 5€, ça me semble plus raisonnable. Vous dites que je peux vraiment arrêter quand je veux ?", delay: 1000 },
-        { role: 'user', content: "Absolument, sans conditions et sans justification — un simple appel suffit. Alors, si je notais votre prénom pour vous envoyer un justificatif fiscal et démarrer votre soutien à 5€ ce mois-ci ?" },
-        { role: 'donor', content: "... D'accord. Michel. Mais je veux bien recevoir les infos par email d'abord avant que vous préleviez quoi que ce soit.", delay: 1400 }
-      ],
-      [
-        { role: 'user', content: "Bonjour Michel ! Un mot rapide — vous intéressez-vous à la lutte contre la précarité en France ?" },
-        { role: 'donor', content: "Écoutez... je ne suis jamais sûr de où va réellement mon argent avec les associations. Y'en a tellement, c'est le Far West.", delay: 1300 },
-        { role: 'user', content: "C'est une préoccupation que j'entends souvent et qui est parfaitement justifiée. C'est exactement pourquoi je vous parle de Médecins du Monde — ils sont auditeurs certifiés et 82% du budget va direct au terrain. On peut vérifier ensemble sur leur site si vous voulez." },
-        { role: 'donor', content: "82%... okay mais quand même. Ces gens, ils ne pourraient pas utiliser les services publics ? L'hôpital, la sécu ?", delay: 1100 },
-        { role: 'user', content: "Bonne question. Ces personnes — sans domicile, sans papiers — sont souvent recalées aux urgences ou ne savent pas comment naviguer le système. Médecins du Monde va à eux, directement, là où ils se trouvent." },
-        { role: 'donor', content: "Je ne savais pas ça... Vous parlez de personnes sans papiers ? Ça m'interpelle un peu politiquement parlant.", delay: 1200 },
-        { role: 'user', content: "Je comprends, c'est un sujet sensible. Ce qui est important : peu importe les opinions politiques, tout être humain mérite une consultation médicale d'urgence. Pour 5€ par mois, c'est une consultation par semaine." },
-        { role: 'donor', content: "... C'est vrai que comme ça, vu d'un angle humain... 5€ c'est pas la mort des hommes en fait.", delay: 1000 },
-        { role: 'user', content: "Exactement. Et c'est déductible fiscalement — 66% de réduction d'impôts. En réalité, ça vous revient à moins de 2€ par mois. Je note votre prénom ?" },
-        { role: 'donor', content: "Bon... d'accord. Michel Renard. Envoyez-moi le dossier, mais je veux vérifier sur le site avant.", delay: 1300 }
-      ],
-      [
-        { role: 'user', content: "Bonjour ! Je recrute des donateurs pour Médecins du Monde. Je vous prends 3 minutes ?" },
-        { role: 'donor', content: "3 minutes... je veux bien, mais soyez honnête hein. C'est quoi le montant minimum ? Les associations, souvent c'est 20€ minimum et après c'est impossible d'arrêter.", delay: 1400 },
-        { role: 'user', content: "Je vous apprécie de poser la question directement. Le minimum chez nous c'est 5€ par mois — et arrêter, c'est un appel, c'est tout. Pas de période minimale, pas de pénalité." },
-        { role: 'donor', content: "Ah... c'est honnête au moins. Et c'est quoi l'impact concret de mes 5€ ? Pas des généralités, un exemple précis.", delay: 1000 },
-        { role: 'user', content: "Précis : 5€ par mois, c'est une consultation médicale complète par semaine pour quelqu'un qui vivait sous un pont à Paris. Suivi, ordonnance, orientation." },
-        { role: 'donor', content: "Ça c'est un exemple que je comprends. Et ça se passe où exactement ?", delay: 1000 },
-        { role: 'user', content: "Paris, Lyon, Marseille, et 15 autres villes françaises. Votre impact local, à 5km de là où vous vous trouvez maintenant." },
-        { role: 'donor', content: "Local, ça me parle plus. Bon... je réfléchis. C'est vraiment 5€ minimum ?", delay: 1200 },
-        { role: 'user', content: "5€ minimum, et vous choisissez vous-même si vous voulez augmenter un jour. Je note votre prénom pour le dossier ?" },
-        { role: 'donor', content: "Allez, Michel. Mais si vous m'appelez 10 fois après pour me soutirer plus, je résilie dans la semaine.", delay: 1300 }
-      ]
-    ];
+    let currentFundraiserType = 'f2f';
 
-    const profileScripts = {
-      'Ouvert': [[
-        { role: 'user', content: "Bonjour ! Je travaille avec Médecins du Monde. Vous intéressez-vous aux questions de santé et d'accès aux soins ?" },
-        { role: 'donor', content: "Oui, tout à fait. C'est un sujet qui me touche vraiment — qu'est-ce que vous faites exactement ?", delay: 1000 },
-        { role: 'user', content: "Médecins du Monde envoie des équipes médicales bénévoles auprès des populations qui n'ont pas accès aux soins : sans-abri, sans-papiers, zones rurales isolées. En France et dans 70 pays. 1€ par jour finance une consultation complète." },
-        { role: 'donor', content: "C'est impressionnant. Et il y a combien de personnes concernées en France ?", delay: 1100 },
-        { role: 'user', content: "300 000 personnes environ n'ont pas accès régulier à un médecin en France. Médecins du Monde en a soigné 48 000 l'année dernière. Taux de satisfaction bénévoles : 96%." },
-        { role: 'donor', content: "C'est bien ça. Pour s'engager, c'est comment ? Y'a un minimum ?", delay: 900 },
-        { role: 'user', content: "5€ par mois, c'est le minimum. Déductible à 66% — donc réellement 1,70€/mois net. Je note votre prénom ?" },
-        { role: 'donor', content: "Oui avec plaisir ! Je m'appelle Camille. Je suis contente d'avoir pris le temps d'écouter — merci pour votre clarté.", delay: 1000 }
-      ]],
-      'Pressé': [[
-        { role: 'user', content: "Bonjour ! 30 secondes — Médecins du Monde. 5€/mois = 1 consultation médicale/semaine pour quelqu'un sans abri à Paris. Vous voulez en savoir plus ?" },
-        { role: 'donor', content: "Je suis pressé là. C'est sûr que c'est pas une arnaque ?", delay: 800 },
-        { role: 'user', content: "Certifié. Comptes publics en ligne. 82% sur le terrain. Un appel pour arrêter quand vous voulez." },
-        { role: 'donor', content: "Et c'est prélevé comment ? CB ?", delay: 700 },
-        { role: 'user', content: "Prélèvement SEPA ou CB — 2 minutes, on fait ça maintenant ou je vous laisse un email si vous préférez à froid." },
-        { role: 'donor', content: "Allez, vite fait. Julien. Je vous donne ma CB mais j'ai vraiment pas le temps.", delay: 800 },
-        { role: 'user', content: "Parfait — merci Julien. Tout se fait en 90 secondes. Je vous envoie le justificatif fiscal ce soir." },
-        { role: 'donor', content: "Ok. Mais si c'est long je coupe.", delay: 700 }
-      ]],
-      'Hostile': [[
-        { role: 'user', content: "Bonjour monsieur, je travaille pour Médecins du Monde, j'aurais voulu—" },
-        { role: 'donor', content: "Non, non, non. Foutez-moi la paix avec vos associations. Y'en a dans chaque rue, c'est insupportable.", delay: 1000 },
-        { role: 'user', content: "Je vous entends, et je ne vais pas vous retenir si vous ne le souhaitez pas. Je voulais juste vous dire qu'en France 300 000 personnes meurent de ne pas accéder à un médecin. Bonne journée." },
-        { role: 'donor', content: "...Attendez. 300 000 personnes en France ? Sans accès à un médecin ? C'est pas possible.", delay: 1400 },
-        { role: 'user', content: "C'est le chiffre officiel. Sans domicile, sans papiers — les urgences les renvoient ou ils ne savent pas comment y aller. Médecins du Monde va à eux." },
-        { role: 'donor', content: "Et vous vendez quoi exactement là ?", delay: 1000 },
-        { role: 'user', content: "Je recrute des donateurs à partir de 5€ par mois. Mais si vous préférez, je vous laisse une carte — vous pourrez vérifier vous-même." },
-        { role: 'donor', content: "...Donnez-moi votre carte. Je regarderai ce soir. Je promets rien.", delay: 1300 },
-        { role: 'user', content: "C'est tout ce que je demande. Bonne journée, Patrick." },
-        { role: 'donor', content: "Hmm... bonne journée.", delay: 1000 }
-      ]],
-      'Curieux': [[
-        { role: 'user', content: "Bonjour ! Je recrute des donateurs pour Médecins du Monde — une minute pour vous expliquer notre impact ?" },
-        { role: 'donor', content: "Médecins du Monde... c'est distinct de Médecins Sans Frontières ? Je confonds souvent les deux.", delay: 1000 },
-        { role: 'user', content: "Très bonne question. MSF = urgences internationales, zones de guerre. MdM = accès aux soins pour les exclus, en France et dans 70 pays. Complémentaires, mais deux missions différentes." },
-        { role: 'donor', content: "Et les frais de fonctionnement ? J'ai vu des études qui critiquent les associations sur ce point.", delay: 1100 },
-        { role: 'user', content: "MdM : 82% sur les programmes, 11% collecte, 7% fonctionnement. Vérifiable sur leur rapport annuel certifié en ligne." },
-        { role: 'donor', content: "D'accord. Et votre rôle à vous ? Vous êtes salarié, bénévole, commission ?", delay: 1100 },
-        { role: 'user', content: "Je travaille pour BABYLON Agency, une agence de collecte sous contrat avec MdM. Je suis rémunéré par BABYLON, pas prélevé sur les dons. Votre don va à 100% à MdM — contractuel et audité." },
-        { role: 'donor', content: "Ah, ça c'est transparent et je l'apprécie. Et l'engagement minimum c'est quoi ?", delay: 900 },
-        { role: 'user', content: "5€/mois, résiliable par appel à tout moment. 66% déductible — donc 1,70€ net pour vous." },
-        { role: 'donor', content: "Bien. Je vais faire ça. Isabelle. Envoyez-moi aussi le lien vers le rapport annuel, je lirai ce soir.", delay: 1000 }
-      ]]
-    };
+    function selectFundraiserType(type, btn) {
+      currentFundraiserType = type;
 
+      // Update button styles
+      document.querySelectorAll('.fundraiser-type-btn').forEach(b => {
+        b.style.background = 'none';
+        b.style.color = 'var(--muted)';
+        b.style.borderColor = 'var(--border)';
+        b.style.fontWeight = '600';
+      });
+      btn.style.background = 'rgba(99,102,241,0.08)';
+      btn.style.color = 'var(--purple)';
+      btn.style.borderColor = 'rgba(99,102,241,0.3)';
+      btn.style.fontWeight = '700';
+
+      const profileIds = FUNDRAISER_TYPE_PROFILES[type] || [];
+      const allProfileIds = ['sceptique', 'ouvert', 'presse', 'hostile', 'curieux', 'appel_sceptique', 'annulation_frustree', 'evenement_convivial', 'grand_donateur'];
+
+      // Hide all profile cards
+      allProfileIds.forEach(id => {
+        const card = document.getElementById('profile-' + id);
+        if (card) card.style.display = 'none';
+      });
+
+      // Hide digital notice
+      const digitalNotice = document.getElementById('digital-tool-notice');
+      if (digitalNotice) digitalNotice.style.display = 'none';
+
+      if (type === 'digital') {
+        if (digitalNotice) digitalNotice.style.display = 'block';
+        document.getElementById('chatDonorName').textContent = 'Module Digital — Analyse de copy IA';
+        document.getElementById('statusText').textContent = 'Outil d\'analyse — bientôt disponible';
+        return;
+      }
+
+      // Show relevant profiles
+      profileIds.forEach((id, i) => {
+        const card = document.getElementById('profile-' + id);
+        if (card) card.style.display = 'block';
+      });
+
+      // Switch to first profile of this type
+      if (profileIds.length > 0) {
+        if (conversationHistory.length > 0 && !simulationComplete) {
+          pendingProfileChange = profileIds[0];
+          document.getElementById('changeDialog').classList.add('open');
+        } else {
+          loadProfile(profileIds[0]);
+          clearMessages();
+          showWelcomeMessage();
+        }
+      }
+    }
+
+    // ============================================================
     // STATE
-    let currentProfile = 'Sceptique';
-    let currentScript = [];
-    let msgIndex = 0;
-    let conversationComplete = false;
+    // ============================================================
+    let currentUser = null;
+    let currentProfile = 'sceptique';
+    let conversationHistory = []; // { role: 'user'|'assistant', content: string }
+    let simulationComplete = false;
+    let simulationStartTime = null;
     let timerInterval = null;
     let elapsedSeconds = 0;
-    let timerStarted = false;
-    let soundEnabled = true;
-    let pendingProfileEl = null;
-    let pendingProfileName = null;
-    let inputReady = false;
+    let pendingProfileChange = null;
+    let isWaiting = false; // prevent double sends
 
+    // ============================================================
+    // INIT
+    // ============================================================
+    async function init() {
+      // Initialize Supabase
+      try {
+        initSupabase();
+      } catch (e) {
+        console.error('Supabase init failed:', e);
+        showError('Erreur de configuration. Vérifiez supabase-config.js');
+        return;
+      }
+
+      // Check auth
+      const session = await Auth.getSession();
+      if (!session) {
+        document.getElementById('authGate').style.display = 'flex';
+        return;
+      }
+
+      // Load user profile
+      currentUser = await Auth.getUser();
+      if (currentUser?.profile) {
+        const p = currentUser.profile;
+        const initials = (p.prenom || '?')[0].toUpperCase();
+        document.getElementById('sidebarAvatar').textContent = initials;
+        document.getElementById('sidebarName').textContent = p.prenom || 'Collecteur';
+        document.getElementById('sidebarLevel').textContent = `Niveau ${p.niveau || 1} · ${p.xp || 0} XP`;
+      }
+
+      // Check URL params for profile override
+      const params = new URLSearchParams(window.location.search);
+      const profileParam = params.get('profile');
+      if (profileParam && DONOR_PROFILES[profileParam]) {
+        currentProfile = profileParam;
+      }
+
+      // Start
+      loadProfile(currentProfile);
+      showWelcomeMessage();
+      startTimer();
+    }
+
+    // ============================================================
+    // PROFILE MANAGEMENT
+    // ============================================================
+    function loadProfile(profileId) {
+      const profile = DONOR_PROFILES[profileId];
+      if (!profile) return;
+
+      currentProfile = profileId;
+      conversationHistory = [];
+      simulationComplete = false;
+
+      // Update UI
+      document.getElementById('topbarProfile').textContent = profile.name;
+      document.getElementById('chatDonorAvatar').textContent = profile.emoji;
+      document.getElementById('chatDonorName').textContent = `${profile.name}, ${profile.age} ans — ${profile.description.split('.')[0]}`;
+      document.getElementById('statusDot').style.background = 'var(--green)';
+      document.getElementById('statusText').textContent = 'En simulation IA live';
+
+      // Update active card
+      document.querySelectorAll('.profile-card').forEach(c => c.classList.remove('active'));
+      const card = document.getElementById(`profile-${profileId}`);
+      if (card) card.classList.add('active');
+
+      // Reset scores
+      resetScoreDisplay();
+
+      // Re-enable input
+      enableInput();
+    }
+
+    function requestProfileChange(newProfileId) {
+      // If conversation has started, confirm first
+      if (conversationHistory.length > 0 && !simulationComplete) {
+        pendingProfileChange = newProfileId;
+        document.getElementById('changeDialog').classList.add('open');
+        return;
+      }
+      // Otherwise switch directly
+      if (newProfileId) {
+        loadProfile(newProfileId);
+        clearMessages();
+        showWelcomeMessage();
+      }
+    }
+
+    function confirmProfileChange() {
+      document.getElementById('changeDialog').classList.remove('open');
+      if (pendingProfileChange) {
+        loadProfile(pendingProfileChange);
+        pendingProfileChange = null;
+        clearMessages();
+        showWelcomeMessage();
+      }
+    }
+
+    function cancelProfileChange() {
+      document.getElementById('changeDialog').classList.remove('open');
+      pendingProfileChange = null;
+    }
+
+    function resetConversation() {
+      conversationHistory = [];
+      simulationComplete = false;
+      clearMessages();
+      resetScoreDisplay();
+      resetTimer();
+      hideFeedback();
+      hideXPBanner();
+      enableInput();
+      showWelcomeMessage();
+    }
+
+    // ============================================================
+    // MESSAGES
+    // ============================================================
+    function clearMessages() {
+      document.getElementById('messages').innerHTML = '';
+    }
+
+    function showWelcomeMessage() {
+      const profile = DONOR_PROFILES[currentProfile];
+      const systemMsg = `
+        <div style="text-align:center;padding:20px;">
+          <div style="font-size:32px;margin-bottom:8px;">${profile.emoji}</div>
+          <div style="font-size:14px;font-weight:700;color:var(--accent);margin-bottom:4px;">Simulation avec ${profile.name}</div>
+          <div style="font-size:12px;color:var(--muted);max-width:360px;margin:0 auto 12px;">${profile.description}</div>
+          <div style="font-size:11px;color:var(--muted);background:var(--bg3);border-radius:8px;padding:8px 12px;display:inline-block;">
+            💡 Commencez par vous présenter comme si vous étiez à la porte
+          </div>
+        </div>
+      `;
+      document.getElementById('messages').innerHTML = systemMsg;
+    }
+
+    function addMessage(role, content) {
+      const profile = DONOR_PROFILES[currentProfile];
+      const messagesEl = document.getElementById('messages');
+
+      const div = document.createElement('div');
+      div.className = `message ${role === 'user' ? 'user' : 'donor'}`;
+
+      const now = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+
+      if (role === 'user') {
+        const initials = currentUser?.profile?.prenom?.[0]?.toUpperCase() || 'V';
+        div.innerHTML = `
+          <div class="msg-avatar" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;font-size:12px;font-weight:800;">${initials}</div>
+          <div>
+            <div class="msg-bubble">${escapeHtml(content)}</div>
+            <div class="msg-meta">${now}</div>
+          </div>
+        `;
+      } else {
+        div.innerHTML = `
+          <div class="msg-avatar" style="background:var(--bg2);font-size:18px;">${profile.emoji}</div>
+          <div>
+            <div class="msg-bubble">${escapeHtml(content)}</div>
+            <div class="msg-meta">${profile.name} · ${now}</div>
+          </div>
+        `;
+      }
+
+      messagesEl.appendChild(div);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    function showTypingIndicator() {
+      const messagesEl = document.getElementById('messages');
+      const profile = DONOR_PROFILES[currentProfile];
+
+      const div = document.createElement('div');
+      div.className = 'message donor';
+      div.id = 'typingIndicator';
+      div.innerHTML = `
+        <div class="msg-avatar" style="background:var(--bg2);font-size:18px;">${profile.emoji}</div>
+        <div class="typing-dots">
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+        </div>
+      `;
+
+      messagesEl.appendChild(div);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    function removeTypingIndicator() {
+      const el = document.getElementById('typingIndicator');
+      if (el) el.remove();
+    }
+
+    function showError(msg) {
+      const messagesEl = document.getElementById('messages');
+      const div = document.createElement('div');
+      div.style.cssText = 'text-align:center;padding:12px;font-size:13px;color:#ef4444;background:rgba(239,68,68,0.06);border-radius:8px;margin:8px 0;';
+      div.textContent = '⚠️ ' + msg;
+      messagesEl.appendChild(div);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    // ============================================================
+    // SEND MESSAGE
+    // ============================================================
+    async function sendUserMessage() {
+      if (isWaiting || simulationComplete) return;
+
+      const input = document.getElementById('chatInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      input.value = '';
+      input.style.height = 'auto';
+      isWaiting = true;
+      disableInput();
+
+      // Add user message to UI
+      addMessage('user', text);
+
+      // Add to history
+      conversationHistory.push({ role: 'user', content: text });
+
+      // Show typing indicator
+      showTypingIndicator();
+
+      try {
+        // Call Claude API
+        const donorReply = await sendMessage(currentProfile, conversationHistory.slice(0, -1), text);
+
+        removeTypingIndicator();
+
+        // Add donor reply to UI and history
+        addMessage('donor', donorReply);
+        conversationHistory.push({ role: 'assistant', content: donorReply });
+
+        // Check if we should offer to end (after 8+ exchanges)
+        if (conversationHistory.length >= 16) {
+          offerSimulationEnd();
+        } else {
+          enableInput();
+        }
+
+      } catch (err) {
+        removeTypingIndicator();
+        console.error('AI call failed:', err);
+        showError('Erreur IA: ' + (err.message || 'Vérifiez votre clé API'));
+        enableInput();
+      }
+
+      isWaiting = false;
+    }
+
+    function offerSimulationEnd() {
+      const messagesEl = document.getElementById('messages');
+      const div = document.createElement('div');
+      div.style.cssText = 'text-align:center;padding:16px;';
+      div.innerHTML = `
+        <div style="font-size:13px;color:var(--muted);margin-bottom:10px;">
+          La simulation a bien avancé ! Vous pouvez continuer ou obtenir votre évaluation.
+        </div>
+        <div style="display:flex;gap:8px;justify-content:center;">
+          <button onclick="continueConversation()" style="background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:8px 16px;font-size:12px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif;">
+            Continuer ↓
+          </button>
+          <button onclick="endSimulation()" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:12px;font-weight:600;cursor:pointer;font-family:Inter,sans-serif;">
+            🏁 Terminer & évaluer
+          </button>
+        </div>
+      `;
+      div.id = 'endOfferBanner';
+      messagesEl.appendChild(div);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    function continueConversation() {
+      const el = document.getElementById('endOfferBanner');
+      if (el) el.remove();
+      enableInput();
+    }
+
+    // ============================================================
+    // END SIMULATION & SCORE
+    // ============================================================
+    async function endSimulation() {
+      if (simulationComplete) return;
+      if (conversationHistory.length < 4) {
+        showError('La simulation est trop courte pour être évaluée. Échangez au moins 2 répliques.');
+        return;
+      }
+
+      const el = document.getElementById('endOfferBanner');
+      if (el) el.remove();
+
+      simulationComplete = true;
+      stopTimer();
+      disableInput();
+      document.getElementById('statusDot').style.background = '#f59e0b';
+      document.getElementById('statusText').textContent = 'Analyse en cours...';
+
+      // Show scoring overlay
+      document.getElementById('scoringOverlay').classList.add('visible');
+
+      try {
+        let result;
+        if (currentUser) {
+          // Full flow: score + save + XP
+          result = await completeSimulation(
+            currentUser.id,
+            currentProfile,
+            conversationHistory,
+            simulationStartTime
+          );
+        } else {
+          // No user: just score (shouldn't happen due to auth gate)
+          const scores = await scoreConversation(conversationHistory, currentProfile);
+          result = { scores, xpGained: 0, xpResult: null };
+        }
+
+        document.getElementById('scoringOverlay').classList.remove('visible');
+        document.getElementById('statusDot').style.background = '#6366f1';
+        document.getElementById('statusText').textContent = 'Simulation terminée ✓';
+
+        displayScores(result.scores);
+
+        if (result.xpGained > 0) {
+          showXPBanner(result.xpGained, result.xpResult);
+        }
+
+      } catch (err) {
+        document.getElementById('scoringOverlay').classList.remove('visible');
+        console.error('Score error:', err);
+        showError('Erreur lors du scoring: ' + (err.message || 'Réessayez'));
+        simulationComplete = false;
+        enableInput();
+      }
+    }
+
+    // ============================================================
+    // SCORE DISPLAY
+    // ============================================================
+    function displayScores(scores) {
+      const animate = (id, barId, starsId, value, max = 25) => {
+        document.getElementById(id).textContent = `${value}/${max}`;
+        setTimeout(() => {
+          document.getElementById(barId).style.width = `${(value / max) * 100}%`;
+        }, 100);
+        const stars = Math.round((value / max) * 5);
+        document.getElementById(starsId).innerHTML = Array.from({length: 5}, (_, i) =>
+          `<span class="star ${i < stars ? '' : 'empty'}">★</span>`
+        ).join('');
+      };
+
+      animate('score-empathy', 'bar-empathy', 'stars-empathy', scores.empathie || 0);
+      animate('score-clarity', 'bar-clarity', 'stars-clarity', scores.clarte || 0);
+      animate('score-objections', 'bar-objections', 'stars-objections', scores.objections || 0);
+      animate('score-closing', 'bar-closing', 'stars-closing', scores.closing || 0);
+
+      const total = scores.total || (scores.empathie + scores.clarte + scores.objections + scores.closing);
+      document.getElementById('totalScore').textContent = total;
+
+      if (scores.feedback) {
+        const feedbackEl = document.getElementById('totalScoreFeedback');
+        feedbackEl.textContent = scores.feedback;
+        feedbackEl.style.display = 'block';
+      }
+
+      // Feedback banner
+      const { label } = getScoreLabel(total);
+      document.getElementById('feedbackTitle').textContent = `✅ Simulation terminée — ${label}`;
+      document.getElementById('feedbackTips').innerHTML = scores.feedback
+        ? `<li>${scores.feedback}</li>`
+        : '<li>Score calculé. Recommencez pour progresser !</li>';
+      document.getElementById('feedbackBanner').classList.add('visible');
+    }
+
+    function resetScoreDisplay() {
+      ['score-empathy', 'score-clarity', 'score-objections', 'score-closing'].forEach(id => {
+        document.getElementById(id).textContent = '—';
+      });
+      ['bar-empathy', 'bar-clarity', 'bar-objections', 'bar-closing'].forEach(id => {
+        document.getElementById(id).style.width = '0%';
+      });
+      ['stars-empathy', 'stars-clarity', 'stars-objections', 'stars-closing'].forEach(id => {
+        document.getElementById(id).innerHTML = '';
+      });
+      document.getElementById('totalScore').textContent = '—';
+      document.getElementById('totalScoreFeedback').style.display = 'none';
+      document.getElementById('totalScoreFeedback').textContent = '';
+    }
+
+    // ============================================================
+    // XP BANNER
+    // ============================================================
+    function showXPBanner(xpGained, xpResult) {
+      const banner = document.getElementById('xpBanner');
+      let text = `⚡ +${xpGained} XP gagnés !`;
+      if (xpResult?.leveledUp) {
+        text += ` 🎉 Niveau ${xpResult.niveau} débloqué — ${NIVEAU_LABELS[xpResult.niveau]} !`;
+      }
+      document.getElementById('xpBannerText').textContent = text;
+      banner.classList.add('visible');
+
+      // Update sidebar level
+      if (xpResult) {
+        document.getElementById('sidebarLevel').textContent = `Niveau ${xpResult.niveau} · ${xpResult.xp} XP`;
+      }
+    }
+
+    function hideXPBanner() {
+      document.getElementById('xpBanner').classList.remove('visible');
+    }
+
+    function hideFeedback() {
+      document.getElementById('feedbackBanner').classList.remove('visible');
+    }
+
+    // ============================================================
+    // INPUT HELPERS
+    // ============================================================
+    function enableInput() {
+      const input = document.getElementById('chatInput');
+      const btn = document.getElementById('btnSend');
+      input.disabled = false;
+      btn.disabled = false;
+      input.placeholder = 'Écris ta réponse au donateur...';
+      input.focus();
+    }
+
+    function disableInput() {
+      const input = document.getElementById('chatInput');
+      const btn = document.getElementById('btnSend');
+      input.disabled = true;
+      btn.disabled = true;
+    }
+
+    function handleInputKey(e) {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendUserMessage();
+      }
+      // Auto-resize textarea
+      e.target.style.height = 'auto';
+      e.target.style.height = Math.min(e.target.scrollHeight, 100) + 'px';
+    }
+
+    // ============================================================
     // TIMER
+    // ============================================================
     function startTimer() {
-      if (timerStarted) return;
-      timerStarted = true;
+      simulationStartTime = Date.now();
       const display = document.getElementById('timerDisplay');
       display.classList.add('running');
       timerInterval = setInterval(() => {
@@ -948,263 +1380,24 @@
     function resetTimer() {
       stopTimer();
       elapsedSeconds = 0;
-      timerStarted = false;
-      const display = document.getElementById('timerDisplay');
-      display.classList.remove('done');
-      display.textContent = '⏱ 00:00';
+      simulationStartTime = Date.now();
+      document.getElementById('timerDisplay').classList.remove('done');
+      document.getElementById('timerDisplay').textContent = '⏱ 00:00';
+      startTimer();
     }
 
-    function toggleSound() {
-      soundEnabled = !soundEnabled;
-      document.getElementById('soundIcon').textContent = soundEnabled ? '🔊' : '🔇';
-      document.getElementById('soundLabel').textContent = soundEnabled ? 'Son' : 'Muet';
-      document.getElementById('soundToggle').classList.toggle('muted', !soundEnabled);
+    // ============================================================
+    // UTILS
+    // ============================================================
+    function escapeHtml(text) {
+      return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
     }
 
-    // PROFILE
-    function requestProfileChange(el, name) {
-      if (!conversationComplete && msgIndex > 0) {
-        pendingProfileEl = el;
-        pendingProfileName = name;
-        document.getElementById('changeDialog').classList.add('open');
-      } else {
-        doSelectProfile(el || document.getElementById('profile-' + (name || currentProfile)), name || currentProfile);
-      }
-    }
-
-    function confirmProfileChange() {
-      document.getElementById('changeDialog').classList.remove('open');
-      if (pendingProfileEl || pendingProfileName) {
-        doSelectProfile(pendingProfileEl || document.getElementById('profile-' + pendingProfileName), pendingProfileName);
-      }
-    }
-
-    function cancelProfileChange() {
-      document.getElementById('changeDialog').classList.remove('open');
-      pendingProfileEl = null;
-      pendingProfileName = null;
-    }
-
-    function doSelectProfile(el, name) {
-      if (name === null) return;
-      document.querySelectorAll('.profile-card').forEach(c => c.classList.remove('active'));
-      if (el) el.classList.add('active');
-      currentProfile = name;
-      document.getElementById('topbarProfile').textContent = name;
-      resetConversation();
-    }
-
-    // MESSAGES
-    function addMessage(role, content) {
-      const messages = document.getElementById('messages');
-      const div = document.createElement('div');
-      div.className = `message ${role === 'user' ? 'user' : 'donor'}`;
-      const now = new Date();
-      const time = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-      const data = profileData[currentProfile] || profileData['Sceptique'];
-
-      if (role === 'donor') {
-        div.innerHTML = `
-          <div class="msg-avatar" style="background: var(--bg2); border: 1px solid var(--border); font-size:18px;">${data.avatar}</div>
-          <div>
-            <div class="msg-bubble">${content}</div>
-            <div class="msg-meta">${data.donorName.split(',')[0]} · ${time}</div>
-          </div>`;
-      } else {
-        div.innerHTML = `
-          <div>
-            <div class="msg-bubble">${content}</div>
-            <div class="msg-meta">Vous · ${time}</div>
-          </div>
-          <div class="msg-avatar" style="background: linear-gradient(135deg, #6366f1, #8b5cf6); font-size:13px; font-weight:700; color:#fff;">AK</div>`;
-      }
-
-      messages.appendChild(div);
-      messages.scrollTop = messages.scrollHeight;
-    }
-
-    function showTyping() {
-      const messages = document.getElementById('messages');
-      const div = document.createElement('div');
-      div.className = 'typing-indicator';
-      div.id = 'typingIndicator';
-      const data = profileData[currentProfile] || profileData['Sceptique'];
-      div.innerHTML = `
-        <div class="msg-avatar" style="background: var(--bg2); border: 1px solid var(--border); font-size:18px;">${data.avatar}</div>
-        <div class="typing-dots">
-          <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
-        </div>`;
-      messages.appendChild(div);
-      messages.scrollTop = messages.scrollHeight;
-    }
-
-    function removeTyping() {
-      const t = document.getElementById('typingIndicator');
-      if (t) t.remove();
-    }
-
-    // FLOW
-    function getScript(profile) {
-      if (profile === 'Sceptique') return sceptiqueScripts[Math.floor(Math.random() * sceptiqueScripts.length)];
-      const scripts = profileScripts[profile];
-      return scripts ? scripts[0] : sceptiqueScripts[0];
-    }
-
-    function showInputReady() {
-      inputReady = true;
-      document.getElementById('chatInput').style.display = 'block';
-      document.getElementById('btnSend').style.display = 'flex';
-      document.getElementById('chatHint').style.display = 'none';
-      document.getElementById('chatInput').focus();
-    }
-
-    function autoPlayDonor() {
-      if (msgIndex >= currentScript.length) { endConversation(); return; }
-      const msg = currentScript[msgIndex];
-      if (msg.role !== 'donor') return;
-      showTyping();
-      setTimeout(() => {
-        removeTyping();
-        addMessage('donor', msg.content);
-        msgIndex++;
-        if (msgIndex >= currentScript.length) setTimeout(endConversation, 600);
-        else showInputReady();
-      }, msg.delay || 1000);
-    }
-
-    function sendUserMessage() {
-      if (conversationComplete) return;
-      if (!timerStarted) startTimer();
-      const input = document.getElementById('chatInput');
-      const text = input.value.trim();
-      if (!text) {
-        if (msgIndex < currentScript.length && currentScript[msgIndex].role === 'user') {
-          const msg = currentScript[msgIndex];
-          msgIndex++;
-          addMessage('user', msg.content);
-          input.value = '';
-          inputReady = false;
-          input.style.display = 'none';
-          document.getElementById('btnSend').style.display = 'none';
-          setTimeout(autoPlayDonor, 600);
-        }
-        return;
-      }
-      addMessage('user', text);
-      input.value = '';
-      input.style.height = 'auto';
-      inputReady = false;
-      input.style.display = 'none';
-      document.getElementById('btnSend').style.display = 'none';
-      while (msgIndex < currentScript.length && currentScript[msgIndex].role === 'user') msgIndex++;
-      setTimeout(autoPlayDonor, 600);
-    }
-
-    function endConversation() {
-      conversationComplete = true;
-      stopTimer();
-      const data = profileData[currentProfile] || profileData['Sceptique'];
-      const banner = document.getElementById('feedbackBanner');
-      const m = String(Math.floor(elapsedSeconds / 60)).padStart(2, '0');
-      const s = String(elapsedSeconds % 60).padStart(2, '0');
-      document.getElementById('feedbackTitle').textContent = `✅ Simulation terminée en ${m}:${s} — Analyse de votre performance`;
-      document.getElementById('feedbackTips').innerHTML = data.feedback.map(f => `<li>${f}</li>`).join('');
-      banner.classList.add('visible');
-      document.getElementById('shareScoreBtn').classList.add('visible');
-      setTimeout(() => {
-        const sc = data.scores;
-        animateScore('empathy', sc.empathy);
-        animateScore('clarity', sc.clarity);
-        animateScore('objections', sc.objections);
-        animateScore('closing', sc.closing);
-        const total = Math.round((sc.empathy + sc.clarity + sc.objections + sc.closing) / 4);
-        setTimeout(() => { document.getElementById('totalScore').textContent = total; }, 800);
-      }, 400);
-      banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      document.getElementById('chatInput').style.display = 'none';
-      document.getElementById('btnSend').style.display = 'none';
-      document.getElementById('chatHint').style.display = 'flex';
-      document.getElementById('chatHint').textContent = '✅ Simulation terminée. Cliquez sur "Recommencer" pour rejouer.';
-    }
-
-    function animateScore(key, value) {
-      document.getElementById('score-' + key).textContent = value;
-      setTimeout(() => { document.getElementById('bar-' + key).style.width = value + '%'; }, 200);
-      setTimeout(() => { document.getElementById('stars-' + key).innerHTML = renderStars(value); }, 400);
-    }
-
-    function renderStars(score) {
-      const filled = Math.round(score / 20);
-      return Array.from({ length: 5 }, (_, i) => `<span class="star ${i < filled ? '' : 'empty'}">★</span>`).join('');
-    }
-
-    function resetScores() {
-      ['empathy', 'clarity', 'objections', 'closing'].forEach(k => {
-        document.getElementById('score-' + k).textContent = '—';
-        document.getElementById('bar-' + k).style.width = '0%';
-        document.getElementById('stars-' + k).innerHTML = '';
-      });
-      document.getElementById('totalScore').textContent = '—';
-    }
-
-    function shareScore() {
-      const data = profileData[currentProfile] || profileData['Sceptique'];
-      const total = Math.round((data.scores.empathy + data.scores.clarity + data.scores.objections + data.scores.closing) / 4);
-      const m = String(Math.floor(elapsedSeconds / 60)).padStart(2, '0');
-      const s = String(elapsedSeconds % 60).padStart(2, '0');
-      const text = `🏆 J'ai scoré ${total}/100 sur le profil "${currentProfile}" en ${m}:${s} sur collecte.ai ! #collecteai #F2F`;
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(text);
-        const btn = document.getElementById('shareScoreBtn');
-        btn.textContent = '✅ Copié dans le presse-papiers !';
-        setTimeout(() => { btn.innerHTML = '🏆 Partager mon score'; }, 2500);
-      } else { alert(text); }
-    }
-
-    function resetConversation() {
-      msgIndex = 0;
-      conversationComplete = false;
-      inputReady = false;
-      document.getElementById('messages').innerHTML = '';
-      document.getElementById('feedbackBanner').classList.remove('visible');
-      document.getElementById('shareScoreBtn').classList.remove('visible');
-      const input = document.getElementById('chatInput');
-      input.style.display = 'none';
-      input.value = '';
-      document.getElementById('btnSend').style.display = 'none';
-      document.getElementById('chatHint').style.display = 'flex';
-      document.getElementById('chatHint').textContent = '💬 Cliquez ici pour jouer la prochaine réplique du script — ou tapez votre propre réponse';
-      resetScores();
-      resetTimer();
-      const data = profileData[currentProfile] || profileData['Sceptique'];
-      document.getElementById('chatDonorAvatar').textContent = data.avatar;
-      document.getElementById('chatDonorName').textContent = data.donorName;
-      document.getElementById('topbarProfile').textContent = currentProfile;
-      currentScript = getScript(currentProfile);
-      setTimeout(() => {
-        if (currentScript[0].role === 'user') {
-          addMessage('user', currentScript[0].content);
-          startTimer();
-          msgIndex = 1;
-          setTimeout(autoPlayDonor, 700);
-        } else { autoPlayDonor(); }
-      }, 500);
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      const input = document.getElementById('chatInput');
-      input.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendUserMessage(); }
-      });
-      input.addEventListener('input', function() {
-        this.style.height = 'auto';
-        this.style.height = Math.min(this.scrollHeight, 100) + 'px';
-      });
-      document.getElementById('chatHint').addEventListener('click', () => {
-        if (!conversationComplete && msgIndex < currentScript.length) showInputReady();
-      });
-      resetConversation();
-    });
+    // ============================================================
+    // BOOT
+    // ============================================================
+    document.addEventListener('DOMContentLoaded', init);
   </script>
+
 </body>
 </html>
