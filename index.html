@@ -524,6 +524,227 @@
     }
 
     /* ======== PRICING ======== */
+    /* ======== TEASER SIMULATION ======== */
+    .teaser-section { padding: 100px 5%; background: #f1f0ff; border-top: 1px solid #ddd8ff; }
+
+    /* Profile cards */
+    .teaser-profiles-wrap { max-width: 1100px; margin: 0 auto 48px; }
+    .teaser-profiles {
+      display: flex; gap: 16px; overflow-x: auto; padding-bottom: 12px;
+      scrollbar-width: thin; scrollbar-color: #c7c4f0 transparent;
+    }
+    .teaser-profiles::-webkit-scrollbar { height: 4px; }
+    .teaser-profiles::-webkit-scrollbar-thumb { background: #c7c4f0; border-radius: 4px; }
+    .profile-card {
+      flex: 0 0 180px; min-width: 180px;
+      background: #fff; border: 2px solid transparent; border-radius: 16px;
+      padding: 20px 14px; display: flex; flex-direction: column; align-items: center; gap: 10px;
+      cursor: pointer; transition: all .2s; box-shadow: 0 2px 12px rgba(79,70,229,.08);
+      position: relative;
+    }
+    .profile-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(79,70,229,.16); }
+    .profile-card.selected { border-color: #4f46e5; box-shadow: 0 0 0 4px rgba(79,70,229,.14); }
+    .profile-avatar { flex-shrink: 0; }
+    .profile-info { text-align: center; width: 100%; }
+    .profile-name { font-weight: 800; font-size: 15px; color: #1a1a1a; }
+    .profile-type { font-size: 12px; color: #6b7280; font-style: italic; margin-top: 2px; }
+    .profile-env { font-size: 11px; color: #9ca3af; margin-top: 4px; }
+    .profile-difficulty { display: flex; gap: 4px; justify-content: center; margin-top: 6px; }
+    .diff-dot { width: 7px; height: 7px; border-radius: 50%; background: #e5e7eb; }
+    .diff-dot.active { background: #4f46e5; }
+    .profile-try-btn {
+      width: 100%; padding: 9px 0; background: #4f46e5; color: #fff;
+      border: none; border-radius: 8px; font-size: 13px; font-weight: 700;
+      cursor: pointer; transition: background .15s;
+    }
+    .profile-try-btn:hover { background: #4338ca; }
+    .teaser-tip { font-size: 13px; color: #6b7280; text-align: center; margin-top: 14px; }
+    .teaser-tip strong { color: #4f46e5; }
+
+    /* Arena */
+    .teaser-arena {
+      max-width: 1000px; margin: 0 auto;
+      background: #fff; border-radius: 20px; box-shadow: 0 8px 40px rgba(79,70,229,.14);
+      overflow: hidden; position: relative;
+    }
+    .teaser-arena-inner { display: flex; min-height: 480px; }
+
+    /* Avatar column */
+    .teaser-avatar-col {
+      width: 220px; min-width: 220px; flex-shrink: 0;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 28px 20px; background: #fafaf8; border-right: 1px solid #f0eeea;
+      position: relative;
+    }
+    .teaser-env-label {
+      font-size: 11px; color: #9ca3af; text-align: center; margin-bottom: 14px;
+      font-style: italic; min-height: 16px;
+    }
+    .teaser-avatar-stage {
+      width: 120px; height: 120px; border-radius: 16px;
+      position: relative; overflow: visible; margin-bottom: 12px;
+    }
+    .teaser-avatar-svg svg { width: 120px; height: 120px; }
+    /* Door frame environment */
+    .env-door .teaser-avatar-stage::after {
+      content: '';
+      position: absolute;
+      right: -18px; top: -8px;
+      width: 12px; height: 100px;
+      border: 3px solid #d1cfc5;
+      border-left: none;
+      border-radius: 0 6px 6px 0;
+      pointer-events: none;
+    }
+    /* Phone environment */
+    .env-phone .teaser-avatar-stage::before {
+      content: '📞';
+      position: absolute; bottom: -10px; right: -10px;
+      font-size: 22px; filter: drop-shadow(0 2px 4px rgba(0,0,0,.2));
+    }
+    /* Event environment */
+    .env-event { background: linear-gradient(135deg, #fef3c7 0%, #ede9fe 100%); }
+    .env-event .teaser-avatar-stage::before {
+      content: '🎪';
+      position: absolute; top: -12px; left: -12px;
+      font-size: 22px;
+    }
+
+    .teaser-emotional-state {
+      display: flex; align-items: center; gap: 6px;
+      background: #f8f7ff; border: 1px solid #e0e7ff; border-radius: 24px;
+      padding: 6px 14px; font-size: 12px; color: #6b7280; margin-bottom: 12px;
+      transition: all .4s;
+    }
+    .state-label { font-weight: 500; }
+    .state-value { font-weight: 700; color: #4f46e5; }
+    .teaser-change-profile {
+      background: none; border: none; color: #9ca3af; font-size: 12px;
+      cursor: pointer; text-decoration: underline; margin-top: auto; padding-top: 8px;
+    }
+    .teaser-change-profile:hover { color: #4f46e5; }
+
+    /* Chat column */
+    .teaser-chat-col { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+    .teaser-chat-header {
+      padding: 16px 20px; border-bottom: 1px solid #f0eeea;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .teaser-chat-name { font-weight: 800; font-size: 16px; color: #1a1a1a; }
+    .teaser-chat-count { font-size: 12px; color: #9ca3af; font-weight: 600; }
+    .teaser-chat-messages {
+      flex: 1; padding: 20px; overflow-y: auto;
+      display: flex; flex-direction: column; gap: 14px;
+      min-height: 280px; max-height: 340px;
+    }
+    .chat-bubble {
+      max-width: 78%; padding: 11px 15px; border-radius: 16px;
+      font-size: 14px; line-height: 1.55; animation: bubbleIn .25s ease;
+    }
+    @keyframes bubbleIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .chat-bubble.donor {
+      background: #f3f4f6; color: #1f2937;
+      border-bottom-left-radius: 4px; align-self: flex-start;
+    }
+    .chat-bubble.user {
+      background: linear-gradient(135deg, #4f46e5, #7c3aed); color: #fff;
+      border-bottom-right-radius: 4px; align-self: flex-end;
+    }
+    .chat-bubble-wrap { display: flex; flex-direction: column; }
+    .chat-bubble-wrap.donor-wrap { align-items: flex-start; }
+    .chat-bubble-wrap.user-wrap { align-items: flex-end; }
+    .bubble-sender { font-size: 11px; font-weight: 700; color: #9ca3af; margin-bottom: 3px; }
+    .user-wrap .bubble-sender { color: #a5b4fc; text-align: right; }
+
+    /* Typing indicator */
+    .typing-indicator {
+      display: flex; align-items: center; gap: 5px;
+      background: #f3f4f6; border-radius: 16px; border-bottom-left-radius: 4px;
+      padding: 12px 16px; width: 64px; align-self: flex-start;
+    }
+    .typing-indicator span {
+      width: 7px; height: 7px; background: #9ca3af; border-radius: 50%;
+      animation: typingBounce 1.2s infinite ease-in-out;
+    }
+    .typing-indicator span:nth-child(2) { animation-delay: .2s; }
+    .typing-indicator span:nth-child(3) { animation-delay: .4s; }
+    @keyframes typingBounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+      30% { transform: translateY(-6px); opacity: 1; }
+    }
+
+    /* Input row */
+    .teaser-chat-input-row {
+      padding: 14px 16px; border-top: 1px solid #f0eeea;
+      display: flex; gap: 10px; align-items: center;
+    }
+    .teaser-input {
+      flex: 1; padding: 11px 16px; border: 1.5px solid #e5e7eb; border-radius: 10px;
+      font-family: 'Inter', sans-serif; font-size: 14px; color: #1a1a1a;
+      outline: none; transition: border-color .15s;
+    }
+    .teaser-input:focus { border-color: #4f46e5; }
+    .teaser-send-btn {
+      padding: 11px 20px; background: #4f46e5; color: #fff;
+      border: none; border-radius: 10px; font-size: 14px; font-weight: 700;
+      cursor: pointer; transition: background .15s; white-space: nowrap;
+    }
+    .teaser-send-btn:hover { background: #4338ca; }
+    .teaser-send-btn:disabled { background: #c7d2fe; cursor: not-allowed; }
+
+    /* Gate overlay */
+    .teaser-gate {
+      position: absolute; inset: 0; background: rgba(240,238,255,.95);
+      backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center;
+      z-index: 10; border-radius: 20px;
+      animation: gateIn .35s ease;
+    }
+    @keyframes gateIn {
+      from { opacity: 0; } to { opacity: 1; }
+    }
+    .gate-card {
+      background: #fff; border-radius: 20px; padding: 36px 32px;
+      box-shadow: 0 20px 60px rgba(79,70,229,.22);
+      text-align: center; max-width: 400px; width: 90%;
+    }
+    .gate-icon { font-size: 36px; margin-bottom: 10px; }
+    .gate-title { font-size: 20px; font-weight: 800; color: #1a1a1a; margin-bottom: 16px; line-height: 1.3; }
+    .gate-score-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #9ca3af; margin-bottom: 4px; }
+    .gate-score-number { font-size: 52px; font-weight: 900; color: #4f46e5; line-height: 1; margin-bottom: 10px; }
+    .gate-score-number::after { content: '/100'; font-size: 20px; font-weight: 500; color: #9ca3af; }
+    .gate-score-bar-wrap { background: #e0e7ff; border-radius: 99px; height: 10px; margin-bottom: 20px; overflow: hidden; }
+    .gate-score-bar { height: 100%; background: linear-gradient(90deg, #4f46e5, #7c3aed); border-radius: 99px; transition: width 1s ease; }
+    .gate-sub { font-size: 14px; color: #6b7280; margin-bottom: 20px; line-height: 1.5; }
+    .gate-form { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+    .gate-input {
+      padding: 11px 15px; border: 1.5px solid #e5e7eb; border-radius: 10px;
+      font-family: 'Inter', sans-serif; font-size: 14px; outline: none;
+      transition: border-color .15s;
+    }
+    .gate-input:focus { border-color: #4f46e5; }
+    .gate-submit-btn {
+      padding: 13px; background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      color: #fff; border: none; border-radius: 10px; font-size: 15px; font-weight: 800;
+      cursor: pointer; transition: opacity .15s;
+    }
+    .gate-submit-btn:hover { opacity: 0.9; }
+    .gate-social-proof { font-size: 12px; color: #9ca3af; font-style: italic; margin-bottom: 10px; line-height: 1.4; }
+    .gate-login-link { font-size: 13px; color: #4f46e5; font-weight: 600; text-decoration: none; }
+    .gate-login-link:hover { text-decoration: underline; }
+
+    @media (max-width: 700px) {
+      .teaser-arena-inner { flex-direction: column; }
+      .teaser-avatar-col { width: 100%; min-width: unset; border-right: none; border-bottom: 1px solid #f0eeea; flex-direction: row; justify-content: flex-start; gap: 16px; padding: 16px; }
+      .teaser-emotional-state { margin-bottom: 0; }
+      .teaser-change-profile { margin-top: 0; }
+      .teaser-avatar-stage { width: 80px; height: 80px; }
+      .teaser-avatar-svg svg { width: 80px; height: 80px; }
+      .teaser-chat-messages { max-height: 260px; }
+    }
+
     .pricing { padding: 100px 5%; background: var(--bg); border-top: 1px solid var(--border); }
     .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1000px; margin: 48px auto 0; }
     .pricing-card {
@@ -1302,6 +1523,251 @@
 
   </section>
 
+  <!-- ======== TEASER SIMULATION ======== -->
+  <section class="teaser-section" id="essayer">
+    <div class="section-header">
+      <div class="section-eyebrow">Simulation gratuite</div>
+      <h2 class="section-title">Essayez maintenant —&nbsp;sans inscription</h2>
+      <p class="section-sub">Choisissez un profil de donateur et engagez la conversation. Voyez jusqu'où vous allez avant de créer votre compte.</p>
+    </div>
+
+    <!-- Profile selector -->
+    <div class="teaser-profiles-wrap">
+      <div class="teaser-profiles" id="teaserProfiles">
+
+        <!-- Jean-Pierre -->
+        <div class="profile-card" data-profile="sceptique" onclick="selectProfile('sceptique')">
+          <div class="profile-avatar">
+            <svg viewBox="0 0 120 120" width="80" height="80">
+              <rect width="120" height="120" rx="16" fill="#7c3aed"/>
+              <ellipse cx="60" cy="32" rx="27" ry="15" fill="#999"/>
+              <ellipse cx="60" cy="28" rx="22" ry="10" fill="#bbb"/>
+              <circle cx="60" cy="54" r="26" fill="#FDBCB4"/>
+              <ellipse cx="60" cy="32" rx="27" ry="13" fill="#aaa"/>
+              <circle cx="60" cy="54" r="26" fill="#FDBCB4"/>
+              <circle cx="51" cy="50" r="3.5" fill="#333"/>
+              <circle cx="69" cy="50" r="3.5" fill="#333"/>
+              <circle cx="52" cy="49" r="1.2" fill="#fff"/>
+              <circle cx="70" cy="49" r="1.2" fill="#fff"/>
+              <line x1="44" y1="41" x2="57" y2="44" stroke="#555" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="63" y1="44" x2="76" y2="41" stroke="#555" stroke-width="2.5" stroke-linecap="round"/>
+              <line x1="53" y1="63" x2="67" y2="63" stroke="#c0876a" stroke-width="2.2" stroke-linecap="round"/>
+              <rect x="36" y="79" width="48" height="28" rx="8" fill="#4a3a7a"/>
+              <path d="M36 91 Q60 85 84 91" stroke="#3a2a6a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+              <text x="60" y="114" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.85)">Jean-Pierre</text>
+            </svg>
+          </div>
+          <div class="profile-info">
+            <div class="profile-name">Jean-Pierre</div>
+            <div class="profile-type">Le Sceptique</div>
+            <div class="profile-env">🚪 Porte-à-porte</div>
+            <div class="profile-difficulty">
+              <span class="diff-dot active"></span><span class="diff-dot active"></span><span class="diff-dot active"></span><span class="diff-dot"></span><span class="diff-dot"></span>
+            </div>
+          </div>
+          <button class="profile-try-btn">Essayer →</button>
+        </div>
+
+        <!-- Marie -->
+        <div class="profile-card" data-profile="ouvert" onclick="selectProfile('ouvert')">
+          <div class="profile-avatar">
+            <svg viewBox="0 0 120 120" width="80" height="80">
+              <rect width="120" height="120" rx="16" fill="#16a34a"/>
+              <circle cx="60" cy="54" r="26" fill="#f5cba7"/>
+              <ellipse cx="60" cy="30" rx="26" ry="16" fill="#5c3317"/>
+              <path d="M34 54 Q34 30 60 30 Q86 30 86 54" fill="#5c3317"/>
+              <path d="M34 56 Q32 75 40 82 Q45 86 46 90 Q55 95 60 95 Q65 95 74 90 Q75 86 80 82 Q88 75 86 56" fill="#f5cba7"/>
+              <path d="M46 90 Q55 98 60 98 Q65 98 74 90" fill="#5c3317" stroke="none"/>
+              <circle cx="51" cy="50" r="3.2" fill="#333"/>
+              <circle cx="69" cy="50" r="3.2" fill="#333"/>
+              <circle cx="52" cy="49" r="1.1" fill="#fff"/>
+              <circle cx="70" cy="49" r="1.1" fill="#fff"/>
+              <line x1="46" y1="42" x2="57" y2="43" stroke="#7a5230" stroke-width="2" stroke-linecap="round"/>
+              <line x1="63" y1="43" x2="74" y2="42" stroke="#7a5230" stroke-width="2" stroke-linecap="round"/>
+              <path d="M52 62 Q60 68 68 62" stroke="#c07850" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+              <rect x="36" y="79" width="48" height="28" rx="8" fill="#15803d"/>
+              <text x="60" y="114" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.85)">Marie</text>
+            </svg>
+          </div>
+          <div class="profile-info">
+            <div class="profile-name">Marie</div>
+            <div class="profile-type">L'Ouverte</div>
+            <div class="profile-env">🚪 Porte-à-porte</div>
+            <div class="profile-difficulty">
+              <span class="diff-dot active"></span><span class="diff-dot"></span><span class="diff-dot"></span><span class="diff-dot"></span><span class="diff-dot"></span>
+            </div>
+          </div>
+          <button class="profile-try-btn">Essayer →</button>
+        </div>
+
+        <!-- Thomas -->
+        <div class="profile-card" data-profile="presse" onclick="selectProfile('presse')">
+          <div class="profile-avatar">
+            <svg viewBox="0 0 120 120" width="80" height="80">
+              <rect width="120" height="120" rx="16" fill="#d97706"/>
+              <circle cx="60" cy="54" r="26" fill="#FDBCB4"/>
+              <rect x="34" y="26" width="52" height="20" rx="4" fill="#2d2d2d"/>
+              <ellipse cx="60" cy="28" rx="26" ry="9" fill="#2d2d2d"/>
+              <circle cx="51" cy="49" r="3.2" fill="#333"/>
+              <circle cx="69" cy="53" r="3.2" fill="#333"/>
+              <circle cx="52" cy="48" r="1.1" fill="#fff"/>
+              <circle cx="70" cy="52" r="1.1" fill="#fff"/>
+              <line x1="46" y1="41" x2="57" y2="42" stroke="#555" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="63" y1="43" x2="74" y2="44" stroke="#555" stroke-width="1.8" stroke-linecap="round"/>
+              <line x1="53" y1="62" x2="67" y2="61" stroke="#c0876a" stroke-width="1.8" stroke-linecap="round"/>
+              <rect x="36" y="79" width="48" height="28" rx="8" fill="#1e40af"/>
+              <line x1="60" y1="82" x2="60" y2="104" stroke="#93c5fd" stroke-width="1.5"/>
+              <text x="60" y="114" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.85)">Thomas</text>
+            </svg>
+          </div>
+          <div class="profile-info">
+            <div class="profile-name">Thomas</div>
+            <div class="profile-type">Le Pressé</div>
+            <div class="profile-env">📞 Téléphone</div>
+            <div class="profile-difficulty">
+              <span class="diff-dot active"></span><span class="diff-dot active"></span><span class="diff-dot active"></span><span class="diff-dot active"></span><span class="diff-dot"></span>
+            </div>
+          </div>
+          <button class="profile-try-btn">Essayer →</button>
+        </div>
+
+        <!-- Bernard -->
+        <div class="profile-card" data-profile="hostile" onclick="selectProfile('hostile')">
+          <div class="profile-avatar">
+            <svg viewBox="0 0 120 120" width="80" height="80">
+              <rect width="120" height="120" rx="16" fill="#dc2626"/>
+              <circle cx="60" cy="54" r="26" fill="#e8c9b0"/>
+              <ellipse cx="60" cy="30" rx="26" ry="13" fill="#ddd"/>
+              <ellipse cx="60" cy="28" rx="22" ry="9" fill="#eee"/>
+              <ellipse cx="52" cy="27" rx="8" ry="5" fill="#ccc"/>
+              <ellipse cx="68" cy="27" rx="8" ry="5" fill="#ccc"/>
+              <circle cx="51" cy="51" r="3.5" fill="#333"/>
+              <circle cx="69" cy="51" r="3.5" fill="#333"/>
+              <circle cx="52" cy="50" r="1.2" fill="#fff"/>
+              <circle cx="70" cy="50" r="1.2" fill="#fff"/>
+              <line x1="43" y1="40" x2="58" y2="45" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+              <line x1="62" y1="45" x2="77" y2="40" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+              <path d="M54 64 Q60 60 66 64" stroke="#a07060" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+              <rect x="36" y="79" width="48" height="28" rx="8" fill="#7f1d1d"/>
+              <rect x="100" y="72" width="18" height="38" rx="3" fill="#f8f4ef" stroke="#ccc" stroke-width="1"/>
+              <rect x="102" y="79" width="14" height="2" rx="1" fill="#e0d8cc"/>
+              <rect x="102" y="84" width="10" height="2" rx="1" fill="#e0d8cc"/>
+              <text x="60" y="114" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.85)">Bernard</text>
+            </svg>
+          </div>
+          <div class="profile-info">
+            <div class="profile-name">Bernard</div>
+            <div class="profile-type">L'Hostile</div>
+            <div class="profile-env">🚪 Porte-à-porte</div>
+            <div class="profile-difficulty">
+              <span class="diff-dot active"></span><span class="diff-dot active"></span><span class="diff-dot active"></span><span class="diff-dot active"></span><span class="diff-dot active"></span>
+            </div>
+          </div>
+          <button class="profile-try-btn">Essayer →</button>
+        </div>
+
+        <!-- Sophie -->
+        <div class="profile-card" data-profile="curieux" onclick="selectProfile('curieux')">
+          <div class="profile-avatar">
+            <svg viewBox="0 0 120 120" width="80" height="80">
+              <rect width="120" height="120" rx="16" fill="#3b82f6"/>
+              <circle cx="60" cy="54" r="26" fill="#FDBCB4"/>
+              <ellipse cx="60" cy="30" rx="24" ry="14" fill="#1a1a1a"/>
+              <path d="M36 38 Q48 22 72 26 Q84 30 86 48" fill="#1a1a1a"/>
+              <circle cx="51" cy="50" r="3.2" fill="#333"/>
+              <circle cx="69" cy="50" r="3.2" fill="#333"/>
+              <circle cx="52" cy="49" r="1.1" fill="#fff"/>
+              <circle cx="70" cy="49" r="1.1" fill="#fff"/>
+              <line x1="46" y1="41" x2="57" y2="42" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+              <line x1="63" y1="42" x2="74" y2="43" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+              <circle cx="51" cy="46" r="4.5" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+              <circle cx="69" cy="46" r="4.5" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+              <path d="M53 62 Q60 67 67 62" stroke="#c0876a" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <rect x="36" y="79" width="48" height="28" rx="8" fill="#1d4ed8"/>
+              <rect x="75" y="76" width="20" height="14" rx="2" fill="#fff" stroke="#ddd" stroke-width="1"/>
+              <line x1="77" y1="80" x2="93" y2="80" stroke="#bbb" stroke-width="1"/>
+              <line x1="77" y1="83" x2="90" y2="83" stroke="#bbb" stroke-width="1"/>
+              <line x1="77" y1="86" x2="88" y2="86" stroke="#bbb" stroke-width="1"/>
+              <text x="60" y="114" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.85)">Sophie</text>
+            </svg>
+          </div>
+          <div class="profile-info">
+            <div class="profile-name">Sophie</div>
+            <div class="profile-type">La Curieuse</div>
+            <div class="profile-env">🎪 Événement</div>
+            <div class="profile-difficulty">
+              <span class="diff-dot active"></span><span class="diff-dot active"></span><span class="diff-dot"></span><span class="diff-dot"></span><span class="diff-dot"></span>
+            </div>
+          </div>
+          <button class="profile-try-btn">Essayer →</button>
+        </div>
+
+      </div>
+      <p class="teaser-tip">💡 <strong>Conseil :</strong> Commencez par <em>L'Ouverte</em> si c'est votre premier essai.</p>
+    </div>
+
+    <!-- Simulation arena -->
+    <div class="teaser-arena" id="teaserArena" style="display:none;">
+      <div class="teaser-arena-inner">
+
+        <!-- Left: Avatar + state -->
+        <div class="teaser-avatar-col">
+          <div class="teaser-env-label" id="teaserEnvLabel"></div>
+          <div class="teaser-avatar-stage" id="teaserAvatarStage">
+            <div class="teaser-avatar-svg" id="teaserAvatarSvg"></div>
+          </div>
+          <div class="teaser-emotional-state" id="teaserEmotionalState">
+            <span class="state-label">État :</span>
+            <span class="state-value" id="teaserStateValue">😐 Neutre</span>
+          </div>
+          <button class="teaser-change-profile" onclick="resetSimulation()">← Changer de profil</button>
+        </div>
+
+        <!-- Right: Chat -->
+        <div class="teaser-chat-col">
+          <div class="teaser-chat-header">
+            <div class="teaser-chat-name" id="teaserChatName"></div>
+            <div class="teaser-chat-count" id="teaserChatCount">0 / 3 échanges</div>
+          </div>
+          <div class="teaser-chat-messages" id="teaserMessages"></div>
+          <div class="teaser-chat-input-row" id="teaserInputRow">
+            <input
+              type="text"
+              class="teaser-input"
+              id="teaserInput"
+              placeholder="Votre réponse au donateur..."
+              maxlength="300"
+              onkeydown="if(event.key==='Enter')sendTeaserMessage()"
+            />
+            <button class="teaser-send-btn" onclick="sendTeaserMessage()" id="teaserSendBtn">Envoyer →</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Gate overlay -->
+      <div class="teaser-gate" id="teaserGate" style="display:none;">
+        <div class="gate-card">
+          <div class="gate-icon">🎯</div>
+          <h3 class="gate-title">Votre simulation est en bonne voie</h3>
+          <div class="gate-score-label">Score partiel estimé</div>
+          <div class="gate-score-number" id="gateScoreNumber">72</div>
+          <div class="gate-score-bar-wrap">
+            <div class="gate-score-bar" id="gateScoreBar" style="width:72%"></div>
+          </div>
+          <p class="gate-sub">Pour voir votre score complet et continuer avec ce profil :</p>
+          <form class="gate-form" onsubmit="gateSignup(event)">
+            <input type="email" class="gate-input" placeholder="Votre email" required autocomplete="email"/>
+            <input type="password" class="gate-input" placeholder="Créez un mot de passe" required autocomplete="new-password" minlength="8"/>
+            <button type="submit" class="gate-submit-btn">Créer mon compte gratuit →</button>
+          </form>
+          <p class="gate-social-proof">"Rejoignez 2 847 fundraisers qui progressent chaque semaine"</p>
+          <a href="#signup" class="gate-login-link">Déjà un compte ? Se connecter →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ======== PRICING ======== -->
   <section class="pricing" id="pricing">
     <div class="section-header">
@@ -1772,6 +2238,375 @@
       `;
     }
     renderQ();
+  </script>
+
+  <!-- ======== TEASER SIMULATION SCRIPT ======== -->
+  <script>
+  (function() {
+    // ── Profile definitions ──────────────────────────────────────────────
+    const PROFILES = {
+      sceptique: {
+        name: 'Jean-Pierre',
+        title: 'Le Sceptique',
+        env: 'door',
+        envLabel: '🚪 Vous sonnez à la porte de Jean-Pierre…',
+        envClass: 'env-door',
+        color: '#7c3aed',
+        scripts: [
+          "Oui ?",
+          "Hmm. C'est gentil de dire ça, mais vous êtes le 3ème à sonner ce mois-ci pour une association. Comment je sais que l'argent va vraiment là où vous dites ?",
+          "Je vois beaucoup de chiffres dans les brochures. Vous avez des preuves indépendantes, pas juste vos propres communications ?",
+          "D'accord… c'est plus solide que ce que j'entends habituellement. Je vous écoute encore une minute."
+        ],
+        gateMsg: "Vous avez bien commencé. Créez votre compte pour voir votre score et continuer la simulation."
+      },
+      ouvert: {
+        name: 'Marie',
+        title: "L'Ouverte",
+        env: 'door',
+        envLabel: '🚪 Marie ouvre la porte avec le sourire…',
+        envClass: 'env-door',
+        color: '#16a34a',
+        scripts: [
+          "Bonjour ! Oui, j'ai un moment.",
+          "C'est une belle cause. Qu'est-ce qui vous a amené à travailler pour eux ?",
+          "Ça me touche vraiment. Et concrètement, ça représente quoi, un don mensuel ?",
+          "Je ne m'y attendais pas à cette heure, mais je suis content que vous soyez passé."
+        ],
+        gateMsg: "Bonne connexion avec ce profil ! Créez votre compte pour voir votre score détaillé."
+      },
+      presse: {
+        name: 'Thomas',
+        title: 'Le Pressé',
+        env: 'phone',
+        envLabel: '📞 Thomas décroche. Vous avez 60 secondes…',
+        envClass: 'env-phone',
+        color: '#d97706',
+        scripts: [
+          "Oui, vite.",
+          "OK. Et ?",
+          "Combien ?",
+          "Je dois y aller dans 30 secondes."
+        ],
+        gateMsg: "Vous gérez bien la pression. Créez votre compte pour voir votre score."
+      },
+      hostile: {
+        name: 'Bernard',
+        title: "L'Hostile",
+        env: 'door',
+        envLabel: '🚪 Bernard entrouvre la porte, méfiant…',
+        envClass: 'env-door',
+        color: '#dc2626',
+        scripts: [
+          "Encore un démarchage… j'allais justement fermer.",
+          "Les associations, j'en ai ras-le-bol. La dernière fois j'ai donné et je n'ai jamais eu de nouvelles.",
+          "Pourquoi je vous ferais confiance à vous plutôt qu'aux autres ?",
+          "Hmm. C'est honnête au moins."
+        ],
+        gateMsg: "Bravo — tenir avec un profil hostile, c'est difficile. Créez votre compte pour votre score complet."
+      },
+      curieux: {
+        name: 'Sophie',
+        title: 'La Curieuse',
+        env: 'event',
+        envLabel: '🎪 Sophie s'approche, carnet en main…',
+        envClass: 'env-event',
+        color: '#3b82f6',
+        scripts: [
+          "Oh, bonjour ! Quelle organisation ?",
+          "Intéressant. Et comment ils mesurent l'impact exactement ?",
+          "Et les frais de structure, c'est quel pourcentage ?",
+          "OK, et si je veux en savoir plus sur leurs projets spécifiques ?"
+        ],
+        gateMsg: "Vous gérez bien les questions détaillées. Créez votre compte pour voir votre analyse complète."
+      }
+    };
+
+    // ── SVG Avatars (full size 120px) ──────────────────────────────────────
+    const AVATARS = {
+      sceptique: `<svg viewBox="0 0 120 120" width="120" height="120">
+        <rect width="120" height="120" rx="16" fill="#7c3aed"/>
+        <ellipse cx="60" cy="30" rx="27" ry="14" fill="#aaa"/>
+        <ellipse cx="60" cy="27" rx="22" ry="9" fill="#bbb"/>
+        <circle cx="60" cy="54" r="26" fill="#FDBCB4"/>
+        <circle cx="51" cy="50" r="3.5" fill="#333"/>
+        <circle cx="69" cy="50" r="3.5" fill="#333"/>
+        <circle cx="52" cy="49" r="1.2" fill="#fff"/>
+        <circle cx="70" cy="49" r="1.2" fill="#fff"/>
+        <line x1="44" y1="41" x2="57" y2="44.5" stroke="#555" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="63" y1="44.5" x2="76" y2="41" stroke="#555" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="53" y1="63" x2="67" y2="63" stroke="#c0876a" stroke-width="2.2" stroke-linecap="round"/>
+        <rect x="36" y="79" width="48" height="28" rx="8" fill="#4a3a7a"/>
+        <path d="M36 91 Q60 85 84 91" stroke="#3a2a6a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <text x="60" y="115" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.85)">Jean-Pierre</text>
+      </svg>`,
+      ouvert: `<svg viewBox="0 0 120 120" width="120" height="120">
+        <rect width="120" height="120" rx="16" fill="#16a34a"/>
+        <circle cx="60" cy="54" r="26" fill="#f5cba7"/>
+        <path d="M34 54 Q34 28 60 28 Q86 28 86 54" fill="#5c3317"/>
+        <path d="M46 90 Q55 98 60 98 Q65 98 74 90" fill="#5c3317"/>
+        <circle cx="51" cy="50" r="3.2" fill="#333"/>
+        <circle cx="69" cy="50" r="3.2" fill="#333"/>
+        <circle cx="52" cy="49" r="1.1" fill="#fff"/>
+        <circle cx="70" cy="49" r="1.1" fill="#fff"/>
+        <line x1="47" y1="42" x2="57" y2="43" stroke="#7a5230" stroke-width="2" stroke-linecap="round"/>
+        <line x1="63" y1="43" x2="73" y2="42" stroke="#7a5230" stroke-width="2" stroke-linecap="round"/>
+        <path d="M52 62 Q60 69 68 62" stroke="#c07850" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+        <rect x="36" y="79" width="48" height="28" rx="8" fill="#15803d"/>
+        <text x="60" y="115" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.85)">Marie</text>
+      </svg>`,
+      presse: `<svg viewBox="0 0 120 120" width="120" height="120">
+        <rect width="120" height="120" rx="16" fill="#d97706"/>
+        <circle cx="60" cy="54" r="26" fill="#FDBCB4"/>
+        <rect x="34" y="26" width="52" height="20" rx="4" fill="#2d2d2d"/>
+        <ellipse cx="60" cy="28" rx="26" ry="9" fill="#2d2d2d"/>
+        <circle cx="51" cy="49" r="3.2" fill="#333"/>
+        <circle cx="69" cy="53" r="3.2" fill="#333"/>
+        <circle cx="52" cy="48" r="1.1" fill="#fff"/>
+        <circle cx="70" cy="52" r="1.1" fill="#fff"/>
+        <line x1="46" y1="41" x2="57" y2="42" stroke="#555" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="63" y1="44" x2="74" y2="45" stroke="#555" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="53" y1="62" x2="67" y2="61" stroke="#c0876a" stroke-width="1.8" stroke-linecap="round"/>
+        <rect x="36" y="79" width="48" height="28" rx="8" fill="#1e40af"/>
+        <line x1="60" y1="82" x2="60" y2="104" stroke="#93c5fd" stroke-width="1.5"/>
+        <text x="60" y="115" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.85)">Thomas</text>
+      </svg>`,
+      hostile: `<svg viewBox="0 0 120 120" width="120" height="120">
+        <rect width="120" height="120" rx="16" fill="#dc2626"/>
+        <circle cx="60" cy="54" r="26" fill="#e8c9b0"/>
+        <ellipse cx="60" cy="28" rx="26" ry="11" fill="#ddd"/>
+        <ellipse cx="52" cy="27" rx="8" ry="5" fill="#ccc"/>
+        <ellipse cx="68" cy="27" rx="8" ry="5" fill="#ccc"/>
+        <circle cx="51" cy="51" r="3.5" fill="#333"/>
+        <circle cx="69" cy="51" r="3.5" fill="#333"/>
+        <circle cx="52" cy="50" r="1.2" fill="#fff"/>
+        <circle cx="70" cy="50" r="1.2" fill="#fff"/>
+        <line x1="43" y1="40" x2="58" y2="45" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+        <line x1="62" y1="45" x2="77" y2="40" stroke="#333" stroke-width="3" stroke-linecap="round"/>
+        <path d="M54 64 Q60 60 66 64" stroke="#a07060" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+        <rect x="36" y="79" width="48" height="28" rx="8" fill="#7f1d1d"/>
+        <text x="60" y="115" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.85)">Bernard</text>
+      </svg>`,
+      curieux: `<svg viewBox="0 0 120 120" width="120" height="120">
+        <rect width="120" height="120" rx="16" fill="#3b82f6"/>
+        <circle cx="60" cy="54" r="26" fill="#FDBCB4"/>
+        <path d="M36 38 Q48 22 72 26 Q84 30 86 48 Q84 28 60 26 Q38 24 36 38Z" fill="#1a1a1a"/>
+        <circle cx="51" cy="50" r="3.2" fill="#333"/>
+        <circle cx="69" cy="50" r="3.2" fill="#333"/>
+        <circle cx="52" cy="49" r="1.1" fill="#fff"/>
+        <circle cx="70" cy="49" r="1.1" fill="#fff"/>
+        <circle cx="51" cy="46" r="4.5" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+        <circle cx="69" cy="46" r="4.5" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+        <line x1="56" y1="46" x2="64" y2="46" stroke="#1a1a1a" stroke-width="1.5"/>
+        <line x1="46" y1="41" x2="57" y2="42" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+        <line x1="63" y1="42" x2="74" y2="43" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M53 62 Q60 67 67 62" stroke="#c0876a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <rect x="36" y="79" width="48" height="28" rx="8" fill="#1d4ed8"/>
+        <rect x="75" y="76" width="20" height="14" rx="2" fill="#fff" stroke="#ddd" stroke-width="1"/>
+        <line x1="77" y1="80" x2="93" y2="80" stroke="#bbb" stroke-width="1"/>
+        <line x1="77" y1="83" x2="90" y2="83" stroke="#bbb" stroke-width="1"/>
+        <line x1="77" y1="86" x2="88" y2="86" stroke="#bbb" stroke-width="1"/>
+        <text x="60" y="115" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.85)">Sophie</text>
+      </svg>`
+    };
+
+    // ── State ──────────────────────────────────────────────────────────────
+    let currentProfile = null;
+    let exchangeCount = 0;      // # of user messages sent
+    let waitingForDonor = false;
+    const MAX_EXCHANGES = 3;
+
+    // Empathy / quality keywords
+    const EMPATHY_WORDS = ['comprends','comprendre','touche','sensible','important','merci','reconnaissant','difficile','humain','impact','aide','solidarité','famille','enfants','vie','avenir'];
+    const SPECIFICITY_WORDS = ['%','euro','€','million','millier','projet','programme','résultat','audit','label','don','mensuel','annuel','chaque mois'];
+    const QUESTION_WORDS = ['?','comment','pourquoi','quand','quel','quelle','est-ce que','pouvez-vous'];
+
+    function calcScore(msgs) {
+      let s = 50;
+      msgs.forEach(m => {
+        const t = m.toLowerCase();
+        if (t.length > 60) s += 4;
+        if (t.length > 120) s += 4;
+        EMPATHY_WORDS.forEach(w => { if (t.includes(w)) s += 3; });
+        SPECIFICITY_WORDS.forEach(w => { if (t.includes(w)) s += 4; });
+        QUESTION_WORDS.forEach(w => { if (t.includes(w)) s += 2; });
+      });
+      return Math.min(98, Math.max(32, s));
+    }
+
+    function getEmotionalState(msgs) {
+      if (!msgs || msgs.length === 0) return '😐 Neutre';
+      const last = msgs[msgs.length - 1].toLowerCase();
+      const hasEmpathy = EMPATHY_WORDS.some(w => last.includes(w));
+      const hasSpecific = SPECIFICITY_WORDS.some(w => last.includes(w));
+      const hasQuestion = QUESTION_WORDS.some(w => last.includes(w));
+      if (exchangeCount >= 3) return '💭 Réfléchit sérieusement';
+      if (exchangeCount === 2 && (hasEmpathy || hasSpecific)) return '🤔 Intrigué';
+      if (hasEmpathy && hasSpecific) return '🤔 Intrigué';
+      if (hasQuestion) return '👂 Écoute';
+      if (hasEmpathy || hasSpecific) return '🙂 Attentif';
+      return '😐 Neutre';
+    }
+
+    // ── DOM helpers ────────────────────────────────────────────────────────
+    function $(id) { return document.getElementById(id); }
+
+    function appendBubble(text, type, sender) {
+      const msgs = $('teaserMessages');
+      const wrap = document.createElement('div');
+      wrap.className = `chat-bubble-wrap ${type}-wrap`;
+      wrap.innerHTML = `<div class="bubble-sender">${sender}</div><div class="chat-bubble ${type}">${text}</div>`;
+      msgs.appendChild(wrap);
+      msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    function showTyping() {
+      const msgs = $('teaserMessages');
+      const t = document.createElement('div');
+      t.id = 'typingIndicator';
+      t.className = 'typing-indicator';
+      t.innerHTML = '<span></span><span></span><span></span>';
+      msgs.appendChild(t);
+      msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    function removeTyping() {
+      const t = $('typingIndicator');
+      if (t) t.remove();
+    }
+
+    // ── Profile selection ──────────────────────────────────────────────────
+    window.selectProfile = function(profileKey) {
+      currentProfile = profileKey;
+      exchangeCount = 0;
+      waitingForDonor = false;
+
+      const p = PROFILES[profileKey];
+
+      // Highlight selected card
+      document.querySelectorAll('.profile-card').forEach(c => {
+        c.classList.toggle('selected', c.dataset.profile === profileKey);
+      });
+
+      // Show arena
+      const arena = $('teaserArena');
+      arena.style.display = 'block';
+      arena.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      // Set env class on avatar col
+      const avatarCol = arena.querySelector('.teaser-avatar-col');
+      avatarCol.className = 'teaser-avatar-col ' + p.envClass;
+
+      // Set avatar SVG
+      $('teaserAvatarSvg').innerHTML = AVATARS[profileKey];
+
+      // Set env label
+      $('teaserEnvLabel').textContent = p.envLabel;
+
+      // Set chat name
+      $('teaserChatName').textContent = `${p.name} — ${p.title}`;
+      $('teaserChatCount').textContent = '0 / 3 échanges';
+
+      // Clear messages
+      $('teaserMessages').innerHTML = '';
+
+      // Hide gate
+      $('teaserGate').style.display = 'none';
+
+      // Reset emotional state
+      $('teaserStateValue').textContent = '😐 Neutre';
+
+      // Enable input
+      $('teaserInput').disabled = false;
+      $('teaserSendBtn').disabled = false;
+      $('teaserInput').value = '';
+      $('teaserInput').placeholder = 'Votre réponse au donateur…';
+
+      // Show first donor message after a brief delay
+      setTimeout(() => {
+        appendBubble(p.scripts[0], 'donor', p.name);
+      }, 600);
+
+      setTimeout(() => { $('teaserInput').focus(); }, 700);
+    };
+
+    // ── Send message ───────────────────────────────────────────────────────
+    window.sendTeaserMessage = function() {
+      if (!currentProfile || waitingForDonor) return;
+      const input = $('teaserInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const p = PROFILES[currentProfile];
+
+      // Append user bubble
+      appendBubble(text, 'user', 'Vous');
+      input.value = '';
+      exchangeCount++;
+      $('teaserChatCount').textContent = `${exchangeCount} / 3 échanges`;
+
+      // Update emotional state
+      const allUserMsgs = Array.from($('teaserMessages').querySelectorAll('.chat-bubble.user')).map(b => b.textContent);
+      $('teaserStateValue').textContent = getEmotionalState(allUserMsgs);
+
+      if (exchangeCount >= MAX_EXCHANGES) {
+        // Show last scripted response then trigger gate
+        waitingForDonor = true;
+        $('teaserSendBtn').disabled = true;
+        $('teaserInput').disabled = true;
+
+        showTyping();
+        setTimeout(() => {
+          removeTyping();
+          appendBubble(p.scripts[3], 'donor', p.name);
+          // Short pause then show gate
+          setTimeout(() => showGate(allUserMsgs.concat([text])), 1200);
+        }, 1800);
+      } else {
+        // Normal response
+        waitingForDonor = true;
+        $('teaserSendBtn').disabled = true;
+        $('teaserInput').disabled = true;
+
+        showTyping();
+        const responseIdx = exchangeCount; // scripts[1], [2]…
+        setTimeout(() => {
+          removeTyping();
+          appendBubble(p.scripts[responseIdx], 'donor', p.name);
+          waitingForDonor = false;
+          $('teaserSendBtn').disabled = false;
+          $('teaserInput').disabled = false;
+          setTimeout(() => $('teaserInput').focus(), 100);
+        }, 1500 + Math.random() * 500);
+      }
+    };
+
+    // ── Gate ───────────────────────────────────────────────────────────────
+    function showGate(userMsgs) {
+      const score = calcScore(userMsgs);
+      $('gateScoreNumber').textContent = score;
+      // Animate bar
+      setTimeout(() => {
+        $('gateScoreBar').style.width = score + '%';
+      }, 100);
+      $('teaserGate').style.display = 'flex';
+    }
+
+    window.gateSignup = function(e) {
+      e.preventDefault();
+      // Redirect to signup / show thank you
+      window.location.href = '#signup';
+    };
+
+    // ── Reset ──────────────────────────────────────────────────────────────
+    window.resetSimulation = function() {
+      $('teaserArena').style.display = 'none';
+      currentProfile = null;
+      document.querySelectorAll('.profile-card').forEach(c => c.classList.remove('selected'));
+      $('teaserProfiles').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    };
+
+  })();
   </script>
 </body>
 </html>
