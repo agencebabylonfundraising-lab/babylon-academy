@@ -542,9 +542,11 @@
       cursor: pointer; transition: all .2s; box-shadow: 0 2px 12px rgba(79,70,229,.08);
       position: relative;
     }
+    .profile-card { cursor: pointer; }
     .profile-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(79,70,229,.16); }
     .profile-card.selected { border-color: #4f46e5; box-shadow: 0 0 0 4px rgba(79,70,229,.14); }
     .profile-avatar { flex-shrink: 0; }
+    .profile-avatar svg, .teaser-avatar-svg svg { filter: none !important; color-interpolation: auto; }
     .profile-info { text-align: center; width: 100%; }
     .profile-name { font-weight: 800; font-size: 15px; color: #1a1a1a; }
     .profile-type { font-size: 12px; color: #6b7280; font-style: italic; margin-top: 2px; }
@@ -584,7 +586,7 @@
       width: 120px; height: 120px; border-radius: 16px;
       position: relative; overflow: visible; margin-bottom: 12px;
     }
-    .teaser-avatar-svg svg { width: 120px; height: 120px; }
+    .teaser-avatar-svg svg { width: 120px; height: 120px; filter: none !important; }
     /* Door frame environment */
     .env-door .teaser-avatar-stage::after {
       content: '';
@@ -1565,7 +1567,7 @@
               <span class="diff-dot active"></span><span class="diff-dot active"></span><span class="diff-dot active"></span><span class="diff-dot"></span><span class="diff-dot"></span>
             </div>
           </div>
-          <button class="profile-try-btn">Essayer →</button>
+          <button class="profile-try-btn" onclick="event.stopPropagation(); selectProfile(this.closest('[data-profile]').dataset.profile)">Essayer →</button>
         </div>
 
         <!-- Marie -->
@@ -1597,7 +1599,7 @@
               <span class="diff-dot active"></span><span class="diff-dot"></span><span class="diff-dot"></span><span class="diff-dot"></span><span class="diff-dot"></span>
             </div>
           </div>
-          <button class="profile-try-btn">Essayer →</button>
+          <button class="profile-try-btn" onclick="event.stopPropagation(); selectProfile(this.closest('[data-profile]').dataset.profile)">Essayer →</button>
         </div>
 
         <!-- Thomas -->
@@ -1628,7 +1630,7 @@
               <span class="diff-dot active"></span><span class="diff-dot active"></span><span class="diff-dot active"></span><span class="diff-dot active"></span><span class="diff-dot"></span>
             </div>
           </div>
-          <button class="profile-try-btn">Essayer →</button>
+          <button class="profile-try-btn" onclick="event.stopPropagation(); selectProfile(this.closest('[data-profile]').dataset.profile)">Essayer →</button>
         </div>
 
         <!-- Bernard -->
@@ -1663,7 +1665,7 @@
               <span class="diff-dot active"></span><span class="diff-dot active"></span><span class="diff-dot active"></span><span class="diff-dot active"></span><span class="diff-dot active"></span>
             </div>
           </div>
-          <button class="profile-try-btn">Essayer →</button>
+          <button class="profile-try-btn" onclick="event.stopPropagation(); selectProfile(this.closest('[data-profile]').dataset.profile)">Essayer →</button>
         </div>
 
         <!-- Sophie -->
@@ -1699,7 +1701,7 @@
               <span class="diff-dot active"></span><span class="diff-dot active"></span><span class="diff-dot"></span><span class="diff-dot"></span><span class="diff-dot"></span>
             </div>
           </div>
-          <button class="profile-try-btn">Essayer →</button>
+          <button class="profile-try-btn" onclick="event.stopPropagation(); selectProfile(this.closest('[data-profile]').dataset.profile)">Essayer →</button>
         </div>
 
       </div>
