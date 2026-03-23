@@ -664,6 +664,135 @@
       .content { padding: 24px 20px; }
       .progress-card { grid-template-columns: 1fr; }
     }
+
+    /* ── CERTIFICATION SECTION ── */
+    .cert-card {
+      background: var(--bg);
+      border: 1.5px solid rgba(201,168,76,0.3);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+    .cert-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold2), var(--gold));
+    }
+    .cert-title {
+      font-size: 15px; font-weight: 800; color: var(--accent);
+      margin-bottom: 4px; display: flex; align-items: center; gap: 8px;
+    }
+    .cert-sub { font-size: 12px; color: var(--muted); margin-bottom: 18px; }
+    .cert-profiles { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+    .cert-profile-row { display: flex; align-items: center; gap: 10px; }
+    .cert-profile-label { font-size: 12px; font-weight: 600; color: var(--accent); width: 72px; flex-shrink: 0; }
+    .cert-bar-track { flex: 1; height: 7px; background: var(--bg3); border-radius: 4px; overflow: hidden; }
+    .cert-bar-fill { height: 100%; border-radius: 4px; transition: width 1.2s cubic-bezier(0.16,1,0.3,1); width: 0; }
+    .cert-pct { font-size: 12px; font-weight: 800; width: 36px; text-align: right; }
+    .cert-check { font-size: 13px; width: 18px; text-align: center; }
+    .btn-cert-unlock {
+      width: 100%; background: linear-gradient(135deg, var(--gold), #b8860b);
+      color: var(--accent); border: none; border-radius: 10px; padding: 11px;
+      font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 800;
+      cursor: pointer; transition: opacity 0.2s;
+      box-shadow: 0 4px 14px rgba(201,168,76,0.3);
+    }
+    .btn-cert-unlock:hover { opacity: 0.9; }
+    .btn-cert-simulate {
+      width: 100%; background: var(--bg2); color: var(--purple);
+      border: 1px dashed var(--purple); border-radius: 10px; padding: 8px;
+      font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700;
+      cursor: pointer; transition: all 0.2s; margin-top: 8px;
+    }
+    .btn-cert-simulate:hover { background: rgba(124,58,237,0.06); }
+
+    /* ── CERTIFICATE MODAL ── */
+    .cert-modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.6); backdrop-filter: blur(8px);
+      z-index: 300; display: flex; align-items: center; justify-content: center;
+      padding: 20px; opacity: 0; pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    .cert-modal-overlay.open { opacity: 1; pointer-events: all; }
+    .cert-modal-box {
+      background: var(--bg);
+      border-radius: 24px;
+      padding: 0;
+      max-width: 520px; width: 100%;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.25);
+      transform: translateY(20px) scale(0.97);
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+      overflow: hidden;
+    }
+    .cert-modal-overlay.open .cert-modal-box { transform: translateY(0) scale(1); }
+    .cert-hero-band {
+      background: linear-gradient(135deg, #1a1a2e 0%, #2d1b69 50%, #1a1a2e 100%);
+      padding: 36px 32px 28px;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .cert-hero-band::before {
+      content: ''; position: absolute; inset: 0;
+      background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(201,168,76,0.03) 10px, rgba(201,168,76,0.03) 20px);
+    }
+    .cert-star { font-size: 48px; margin-bottom: 12px; position: relative; }
+    .cert-modal-title {
+      font-size: 22px; font-weight: 900; color: var(--gold);
+      letter-spacing: 0.05em; text-transform: uppercase; position: relative;
+      margin-bottom: 4px;
+    }
+    .cert-modal-subtitle { font-size: 13px; color: rgba(255,255,255,0.6); position: relative; letter-spacing: 0.12em; text-transform: uppercase; }
+    .cert-modal-body { padding: 28px 32px; }
+    .cert-user-name { font-size: 26px; font-weight: 900; color: var(--accent); margin-bottom: 4px; }
+    .cert-meta-row { display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+    .cert-meta-item { font-size: 12px; color: var(--muted); }
+    .cert-meta-item strong { color: var(--accent); display: block; font-size: 14px; font-weight: 800; }
+    .cert-score-bar-wrap { margin-bottom: 24px; }
+    .cert-score-label { display: flex; justify-content: space-between; margin-bottom: 6px; }
+    .cert-score-label span { font-size: 12px; font-weight: 700; color: var(--muted); }
+    .cert-score-label strong { font-size: 16px; font-weight: 900; color: var(--gold); }
+    .cert-score-track { height: 10px; background: var(--bg3); border-radius: 5px; overflow: hidden; }
+    .cert-score-fill {
+      height: 100%; border-radius: 5px;
+      background: linear-gradient(90deg, var(--gold), var(--gold2));
+      width: 0; transition: width 1.5s cubic-bezier(0.16,1,0.3,1);
+      box-shadow: 0 0 10px rgba(201,168,76,0.4);
+    }
+    .cert-actions { display: flex; gap: 10px; }
+    .btn-linkedin {
+      flex: 1; background: #0a66c2; color: #fff; border: none; border-radius: 10px;
+      padding: 12px 16px; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700;
+      cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px;
+      transition: opacity 0.2s;
+    }
+    .btn-linkedin:hover { opacity: 0.9; }
+    .btn-download {
+      flex: 1; background: var(--bg2); color: var(--accent); border: 1px solid var(--border);
+      border-radius: 10px; padding: 12px 16px; font-family: 'Inter', sans-serif;
+      font-size: 13px; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-download:hover { border-color: var(--accent); }
+    .btn-cert-close {
+      position: absolute; top: 14px; right: 16px;
+      background: rgba(255,255,255,0.15); border: none; border-radius: 8px;
+      width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.7); cursor: pointer; font-size: 16px; z-index: 1;
+      transition: background 0.2s;
+    }
+    .btn-cert-close:hover { background: rgba(255,255,255,0.25); color: #fff; }
+
+    /* Print styles */
+    @media print {
+      body > *:not(.cert-modal-overlay) { display: none !important; }
+      .cert-modal-overlay { position: static !important; opacity: 1 !important; background: none !important; backdrop-filter: none !important; }
+      .cert-modal-box { box-shadow: none !important; transform: none !important; max-width: 100% !important; }
+      .cert-actions, .btn-cert-close { display: none !important; }
+    }
   </style>
 </head>
 <body>
@@ -924,9 +1053,58 @@
             </div>
           </div>
 
+          <!-- CERTIFICATION CARD -->
+          <div class="cert-card" id="certCard">
+            <div class="cert-title">🏆 BABYLON Certified Fundraiser</div>
+            <div class="cert-sub">Complétez tous les profils à 80+ pour obtenir votre certification</div>
+            <div class="cert-profiles" id="certProfiles">
+              <!-- filled by JS -->
+            </div>
+            <button class="btn-cert-unlock" onclick="openCertModal(false)" id="certUnlockBtn">Débloquer la certification →</button>
+            <button class="btn-cert-simulate" onclick="openCertModal(true)">🧪 Simuler certification obtenue</button>
+          </div>
+
         </div>
       </div>
 
+    </div>
+  </div>
+
+  <!-- CERTIFICATE MODAL -->
+  <div class="cert-modal-overlay" id="certModal" onclick="closeCertOnBackdrop(event)">
+    <div class="cert-modal-box" id="certPrintArea">
+      <div class="cert-hero-band">
+        <button class="btn-cert-close" onclick="closeCertModal()">✕</button>
+        <div class="cert-star">⭐</div>
+        <div class="cert-modal-title">BABYLON Certified Fundraiser</div>
+        <div class="cert-modal-subtitle">Formation Fundraisers F2F · collecte.ai</div>
+      </div>
+      <div class="cert-modal-body">
+        <div class="cert-user-name" id="certUserName">—</div>
+        <div class="cert-meta-row">
+          <div class="cert-meta-item"><strong id="certScore">91/100</strong>Score global</div>
+          <div class="cert-meta-item"><strong id="certDate">—</strong>Obtenu le</div>
+          <div class="cert-meta-item"><strong>Fundraiser F2F</strong>Profil</div>
+        </div>
+        <div class="cert-score-bar-wrap">
+          <div class="cert-score-label">
+            <span>Score de certification</span>
+            <strong id="certScorePct">91%</strong>
+          </div>
+          <div class="cert-score-track">
+            <div class="cert-score-fill" id="certScoreFill"></div>
+          </div>
+        </div>
+        <div class="cert-actions">
+          <button class="btn-linkedin" onclick="shareLinkedIn()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            Partager sur LinkedIn →
+          </button>
+          <button class="btn-download" onclick="downloadCert()">
+            ⬇ Télécharger
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1250,6 +1428,87 @@
     // BOOT
     // ============================================================
     document.addEventListener('DOMContentLoaded', initDashboard);
+
+    // ============================================================
+    // CERTIFICATION
+    // ============================================================
+    const CERT_PROFILES = [
+      { label: 'Sceptique', score: 82, color: '#7c3aed' },
+      { label: 'Ouvert',    score: 61, color: '#2563eb' },
+      { label: 'Pressé',    score: 91, color: '#16a34a' },
+      { label: 'Hostile',   score: 43, color: '#dc2626' },
+      { label: 'Curieux',   score: 74, color: '#d97706' },
+    ];
+
+    function renderCertProfiles() {
+      const container = document.getElementById('certProfiles');
+      if (!container) return;
+      container.innerHTML = CERT_PROFILES.map(p => {
+        const done = p.score >= 80;
+        const fillColor = done
+          ? 'linear-gradient(90deg, #16a34a, #4ade80)'
+          : `linear-gradient(90deg, ${p.color}aa, ${p.color})`;
+        return `
+          <div class="cert-profile-row">
+            <div class="cert-profile-label">${p.label}</div>
+            <div class="cert-bar-track">
+              <div class="cert-bar-fill" data-w="${p.score}" style="background:${fillColor};"></div>
+            </div>
+            <div class="cert-pct" style="color:${done ? 'var(--green)' : p.color}">${p.score}%</div>
+            <div class="cert-check">${done ? '✓' : ''}</div>
+          </div>`;
+      }).join('');
+      // Animate bars
+      setTimeout(() => {
+        container.querySelectorAll('.cert-bar-fill').forEach(bar => {
+          bar.style.width = bar.getAttribute('data-w') + '%';
+        });
+      }, 300);
+    }
+
+    function openCertModal(simulate) {
+      const allDone = simulate || CERT_PROFILES.every(p => p.score >= 80);
+      if (!allDone) {
+        // Scroll to first profile below 80
+        const unlockBtn = document.getElementById('certUnlockBtn');
+        unlockBtn.textContent = '⚠ Complétez tous les profils à 80+ d\'abord';
+        unlockBtn.style.background = 'linear-gradient(135deg, #d97706, #92400e)';
+        setTimeout(() => {
+          unlockBtn.textContent = 'Débloquer la certification →';
+          unlockBtn.style.background = '';
+        }, 2500);
+        return;
+      }
+
+      // Fill modal data
+      const nameEl = document.getElementById('dbUserName');
+      const userName = nameEl ? nameEl.textContent.replace('Chargement...', '') || 'Fundraiser Pro' : 'Fundraiser Pro';
+      document.getElementById('certUserName').textContent = userName || 'Fundraiser Pro';
+      document.getElementById('certDate').textContent = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+      const score = simulate ? 91 : Math.round(CERT_PROFILES.reduce((s, p) => s + p.score, 0) / CERT_PROFILES.length);
+      document.getElementById('certScore').textContent = `${score}/100`;
+      document.getElementById('certScorePct').textContent = `${score}%`;
+
+      document.getElementById('certModal').classList.add('open');
+      setTimeout(() => {
+        document.getElementById('certScoreFill').style.width = score + '%';
+      }, 350);
+    }
+
+    function closeCertModal() { document.getElementById('certModal').classList.remove('open'); }
+    function closeCertOnBackdrop(e) { if (e.target === document.getElementById('certModal')) closeCertModal(); }
+
+    function shareLinkedIn() {
+      const url = 'https://www.linkedin.com/sharing/share-offsite/?url=https://agencebabylonfundraising-lab.github.io/babylon-academy/&summary=Je+viens+d%27obtenir+ma+certification+BABYLON+Certified+Fundraiser+avec+un+score+de+91%2F100+%F0%9F%8F%86+%23fundraising+%23collecte+%23formation';
+      window.open(url, '_blank', 'noopener,width=600,height=500');
+    }
+
+    function downloadCert() { window.print(); }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCertProfiles();
+    });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeCertModal(); });
   </script>
 </body>
 </html>
