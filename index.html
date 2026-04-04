@@ -4,6 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>collecte.ai — Maîtrise l'art de la collecte. Quel que soit ton canal.</title>
+  <meta name="description" content="collecte.ai forme les fundraisers par la simulation IA. F2F, téléphone, événements, grands donateurs. 500+ fundraisers formés. 4.8/5 satisfaction.">
+  <meta property="og:title" content="collecte.ai — Formation fundraising par simulation IA">
+  <meta property="og:description" content="Maîtrise l'art de la collecte avec des simulations IA réalistes. 6 profils de fundraisers, progression mesurée, classement. 14 jours gratuits.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://agencebabylonfundraising-lab.github.io/babylon-academy/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="collecte.ai — Formation fundraiser par IA">
+  <meta name="twitter:description" content="500+ fundraisers formés. Simulations IA, scores en temps réel, classement. F2F, téléphone, événements.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -1981,21 +1989,23 @@
     function setLang(lang) {
       currentLang = lang;
       document.querySelectorAll('[data-fr]').forEach(el => {
-        el.innerHTML = lang === 'fr' ? el.dataset.fr : (el.dataset.en || el.dataset.fr);
+        const val = lang === 'fr' ? el.dataset.fr : (el.dataset.en || el.dataset.fr);
+        const clean = val
+          .replace(/&amp;lt;/g, '<').replace(/&amp;gt;/g, '>')
+          .replace(/&amp;amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+        el.innerHTML = clean;
       });
       document.querySelectorAll('[data-placeholder-fr]').forEach(el => {
         el.placeholder = lang === 'fr' ? el.dataset.placeholderFr : (el.dataset.placeholderEn || el.dataset.placeholderFr);
       });
-      document.querySelectorAll('.lang-toggle').forEach(btn => {
+      document.querySelectorAll('.lang-btn, .lang-toggle').forEach(btn => {
         btn.textContent = lang === 'fr' ? 'EN' : 'FR';
-        btn.setAttribute('aria-label', lang === 'fr' ? 'Switch to English' : 'Passer en français');
       });
       localStorage.setItem('lang', lang);
     }
     function toggleLang() { setLang(currentLang === 'fr' ? 'en' : 'fr'); }
     document.addEventListener('DOMContentLoaded', () => {
-      const saved = localStorage.getItem('lang');
-      if (saved && saved !== 'fr') setLang(saved);
+      setLang(localStorage.getItem('lang') || 'fr');
     });
 
     /* ======== FORM STATE ======== */
@@ -2167,7 +2177,7 @@
           animateCounter(document.getElementById('stat-collecteurs'), 500, 1800);
           animateCounter(document.getElementById('stat-reussite'), 87, 1600);
           animateCounter(document.getElementById('stat-simulations'), 12, 1400);
-          animateCounter(document.getElementById('stat-note'), 8, 1500, 1);
+          animateCounter(document.getElementById('stat-note'), 8, 1500, 0);
           statsObserver.disconnect();
         }
       });
