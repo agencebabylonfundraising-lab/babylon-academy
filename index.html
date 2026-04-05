@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>collecte.ai — Maîtrise l'art de la collecte. Quel que soit ton canal.</title>
-  <meta name="description" content="collecte.ai forme les fundraisers par la simulation IA. F2F, téléphone, événements, grands donateurs. 500+ fundraisers formés. 4.8/5 satisfaction.">
-  <meta property="og:title" content="collecte.ai — Formation fundraising par simulation IA">
-  <meta property="og:description" content="Maîtrise l'art de la collecte avec des simulations IA réalistes. 6 profils de fundraisers, progression mesurée, classement. 14 jours gratuits.">
+  <title>collecte.ai — La formation IA pour les fundraisers</title>
+  <meta name="description" content="collecte.ai simule de vraies conversations avec des donateurs IA. Pratique, améliore-toi, mesure tes progrès. Pour tous les types de collecte.">
+  <meta property="og:title" content="collecte.ai — Deviens le fundraiser que tu aurais voulu avoir face à toi">
+  <meta property="og:description" content="Simulations IA réalistes, scoring en temps réel, certification reconnue. F2F, téléphone, événements, grands donateurs.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://agencebabylonfundraising-lab.github.io/babylon-academy/">
+  <meta property="og:url" content="https://collecte.ai">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="collecte.ai — Formation fundraiser par IA">
-  <meta name="twitter:description" content="500+ fundraisers formés. Simulations IA, scores en temps réel, classement. F2F, téléphone, événements.">
+  <meta name="twitter:title" content="collecte.ai — Formation fundraising par IA">
+  <meta name="twitter:description" content="Simule de vraies conversations avec des donateurs IA. Pratique, progresse, certifie-toi.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -32,7 +32,6 @@
       --text: #1a1a1a;
       --muted: #6b6860;
       --accent: #1a1a2e;
-      --gold: #c9a84c;
       --green: #16a34a;
       --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
       --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
@@ -52,20 +51,20 @@
       height: 68px; box-shadow: var(--shadow-sm);
     }
     .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-    .nav-right { display: flex; align-items: center; gap: 20px; }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
     .nav-link { font-size: 14px; font-weight: 500; color: var(--muted); text-decoration: none; transition: color 0.2s; }
     .nav-link:hover { color: var(--accent); }
     .nav-cta {
       background: linear-gradient(135deg, var(--indigo-600), var(--indigo-500));
       color: #fff; padding: 10px 22px; border-radius: 8px;
       font-size: 14px; font-weight: 700; text-decoration: none;
-      transition: opacity 0.2s, transform 0.15s;
+      transition: opacity 0.2s, transform 0.15s; white-space: nowrap;
     }
     .nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
     .lang-toggle {
       background: transparent; border: 1px solid var(--border); color: var(--muted);
       padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 700;
-      cursor: pointer; letter-spacing: 0.05em;
+      cursor: pointer; letter-spacing: 0.05em; font-family: 'Inter', sans-serif;
     }
 
     /* ======== HERO ======== */
@@ -73,13 +72,11 @@
       position: relative; min-height: 100vh;
       background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4c1d95 100%);
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; padding: 80px 5% 0; overflow: hidden;
+      text-align: center; padding: 80px 5% 60px; overflow: hidden;
     }
-
-    /* Animated grid overlay */
     .hero::before {
       content: '';
-      position: absolute; inset: 0;
+      position: absolute; inset: 0; z-index: 0;
       background-image:
         linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
@@ -91,33 +88,32 @@
       0% { transform: translateY(0) translateX(0); }
       100% { transform: translateY(60px) translateX(60px); }
     }
-
-    /* Radial glow */
     .hero::after {
-      content: '';
-      position: absolute;
-      top: 20%; left: 50%; transform: translateX(-50%);
+      content: ''; z-index: 0;
+      position: absolute; top: 20%; left: 50%; transform: translateX(-50%);
       width: 600px; height: 400px;
       background: radial-gradient(ellipse, rgba(99,102,241,0.25) 0%, transparent 70%);
       pointer-events: none;
     }
 
-    /* Floating emojis */
+    /* Floating emojis — z-index 0 so they never overlap text */
     .float-emoji {
       position: absolute; font-size: 2rem; user-select: none; pointer-events: none;
       filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+      z-index: 0;
     }
     .float-emoji:nth-child(1) { top: 15%; left: 8%; animation: float1 7s ease-in-out infinite; }
     .float-emoji:nth-child(2) { top: 25%; right: 10%; animation: float2 9s ease-in-out infinite 1s; }
     .float-emoji:nth-child(3) { bottom: 30%; left: 12%; animation: float3 8s ease-in-out infinite 2s; }
     .float-emoji:nth-child(4) { bottom: 25%; right: 8%; animation: float4 10s ease-in-out infinite 0.5s; }
-    .float-emoji:nth-child(5) { top: 60%; left: 6%; animation: float1 6s ease-in-out infinite 3s; font-size: 1.5rem; opacity: 0.6; }
-    .float-emoji:nth-child(6) { top: 10%; right: 25%; animation: float3 11s ease-in-out infinite 1.5s; font-size: 1.4rem; opacity: 0.5; }
+    .float-emoji:nth-child(5) { top: 60%; left: 6%; animation: float1 6s ease-in-out infinite 3s; font-size: 1.5rem; opacity: 0.5; }
+    .float-emoji:nth-child(6) { top: 10%; right: 22%; animation: float3 11s ease-in-out infinite 1.5s; font-size: 1.4rem; opacity: 0.4; }
     @keyframes float1 { 0%,100%{transform:translateY(0) rotate(-3deg)} 50%{transform:translateY(-24px) rotate(3deg)} }
     @keyframes float2 { 0%,100%{transform:translateY(0) rotate(5deg)} 50%{transform:translateY(-18px) rotate(-5deg)} }
     @keyframes float3 { 0%,100%{transform:translateY(0) rotate(-2deg)} 50%{transform:translateY(-20px) rotate(4deg)} }
     @keyframes float4 { 0%,100%{transform:translateY(0) rotate(3deg)} 50%{transform:translateY(-28px) rotate(-3deg)} }
 
+    /* Hero content always on top */
     .hero-content { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; }
 
     .hero-eyebrow {
@@ -135,16 +131,13 @@
     @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.8)} }
 
     .hero h1 {
-      font-size: clamp(42px, 7vw, 82px); font-weight: 900;
-      color: #fff; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 24px;
+      font-size: clamp(36px, 6.5vw, 76px); font-weight: 900;
+      color: #fff; line-height: 1.08; letter-spacing: -0.03em; margin-bottom: 24px;
     }
-    .hero h1 .line2 { color: rgba(255,255,255,0.7); font-size: 0.85em; font-weight: 700; display: block; margin-top: 4px; }
-
     .hero-sub {
       font-size: clamp(16px, 2vw, 19px); color: rgba(255,255,255,0.75);
-      max-width: 560px; margin: 0 auto 36px; line-height: 1.7;
+      max-width: 580px; margin: 0 auto 36px; line-height: 1.7;
     }
-
     .hero-ctas { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; margin-bottom: 28px; }
 
     .btn-hero-primary {
@@ -160,18 +153,18 @@
 
     .btn-hero-ghost {
       background: transparent; color: #fff;
-      padding: 15px 32px; border-radius: 12px;
-      font-size: 16px; font-weight: 700; text-decoration: none;
-      border: 2px solid rgba(255,255,255,0.4);
+      padding: 15px 28px; border-radius: 12px;
+      font-size: 15px; font-weight: 700; text-decoration: none;
+      border: 2px solid rgba(255,255,255,0.35);
       transition: border-color 0.2s, background 0.2s;
       display: inline-flex; align-items: center; gap: 8px;
     }
     .btn-hero-ghost:hover { border-color: rgba(255,255,255,0.8); background: rgba(255,255,255,0.08); }
 
-    /* Social proof pills */
+    /* Trust pills */
     .hero-proof {
       display: flex; align-items: center; justify-content: center;
-      gap: 12px; flex-wrap: wrap; margin-bottom: 48px;
+      gap: 10px; flex-wrap: wrap; margin-bottom: 48px;
     }
     .proof-pill {
       background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
@@ -181,750 +174,284 @@
       display: flex; align-items: center; gap: 6px;
     }
 
-    /* Animated XP bar at bottom of hero */
+    /* XP bar */
     .hero-xp-section {
       position: relative; z-index: 1;
-      width: 100%; max-width: 600px; margin: 0 auto;
+      width: 100%; max-width: 580px; margin: 0 auto;
       background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
       border-radius: 16px; padding: 16px 20px;
-      backdrop-filter: blur(10px); margin-bottom: -1px;
+      backdrop-filter: blur(10px);
     }
     .xp-label-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-    .xp-level-badge {
-      display: flex; align-items: center; gap: 8px;
-      font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.9);
-    }
-    .xp-level-num {
-      width: 28px; height: 28px; background: var(--indigo-500);
-      border-radius: 8px; display: flex; align-items: center; justify-content: center;
-      font-size: 12px; font-weight: 900; color: #fff;
-    }
+    .xp-level-badge { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.9); }
+    .xp-level-num { width: 28px; height: 28px; background: var(--indigo-500); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900; color: #fff; }
     .xp-pct { font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.6); }
     .xp-bar-track { height: 8px; background: rgba(255,255,255,0.15); border-radius: 4px; overflow: hidden; }
-    .xp-bar-fill {
-      height: 100%; width: 0%;
-      background: linear-gradient(90deg, #818cf8, #c4b5fd);
-      border-radius: 4px;
-      animation: xpLoad 2s cubic-bezier(0.4, 0, 0.2, 1) 0.8s forwards;
-    }
+    .xp-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #818cf8, #c4b5fd); border-radius: 4px; animation: xpLoad 2s cubic-bezier(0.4,0,0.2,1) 0.8s forwards; }
     @keyframes xpLoad { to { width: 78%; } }
     .xp-sub { font-size: 10px; color: rgba(255,255,255,0.45); margin-top: 6px; text-align: center; }
 
-    /* ======== FEATURE SECTION (Pourquoi) ======== */
-    .features-section { padding: 100px 5%; background: var(--bg2); }
+    /* ======== SECTION COMMONS ======== */
     .section-header { text-align: center; margin-bottom: 60px; }
-    .section-eyebrow {
-      font-size: 12px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
-      color: var(--indigo-600); margin-bottom: 12px;
-    }
-    .section-title { font-size: clamp(28px, 4vw, 44px); font-weight: 800; color: var(--accent); letter-spacing: -0.02em; margin-bottom: 16px; }
+    .section-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--indigo-600); margin-bottom: 12px; }
+    .section-title { font-size: clamp(26px, 4vw, 44px); font-weight: 800; color: var(--accent); letter-spacing: -0.02em; margin-bottom: 16px; }
     .section-sub { font-size: 17px; color: var(--muted); max-width: 520px; margin: 0 auto; line-height: 1.7; }
 
-    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1100px; margin: 0 auto; }
-
-    .feature-card {
+    /* ======== HOW IT WORKS ======== */
+    .how-section { padding: 100px 5%; background: var(--bg2); }
+    .steps-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; max-width: 1000px; margin: 0 auto; }
+    .step-card {
       background: var(--bg); border: 1px solid var(--border); border-radius: 20px;
-      padding: 40px 32px; box-shadow: var(--shadow-indigo);
-      transition: transform 0.25s cubic-bezier(0.4,0,0.2,1), box-shadow 0.25s, border-color 0.25s;
+      padding: 40px 28px; text-align: center;
+      box-shadow: var(--shadow-indigo);
+      transition: transform 0.25s, box-shadow 0.25s;
+      opacity: 0; transform: translateY(28px);
+    }
+    .step-card.visible { opacity: 1; transform: translateY(0); }
+    .step-card:nth-child(2) { transition-delay: 0.1s; }
+    .step-card:nth-child(3) { transition-delay: 0.2s; }
+    .step-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(99,102,241,0.18); }
+    .step-num {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--indigo-600), var(--indigo-500));
+      color: #fff; font-size: 20px; font-weight: 900;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+    }
+    .step-icon { font-size: 32px; margin-bottom: 16px; }
+    .step-card h3 { font-size: 18px; font-weight: 800; color: var(--accent); margin-bottom: 10px; }
+    .step-card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+    /* ======== FEATURES ======== */
+    .features-section { padding: 100px 5%; background: var(--bg); }
+    .features-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; max-width: 1100px; margin: 0 auto; }
+    .feature-card {
+      background: var(--bg2); border: 1px solid var(--border); border-radius: 20px;
+      padding: 36px 28px; box-shadow: var(--shadow-indigo);
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
       opacity: 0; transform: translateY(32px);
     }
     .feature-card.visible { opacity: 1; transform: translateY(0); }
     .feature-card:nth-child(2) { transition-delay: 0.1s; }
     .feature-card:nth-child(3) { transition-delay: 0.2s; }
-    .feature-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 16px 48px rgba(99,102,241,0.2);
-      border-color: var(--indigo-500);
-    }
-    .feature-icon {
-      width: 64px; height: 64px; border-radius: 16px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 28px; margin-bottom: 24px;
-    }
+    .feature-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(99,102,241,0.2); border-color: var(--indigo-500); }
+    .feature-icon { width: 60px; height: 60px; border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 26px; margin-bottom: 20px; }
     .feature-icon-1 { background: linear-gradient(135deg, #ede9fe, #ddd6fe); }
     .feature-icon-2 { background: linear-gradient(135deg, #ecfdf5, #d1fae5); }
     .feature-icon-3 { background: linear-gradient(135deg, #fef3c7, #fde68a); }
-    .feature-card h3 { font-size: 20px; font-weight: 800; color: var(--accent); margin-bottom: 12px; }
-    .feature-card p { font-size: 15px; color: var(--muted); line-height: 1.75; }
+    .feature-card h3 { font-size: 18px; font-weight: 800; color: var(--accent); margin-bottom: 10px; }
+    .feature-card p { font-size: 14px; color: var(--muted); line-height: 1.75; }
 
     /* ======== DASHBOARD PREVIEW ======== */
-    .dashboard-preview { padding: 100px 5%; background: var(--bg); }
+    .dashboard-preview { padding: 100px 5%; background: var(--bg2); }
     .dashboard-preview-inner { max-width: 1100px; margin: 0 auto; }
-
     .mockup-wrapper { position: relative; margin-top: 48px; }
-    .mockup-browser {
-      background: var(--bg3); border: 1px solid var(--border);
-      border-radius: 16px; overflow: hidden;
-      box-shadow: 0 24px 80px rgba(99,102,241,0.15), var(--shadow-lg);
-    }
-    .browser-chrome {
-      background: #2d2b3d; padding: 10px 16px;
-      display: flex; align-items: center; gap: 12px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
+    .mockup-browser { background: var(--bg3); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 24px 80px rgba(99,102,241,0.15), var(--shadow-lg); }
+    .browser-chrome { background: #2d2b3d; padding: 10px 16px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.08); }
     .chrome-dots { display: flex; gap: 6px; }
     .chrome-dot { width: 10px; height: 10px; border-radius: 50%; }
-    .chrome-url {
-      flex: 1; background: rgba(255,255,255,0.08);
-      border-radius: 6px; padding: 5px 12px;
-      font-size: 11px; color: rgba(255,255,255,0.5); font-family: monospace;
-      text-align: center; letter-spacing: 0.02em;
-    }
+    .chrome-url { flex: 1; background: rgba(255,255,255,0.08); border-radius: 6px; padding: 5px 12px; font-size: 11px; color: rgba(255,255,255,0.5); font-family: monospace; text-align: center; letter-spacing: 0.02em; }
     .chrome-secure { font-size: 10px; color: #4ade80; font-weight: 700; white-space: nowrap; }
-
-    .dashboard-ui {
-      background: #f8f8fc; display: grid; grid-template-columns: 200px 1fr;
-      min-height: 460px; position: relative;
-    }
-
-    /* Sidebar */
-    .db-sidebar {
-      background: #1e1b4b; padding: 16px 12px;
-      display: flex; flex-direction: column; gap: 4px;
-    }
+    .dashboard-ui { background: #f8f8fc; display: grid; grid-template-columns: 200px 1fr; min-height: 460px; position: relative; }
+    .db-sidebar { background: #1e1b4b; padding: 16px 12px; display: flex; flex-direction: column; gap: 4px; }
     .db-sidebar-logo { font-size: 14px; font-weight: 800; color: #818cf8; margin-bottom: 16px; padding: 8px 10px; }
-    .db-nav-item {
-      display: flex; align-items: center; gap: 8px;
-      padding: 8px 10px; border-radius: 8px;
-      font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.5); cursor: pointer;
-      transition: background 0.15s;
-    }
+    .db-nav-item { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 8px; font-size: 11px; font-weight: 500; color: rgba(255,255,255,0.5); cursor: default; }
     .db-nav-item.active { background: rgba(99,102,241,0.25); color: #818cf8; font-weight: 700; }
-    .db-nav-item:hover { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.8); }
     .db-nav-icon { font-size: 14px; }
     .db-user { margin-top: auto; padding: 12px 10px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; gap: 8px; }
     .db-user-av { width: 30px; height: 30px; background: linear-gradient(135deg, #6366f1, #8b5cf6); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; color: #fff; flex-shrink: 0; }
     .db-user-name { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.8); }
     .db-user-sub { font-size: 9px; color: rgba(255,255,255,0.4); }
-
-    /* Main content */
-    .db-main { padding: 18px; display: flex; flex-direction: column; gap: 14px; overflow: hidden; }
-
+    .db-main { padding: 20px; display: flex; flex-direction: column; gap: 16px; overflow: hidden; }
     .db-topbar { display: flex; align-items: center; justify-content: space-between; }
-    .db-greeting { font-size: 14px; font-weight: 800; color: var(--accent); }
+    .db-greeting { font-size: 13px; font-weight: 700; color: #1e1b4b; }
     .db-badges { display: flex; gap: 8px; }
-    .db-badge { padding: 4px 10px; border-radius: 100px; font-size: 10px; font-weight: 700; }
-    .db-badge-streak { background: rgba(245,158,11,0.12); color: #d97706; }
-    .db-badge-xp { background: rgba(99,102,241,0.1); color: var(--indigo-600); }
-
-    .db-xp-card {
-      background: linear-gradient(135deg, var(--indigo-600), var(--purple-900));
-      border-radius: 12px; padding: 14px 16px;
-      display: flex; align-items: center; gap: 14px;
-    }
-    .db-level-badge {
-      width: 48px; height: 48px; background: rgba(255,255,255,0.15);
-      border-radius: 12px; display: flex; align-items: center; justify-content: center;
-      font-size: 20px; font-weight: 900; color: #fff; flex-shrink: 0;
-    }
+    .db-badge { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 100px; }
+    .db-badge-streak { background: #fef3c7; color: #d97706; }
+    .db-badge-xp { background: #ede9fe; color: #7c3aed; }
+    .db-xp-card { background: linear-gradient(135deg, #1e1b4b, #3730a3); border-radius: 12px; padding: 16px 20px; display: flex; align-items: center; gap: 16px; }
+    .db-level-badge { width: 40px; height: 40px; background: var(--indigo-500); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 900; color: #fff; flex-shrink: 0; }
     .db-xp-text { flex: 1; }
-    .db-xp-name { font-size: 13px; font-weight: 800; color: #fff; margin-bottom: 2px; }
-    .db-xp-progress-label { font-size: 10px; color: rgba(255,255,255,0.65); margin-bottom: 6px; }
-    .db-xp-bar { height: 5px; background: rgba(255,255,255,0.2); border-radius: 3px; overflow: hidden; }
-    .db-xp-bar-fill { height: 100%; width: 78%; background: rgba(255,255,255,0.85); border-radius: 3px; }
-    .db-xp-pct { font-size: 12px; font-weight: 800; color: rgba(255,255,255,0.8); white-space: nowrap; }
-
-    .db-modules-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-    .db-module {
-      background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px;
-      box-shadow: var(--shadow-sm);
-    }
-    .db-module-title { font-size: 10px; font-weight: 700; color: var(--accent); margin-bottom: 4px; }
-    .db-module-sub { font-size: 9px; color: var(--muted); margin-bottom: 6px; }
-    .db-prog-bar { height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
+    .db-xp-name { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.9); margin-bottom: 4px; }
+    .db-xp-progress-label { font-size: 10px; color: rgba(255,255,255,0.5); margin-bottom: 6px; }
+    .db-xp-bar { height: 6px; background: rgba(255,255,255,0.15); border-radius: 3px; overflow: hidden; }
+    .db-xp-bar-fill { height: 100%; width: 78%; background: linear-gradient(90deg, #818cf8, #c4b5fd); border-radius: 3px; }
+    .db-xp-pct { font-size: 20px; font-weight: 900; color: #818cf8; }
+    .db-modules-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; }
+    .db-module { background: #fff; border: 1px solid #e8e6e1; border-radius: 10px; padding: 12px 14px; }
+    .db-module-title { font-size: 11px; font-weight: 700; color: #1e1b4b; margin-bottom: 2px; }
+    .db-module-sub { font-size: 9px; color: #6b6860; margin-bottom: 6px; }
+    .db-prog-bar { height: 4px; background: #e8e6e1; border-radius: 2px; overflow: hidden; }
     .db-prog-fill { height: 100%; border-radius: 2px; }
+    .db-bottom-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .db-leaderboard { background: #fff; border: 1px solid #e8e6e1; border-radius: 12px; padding: 14px; }
+    .db-lb-title { font-size: 11px; font-weight: 700; color: #1e1b4b; margin-bottom: 10px; }
+    .db-lb-item { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .db-lb-item.db-lb-me { background: rgba(99,102,241,0.06); border-radius: 8px; padding: 4px 6px; margin: 0 -6px 4px; }
+    .db-lb-rank { font-size: 14px; width: 20px; text-align: center; }
+    .db-lb-av { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 800; color: #fff; }
+    .db-lb-name { font-size: 10px; font-weight: 600; color: #1e1b4b; flex: 1; }
+    .db-lb-xp { font-size: 9px; font-weight: 700; color: #6366f1; }
+    .db-mission { background: linear-gradient(135deg, #ede9fe, #ddd6fe); border-radius: 12px; padding: 14px; }
+    .db-mission-title { font-size: 11px; font-weight: 800; color: #5b21b6; margin-bottom: 6px; }
+    .db-mission-text { font-size: 10px; color: #6d28d9; line-height: 1.5; margin-bottom: 10px; }
+    .db-mission-btn { background: #6366f1; color: #fff; border: none; border-radius: 6px; padding: 6px 12px; font-size: 10px; font-weight: 700; cursor: default; font-family: 'Inter',sans-serif; }
+    /* blur overlay */
+    .db-blur-overlay { position: absolute; inset: 0; backdrop-filter: blur(4px); background: rgba(30,27,75,0.4); display: flex; align-items: center; justify-content: center; }
+    .db-gate-message { text-align: center; background: rgba(255,255,255,0.97); border-radius: 16px; padding: 32px 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 340px; }
+    .db-gate-icon { font-size: 36px; margin-bottom: 12px; }
+    .db-gate-text { font-size: 16px; font-weight: 700; color: var(--accent); margin-bottom: 20px; line-height: 1.4; }
+    .db-gate-btn { display: inline-flex; background: linear-gradient(135deg, var(--indigo-600), var(--indigo-500)); color: #fff; padding: 12px 28px; border-radius: 10px; font-size: 14px; font-weight: 700; text-decoration: none; }
 
-    .db-bottom-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .dashboard-below { text-align: center; margin-top: 40px; }
+    .dashboard-below p { font-size: 16px; color: var(--muted); margin-bottom: 20px; }
 
-    .db-leaderboard { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; }
-    .db-lb-title { font-size: 10px; font-weight: 700; color: var(--muted); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.06em; }
-    .db-lb-item { display: flex; align-items: center; gap: 8px; padding: 5px 0; border-bottom: 1px solid var(--border); }
-    .db-lb-item:last-child { border-bottom: none; }
-    .db-lb-rank { font-size: 11px; font-weight: 800; width: 20px; color: var(--muted); }
-    .db-lb-av { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 8px; font-weight: 800; color: #fff; flex-shrink: 0; }
-    .db-lb-name { font-size: 10px; font-weight: 600; color: var(--accent); flex: 1; }
-    .db-lb-xp { font-size: 10px; font-weight: 700; color: var(--indigo-600); }
-    .db-lb-me { background: rgba(99,102,241,0.06); border-radius: 6px; padding: 5px 6px; border: 1px solid rgba(99,102,241,0.15); }
-
-    .db-mission { background: linear-gradient(135deg, #fef3c7, #fde68a); border-radius: 10px; padding: 14px; border: 1px solid rgba(245,158,11,0.2); }
-    .db-mission-title { font-size: 10px; font-weight: 800; color: #92400e; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
-    .db-mission-text { font-size: 11px; color: #78350f; line-height: 1.5; margin-bottom: 10px; }
-    .db-mission-btn { background: #d97706; color: #fff; border: none; border-radius: 6px; padding: 5px 12px; font-size: 10px; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; }
-
-    /* Blur overlay on right side */
-    .db-blur-overlay {
-      position: absolute; top: 0; right: 0;
-      width: 30%; height: 100%;
-      background: linear-gradient(to right, transparent, rgba(248,248,252,0.4) 20%, rgba(248,248,252,0.98) 60%);
-      display: flex; align-items: center; justify-content: flex-end;
-      padding-right: 24px;
+    /* ======== FUNDRAISER TYPES ======== */
+    .types-section { padding: 100px 5%; background: var(--bg); }
+    .types-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1000px; margin: 0 auto; }
+    .type-card {
+      background: var(--bg2); border: 1px solid var(--border); border-radius: 16px;
+      padding: 28px 24px; text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      cursor: default;
     }
-    .db-gate-message {
-      text-align: center; max-width: 180px;
-    }
-    .db-gate-icon { font-size: 32px; margin-bottom: 10px; }
-    .db-gate-text { font-size: 13px; font-weight: 700; color: var(--accent); line-height: 1.4; margin-bottom: 12px; }
-    .db-gate-btn {
-      background: var(--indigo-600); color: #fff; border: none;
-      border-radius: 8px; padding: 8px 16px; font-size: 12px; font-weight: 700;
-      cursor: pointer; font-family: 'Inter', sans-serif;
-      text-decoration: none; display: inline-block;
-    }
-
-    .dashboard-below { text-align: center; margin-top: 32px; }
-    .dashboard-below p { font-size: 15px; color: var(--muted); margin-bottom: 16px; }
-    .dashboard-below strong { color: var(--accent); }
-
-    /* ======== SIMULATION PREVIEW ======== */
-    .simulation-section { padding: 100px 5%; background: var(--bg2); }
-    .simulation-inner { max-width: 900px; margin: 0 auto; }
-
-    .sim-ui {
-      background: var(--bg); border: 1px solid var(--border); border-radius: 16px;
-      overflow: hidden; box-shadow: var(--shadow-indigo);
-      display: grid; grid-template-columns: 260px 1fr;
-      margin-top: 48px; min-height: 380px;
-    }
-
-    .sim-profile {
-      background: linear-gradient(135deg, #1e1b4b, #312e81);
-      padding: 28px 24px; display: flex; flex-direction: column; gap: 16px;
-    }
-    .sim-profile-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.5); }
-    .sim-profile-avatar {
-      width: 72px; height: 72px; border-radius: 50%; background: rgba(255,255,255,0.15);
-      display: flex; align-items: center; justify-content: center; font-size: 28px;
-      border: 3px solid rgba(255,255,255,0.2);
-    }
-    .sim-profile-name { font-size: 18px; font-weight: 800; color: #fff; }
-    .sim-profile-tags { display: flex; flex-direction: column; gap: 8px; }
-    .sim-tag { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.7); }
-    .sim-tag-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.4); margin-bottom: 2px; }
-    .sim-tag-val { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.85); }
-    .sim-diff-bar { display: flex; gap: 4px; }
-    .sim-diff-dot { width: 8px; height: 8px; border-radius: 50%; }
-    .sim-status { margin-top: auto; }
-    .sim-status-badge { background: rgba(239,68,68,0.2); border: 1px solid rgba(239,68,68,0.3); border-radius: 8px; padding: 8px 12px; }
-    .sim-status-text { font-size: 11px; font-weight: 700; color: #fca5a5; }
-    .sim-status-sub { font-size: 9px; color: rgba(255,255,255,0.4); margin-top: 2px; }
-
-    /* Chat */
-    .sim-chat { display: flex; flex-direction: column; position: relative; }
-    .sim-chat-header { padding: 14px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-    .sim-chat-header h4 { font-size: 13px; font-weight: 700; color: var(--accent); }
-    .sim-chat-badge { font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 6px; background: rgba(99,102,241,0.1); color: var(--indigo-600); }
-    .sim-messages { flex: 1; padding: 16px 20px; display: flex; flex-direction: column; gap: 12px; }
-    .sim-msg { display: flex; gap: 10px; align-items: flex-start; }
-    .sim-msg.user { flex-direction: row-reverse; }
-    .sim-msg-av { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; color: #fff; flex-shrink: 0; }
-    .sim-bubble { max-width: 70%; padding: 10px 14px; border-radius: 12px; font-size: 12px; line-height: 1.5; }
-    .sim-bubble-donor { background: var(--bg2); border: 1px solid var(--border); color: var(--text); border-radius: 12px 12px 12px 2px; }
-    .sim-bubble-user { background: var(--indigo-600); color: #fff; border-radius: 12px 12px 2px 12px; }
-    .sim-timestamp { font-size: 9px; color: var(--muted); margin-top: 4px; text-align: right; }
-
-    /* Blur + lock overlay */
-    .sim-blur-wrap { position: relative; overflow: hidden; flex: 1; }
-    .sim-blur-content { filter: blur(5px); pointer-events: none; user-select: none; }
-    .sim-lock-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.85) 30%);
-      display: flex; align-items: center; justify-content: center;
-      flex-direction: column; gap: 12px; text-align: center; padding: 24px;
-    }
-    .sim-lock-icon { font-size: 36px; }
-    .sim-lock-text { font-size: 15px; font-weight: 800; color: var(--accent); }
-    .sim-lock-sub { font-size: 13px; color: var(--muted); }
-    .sim-lock-btn {
-      background: var(--indigo-600); color: #fff; border: none;
-      border-radius: 10px; padding: 10px 22px; font-size: 13px; font-weight: 700;
-      cursor: pointer; font-family: 'Inter', sans-serif; text-decoration: none;
-      display: inline-block; margin-top: 4px;
+    .type-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-indigo); border-color: var(--indigo-400); }
+    .type-icon { font-size: 36px; margin-bottom: 12px; }
+    .type-card h3 { font-size: 15px; font-weight: 800; color: var(--accent); margin-bottom: 6px; }
+    .type-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .type-badge {
+      display: inline-block; margin-top: 12px; padding: 3px 10px;
+      border-radius: 100px; font-size: 11px; font-weight: 700;
+      background: var(--indigo-100); color: var(--indigo-600);
     }
 
     /* ======== TESTIMONIALS ======== */
-    .testimonials { padding: 100px 5%; background: var(--bg); }
-    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1100px; margin: 48px auto 0; }
+    .testimonials { padding: 100px 5%; background: var(--bg2); }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; max-width: 1100px; margin: 40px auto 0; }
     .testimonial-card {
-      background: var(--bg2); border: 1px solid var(--border); border-radius: 20px;
-      padding: 32px 28px; box-shadow: var(--shadow-indigo);
-      opacity: 0; transition: opacity 0.6s, transform 0.6s;
-      transform: translateY(20px);
+      background: var(--bg); border: 1px solid var(--border); border-radius: 20px;
+      padding: 32px 28px; box-shadow: var(--shadow-sm);
+      transition: transform 0.25s, box-shadow 0.25s;
+      opacity: 0; transform: translateY(24px);
     }
     .testimonial-card.visible { opacity: 1; transform: translateY(0); }
-    .testimonial-card:nth-child(2) { transition-delay: 0.15s; }
-    .testimonial-card:nth-child(3) { transition-delay: 0.3s; }
-    .testimonial-stars { color: #f59e0b; font-size: 15px; margin-bottom: 14px; letter-spacing: 2px; }
+    .testimonial-card:nth-child(2) { transition-delay: 0.1s; }
+    .testimonial-card:nth-child(3) { transition-delay: 0.2s; }
+    .testimonial-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-indigo); }
+    .testimonial-stars { color: #f59e0b; font-size: 18px; letter-spacing: 2px; margin-bottom: 16px; }
     .testimonial-quote { font-size: 15px; color: var(--text); line-height: 1.7; font-style: italic; margin-bottom: 20px; }
     .testimonial-author { display: flex; align-items: center; gap: 12px; }
-    .testimonial-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid var(--indigo-400); flex-shrink: 0; }
-    .testimonial-name { font-size: 13px; font-weight: 800; color: var(--accent); }
-    .testimonial-role { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .testimonial-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
+    .testimonial-name { font-size: 14px; font-weight: 700; color: var(--accent); }
+    .testimonial-role { font-size: 12px; color: var(--muted); margin-top: 2px; }
 
-    /* ======== PROFILE TYPE SELECTOR ======== */
-    .profile-type-step {
-      display: none; margin-top: 28px; animation: fadeUp 0.4s ease;
-    }
-    .profile-type-step.show { display: block; }
-    @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
-    .profile-type-title { font-size: 15px; font-weight: 700; color: var(--accent); margin-bottom: 6px; text-align:center; }
-    .profile-type-sub { font-size: 12px; color: var(--muted); text-align: center; margin-bottom: 16px; }
-    .profile-type-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;
-    }
-    .profile-type-card {
-      border: 2px solid var(--border); border-radius: 12px; padding: 14px 12px;
-      cursor: pointer; text-align: center; transition: all 0.2s; background: var(--bg2);
-      position: relative;
-    }
-    .profile-type-card:hover { border-color: var(--indigo-500); background: rgba(99,102,241,0.04); }
-    .profile-type-card.selected { border-color: var(--indigo-500); background: rgba(99,102,241,0.08); }
-    .profile-type-card .check-mark {
-      display: none; position: absolute; top: 8px; right: 8px;
-      width: 18px; height: 18px; background: var(--indigo-500); border-radius: 50%;
-      color: #fff; font-size: 10px; font-weight: 900;
-      align-items: center; justify-content: center;
-    }
-    .profile-type-card.selected .check-mark { display: flex; }
-    .profile-type-icon { font-size: 22px; margin-bottom: 6px; }
-    .profile-type-label { font-size: 12px; font-weight: 700; color: var(--accent); margin-bottom: 2px; }
-    .profile-type-desc { font-size: 10px; color: var(--muted); line-height: 1.4; }
-    .btn-confirm-profile {
-      display: none; width: 100%; margin-top: 14px;
-      background: linear-gradient(135deg, var(--indigo-600), var(--indigo-500));
-      color: #fff; border: none; border-radius: 10px; padding: 13px;
-      font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 800;
-      cursor: pointer; transition: opacity 0.2s;
-    }
-    .btn-confirm-profile.show { display: block; }
-    .btn-confirm-profile:hover { opacity: 0.9; }
+    /* ======== WAITLIST SECTION ======== */
+    .waitlist-section { padding: 100px 5%; background: linear-gradient(135deg, #1e1b4b 0%, #312e81 70%, #4c1d95 100%); }
+    .waitlist-inner { max-width: 640px; margin: 0 auto; text-align: center; }
+    .waitlist-inner .section-eyebrow { color: #a5b4fc; }
+    .waitlist-inner .section-title { color: #fff; }
+    .waitlist-inner .section-sub { color: rgba(255,255,255,0.7); }
 
-    /* Profile tab active state */
-    .profile-tab { outline: none; }
-    .profile-tab.active {
-      background: linear-gradient(135deg, var(--indigo-600), var(--indigo-500)) !important;
-      color: #fff !important; border-color: transparent !important;
+    .waitlist-card {
+      background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 24px; padding: 48px 44px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.3);
+      margin-top: 48px;
     }
+    .waitlist-card-header { margin-bottom: 28px; }
+    .waitlist-card-title { font-size: 24px; font-weight: 900; color: #fff; margin-bottom: 8px; }
+    .waitlist-card-sub { font-size: 15px; color: rgba(255,255,255,0.65); line-height: 1.6; }
 
-    /* ======== MODULES ======== */
-    .modules-section { padding: 100px 5%; background: var(--bg2); }
-    .modules-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1100px; margin: 48px auto 0; }
-    .module-card {
-      background: var(--bg); border: 1px solid var(--border); border-radius: 16px;
-      padding: 28px 24px; position: relative;
-      box-shadow: var(--shadow-indigo);
-      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+    .waitlist-form { display: flex; flex-direction: column; gap: 14px; }
+    .wl-input {
+      width: 100%; padding: 14px 18px;
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 10px; font-size: 15px; color: #fff;
+      font-family: 'Inter', sans-serif; outline: none;
+      transition: border-color 0.2s, background 0.2s;
     }
-    .module-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(99,102,241,0.18); border-color: var(--indigo-400); }
-    .module-icon { font-size: 32px; margin-bottom: 14px; }
-    .module-card h3 { font-size: 15px; font-weight: 800; color: var(--accent); margin-bottom: 8px; }
-    .module-card p { font-size: 12px; color: var(--muted); line-height: 1.6; margin-bottom: 14px; }
-    .module-tag {
-      display: inline-flex; align-items: center; gap: 4px;
-      padding: 4px 10px; border-radius: 100px; font-size: 11px; font-weight: 700;
+    .wl-input::placeholder { color: rgba(255,255,255,0.45); }
+    .wl-input:focus { border-color: #818cf8; background: rgba(255,255,255,0.15); }
+    .wl-select {
+      width: 100%; padding: 14px 18px;
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 10px; font-size: 15px; color: #fff;
+      font-family: 'Inter', sans-serif; outline: none;
+      appearance: none; cursor: pointer;
+      transition: border-color 0.2s;
     }
-    .tag-free { background: rgba(22,163,74,0.1); color: var(--green); border: 1px solid rgba(22,163,74,0.2); }
-    .tag-premium { background: rgba(99,102,241,0.08); color: var(--indigo-600); border: 1px solid rgba(99,102,241,0.2); }
-    .lock-badge {
-      position: absolute; top: 14px; right: 14px;
-      width: 24px; height: 24px; background: rgba(99,102,241,0.1);
-      border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      font-size: 12px;
-    }
+    .wl-select option { background: #1e1b4b; color: #fff; }
+    .wl-select:focus { border-color: #818cf8; }
 
-    /* ======== PRICING ======== */
-    /* ======== TEASER SIMULATION ======== */
-    .teaser-section { padding: 100px 5%; background: #f1f0ff; border-top: 1px solid #ddd8ff; }
+    .wl-submit {
+      width: 100%; padding: 16px 32px;
+      background: linear-gradient(135deg, #4f46e5, #6366f1);
+      color: #fff; border: none; border-radius: 12px;
+      font-size: 16px; font-weight: 800; font-family: 'Inter', sans-serif;
+      cursor: pointer; transition: transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 8px 30px rgba(79,70,229,0.4);
+      margin-top: 4px;
+    }
+    .wl-submit:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(79,70,229,0.5); }
+    .wl-submit:active { transform: translateY(0); }
+    .wl-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
-    /* Profile cards */
-    .teaser-profiles-wrap { max-width: 1100px; margin: 0 auto 48px; }
-    .teaser-profiles {
-      display: flex; gap: 16px; overflow-x: auto; padding-bottom: 12px;
-      scrollbar-width: thin; scrollbar-color: #c7c4f0 transparent;
+    .waitlist-counter {
+      margin-top: 20px;
+      font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.7);
     }
-    .teaser-profiles::-webkit-scrollbar { height: 4px; }
-    .teaser-profiles::-webkit-scrollbar-thumb { background: #c7c4f0; border-radius: 4px; }
-    .profile-card {
-      flex: 0 0 180px; min-width: 180px;
-      background: #fff; border: 2px solid transparent; border-radius: 16px;
-      padding: 20px 14px; display: flex; flex-direction: column; align-items: center; gap: 10px;
-      cursor: pointer; transition: all .2s; box-shadow: 0 2px 12px rgba(79,70,229,.08);
-      position: relative;
-    }
-    .profile-card { cursor: pointer; }
-    .profile-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(79,70,229,.16); }
-    .profile-card.selected { border-color: #4f46e5; box-shadow: 0 0 0 4px rgba(79,70,229,.14); }
-    .profile-avatar { flex-shrink: 0; }
-    .profile-avatar svg, .teaser-avatar-svg svg { filter: none !important; color-interpolation: auto; }
-    .profile-info { text-align: center; width: 100%; }
-    .profile-name { font-weight: 800; font-size: 15px; color: #1a1a1a; }
-    .profile-type { font-size: 12px; color: #6b7280; font-style: italic; margin-top: 2px; }
-    .profile-env { font-size: 11px; color: #9ca3af; margin-top: 4px; }
-    .profile-difficulty { display: flex; gap: 4px; justify-content: center; margin-top: 6px; }
-    .diff-dot { width: 7px; height: 7px; border-radius: 50%; background: #e5e7eb; }
-    .diff-dot.active { background: #4f46e5; }
-    .profile-try-btn {
-      width: 100%; padding: 9px 0; background: #4f46e5; color: #fff;
-      border: none; border-radius: 8px; font-size: 13px; font-weight: 700;
-      cursor: pointer; transition: background .15s;
-    }
-    .profile-try-btn:hover { background: #4338ca; }
-    .teaser-tip { font-size: 13px; color: #6b7280; text-align: center; margin-top: 14px; }
-    .teaser-tip strong { color: #4f46e5; }
+    .waitlist-counter strong { color: #a5b4fc; }
 
-    /* Arena */
-    .teaser-arena {
-      max-width: 1000px; margin: 0 auto;
-      background: #fff; border-radius: 20px; box-shadow: 0 8px 40px rgba(79,70,229,.14);
-      overflow: hidden; position: relative;
+    .waitlist-review {
+      margin-top: 16px; font-size: 13px; color: rgba(255,255,255,0.6);
+      font-style: italic;
     }
-    .teaser-arena-inner { display: flex; min-height: 480px; }
+    .waitlist-review strong { color: rgba(255,255,255,0.8); font-style: normal; }
 
-    /* Avatar column */
-    .teaser-avatar-col {
-      width: 220px; min-width: 220px; flex-shrink: 0;
-      display: flex; flex-direction: column; align-items: center;
-      padding: 28px 20px; background: #fafaf8; border-right: 1px solid #f0eeea;
-      position: relative;
+    .waitlist-success {
+      display: none; text-align: center; padding: 20px 0;
     }
-    .teaser-env-label {
-      font-size: 11px; color: #9ca3af; text-align: center; margin-bottom: 14px;
-      font-style: italic; min-height: 16px;
-    }
-    .teaser-avatar-stage {
-      width: 120px; height: 120px; border-radius: 16px;
-      position: relative; overflow: visible; margin-bottom: 12px;
-    }
-    .teaser-avatar-svg svg { width: 120px; height: 120px; filter: none !important; }
-    /* Door frame environment */
-    .env-door .teaser-avatar-stage::after {
-      content: '';
-      position: absolute;
-      right: -18px; top: -8px;
-      width: 12px; height: 100px;
-      border: 3px solid #d1cfc5;
-      border-left: none;
-      border-radius: 0 6px 6px 0;
-      pointer-events: none;
-    }
-    /* Phone environment */
-    .env-phone .teaser-avatar-stage::before {
-      content: '📞';
-      position: absolute; bottom: -10px; right: -10px;
-      font-size: 22px; filter: drop-shadow(0 2px 4px rgba(0,0,0,.2));
-    }
-    /* Event environment */
-    .env-event { background: linear-gradient(135deg, #fef3c7 0%, #ede9fe 100%); }
-    .env-event .teaser-avatar-stage::before {
-      content: '🎪';
-      position: absolute; top: -12px; left: -12px;
-      font-size: 22px;
-    }
-
-    .teaser-emotional-state {
-      display: flex; align-items: center; gap: 6px;
-      background: #f8f7ff; border: 1px solid #e0e7ff; border-radius: 24px;
-      padding: 6px 14px; font-size: 12px; color: #6b7280; margin-bottom: 12px;
-      transition: all .4s;
-    }
-    .state-label { font-weight: 500; }
-    .state-value { font-weight: 700; color: #4f46e5; }
-    .teaser-change-profile {
-      background: none; border: none; color: #9ca3af; font-size: 12px;
-      cursor: pointer; text-decoration: underline; margin-top: auto; padding-top: 8px;
-    }
-    .teaser-change-profile:hover { color: #4f46e5; }
-
-    /* Chat column */
-    .teaser-chat-col { flex: 1; display: flex; flex-direction: column; min-width: 0; }
-    .teaser-chat-header {
-      padding: 16px 20px; border-bottom: 1px solid #f0eeea;
-      display: flex; align-items: center; justify-content: space-between;
-    }
-    .teaser-chat-name { font-weight: 800; font-size: 16px; color: #1a1a1a; }
-    .teaser-chat-count { font-size: 12px; color: #9ca3af; font-weight: 600; }
-    .teaser-chat-messages {
-      flex: 1; padding: 20px; overflow-y: auto;
-      display: flex; flex-direction: column; gap: 14px;
-      min-height: 280px; max-height: 340px;
-    }
-    .chat-bubble {
-      max-width: 78%; padding: 11px 15px; border-radius: 16px;
-      font-size: 14px; line-height: 1.55; animation: bubbleIn .25s ease;
-    }
-    @keyframes bubbleIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .chat-bubble.donor {
-      background: #f3f4f6; color: #1f2937;
-      border-bottom-left-radius: 4px; align-self: flex-start;
-    }
-    .chat-bubble.user {
-      background: linear-gradient(135deg, #4f46e5, #7c3aed); color: #fff;
-      border-bottom-right-radius: 4px; align-self: flex-end;
-    }
-    .chat-bubble-wrap { display: flex; flex-direction: column; }
-    .chat-bubble-wrap.donor-wrap { align-items: flex-start; }
-    .chat-bubble-wrap.user-wrap { align-items: flex-end; }
-    .bubble-sender { font-size: 11px; font-weight: 700; color: #9ca3af; margin-bottom: 3px; }
-    .user-wrap .bubble-sender { color: #a5b4fc; text-align: right; }
-
-    /* Typing indicator */
-    .typing-indicator {
-      display: flex; align-items: center; gap: 5px;
-      background: #f3f4f6; border-radius: 16px; border-bottom-left-radius: 4px;
-      padding: 12px 16px; width: 64px; align-self: flex-start;
-    }
-    .typing-indicator span {
-      width: 7px; height: 7px; background: #9ca3af; border-radius: 50%;
-      animation: typingBounce 1.2s infinite ease-in-out;
-    }
-    .typing-indicator span:nth-child(2) { animation-delay: .2s; }
-    .typing-indicator span:nth-child(3) { animation-delay: .4s; }
-    @keyframes typingBounce {
-      0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
-      30% { transform: translateY(-6px); opacity: 1; }
-    }
-
-    /* Input row */
-    .teaser-chat-input-row {
-      padding: 14px 16px; border-top: 1px solid #f0eeea;
-      display: flex; gap: 10px; align-items: center;
-    }
-    .teaser-input {
-      flex: 1; padding: 11px 16px; border: 1.5px solid #e5e7eb; border-radius: 10px;
-      font-family: 'Inter', sans-serif; font-size: 14px; color: #1a1a1a;
-      outline: none; transition: border-color .15s;
-    }
-    .teaser-input:focus { border-color: #4f46e5; }
-    .teaser-send-btn {
-      padding: 11px 20px; background: #4f46e5; color: #fff;
-      border: none; border-radius: 10px; font-size: 14px; font-weight: 700;
-      cursor: pointer; transition: background .15s; white-space: nowrap;
-    }
-    .teaser-send-btn:hover { background: #4338ca; }
-    .teaser-send-btn:disabled { background: #c7d2fe; cursor: not-allowed; }
-
-    /* Gate overlay */
-    .teaser-gate {
-      position: absolute; inset: 0; background: rgba(240,238,255,.95);
-      backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center;
-      z-index: 10; border-radius: 20px;
-      animation: gateIn .35s ease;
-    }
-    @keyframes gateIn {
-      from { opacity: 0; } to { opacity: 1; }
-    }
-    .gate-card {
-      background: #fff; border-radius: 20px; padding: 36px 32px;
-      box-shadow: 0 20px 60px rgba(79,70,229,.22);
-      text-align: center; max-width: 400px; width: 90%;
-    }
-    .gate-icon { font-size: 36px; margin-bottom: 10px; }
-    .gate-title { font-size: 20px; font-weight: 800; color: #1a1a1a; margin-bottom: 16px; line-height: 1.3; }
-    .gate-score-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #9ca3af; margin-bottom: 4px; }
-    .gate-score-number { font-size: 52px; font-weight: 900; color: #4f46e5; line-height: 1; margin-bottom: 10px; }
-    .gate-score-number::after { content: '/100'; font-size: 20px; font-weight: 500; color: #9ca3af; }
-    .gate-score-bar-wrap { background: #e0e7ff; border-radius: 99px; height: 10px; margin-bottom: 20px; overflow: hidden; }
-    .gate-score-bar { height: 100%; background: linear-gradient(90deg, #4f46e5, #7c3aed); border-radius: 99px; transition: width 1s ease; }
-    .gate-sub { font-size: 14px; color: #6b7280; margin-bottom: 20px; line-height: 1.5; }
-    .gate-form { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
-    .gate-input {
-      padding: 11px 15px; border: 1.5px solid #e5e7eb; border-radius: 10px;
-      font-family: 'Inter', sans-serif; font-size: 14px; outline: none;
-      transition: border-color .15s;
-    }
-    .gate-input:focus { border-color: #4f46e5; }
-    .gate-submit-btn {
-      padding: 13px; background: linear-gradient(135deg, #4f46e5, #7c3aed);
-      color: #fff; border: none; border-radius: 10px; font-size: 15px; font-weight: 800;
-      cursor: pointer; transition: opacity .15s;
-    }
-    .gate-submit-btn:hover { opacity: 0.9; }
-    .gate-social-proof { font-size: 12px; color: #9ca3af; font-style: italic; margin-bottom: 10px; line-height: 1.4; }
-    .gate-login-link { font-size: 13px; color: #4f46e5; font-weight: 600; text-decoration: none; }
-    .gate-login-link:hover { text-decoration: underline; }
-
-    @media (max-width: 700px) {
-      .teaser-arena-inner { flex-direction: column; }
-      .teaser-avatar-col { width: 100%; min-width: unset; border-right: none; border-bottom: 1px solid #f0eeea; flex-direction: row; justify-content: flex-start; gap: 16px; padding: 16px; }
-      .teaser-emotional-state { margin-bottom: 0; }
-      .teaser-change-profile { margin-top: 0; }
-      .teaser-avatar-stage { width: 80px; height: 80px; }
-      .teaser-avatar-svg svg { width: 80px; height: 80px; }
-      .teaser-chat-messages { max-height: 260px; }
-    }
-
-    .pricing { padding: 100px 5%; background: var(--bg); border-top: 1px solid var(--border); }
-    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1000px; margin: 48px auto 0; }
-    .pricing-card {
-      background: var(--bg2); border: 1px solid var(--border); border-radius: 20px;
-      padding: 36px 28px; box-shadow: var(--shadow-sm);
-      transition: box-shadow 0.2s;
-    }
-    .pricing-card:hover { box-shadow: var(--shadow-indigo); }
-    .pricing-card.featured {
-      background: linear-gradient(135deg, var(--indigo-900), var(--purple-900));
-      border-color: var(--indigo-600);
-      box-shadow: 0 16px 48px rgba(99,102,241,0.3);
-      position: relative;
-    }
-    .featured-badge {
-      position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
-      background: linear-gradient(135deg, #f59e0b, #d97706); color: #fff;
-      font-size: 11px; font-weight: 800; padding: 5px 16px; border-radius: 100px;
-      white-space: nowrap; letter-spacing: 0.06em;
-    }
-    .pricing-tier { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 8px; }
-    .pricing-card.featured .pricing-tier { color: rgba(255,255,255,0.6); }
-    .pricing-price { font-size: 44px; font-weight: 900; color: var(--accent); letter-spacing: -0.03em; line-height: 1; margin-bottom: 4px; }
-    .pricing-card.featured .pricing-price { color: #fff; }
-    .pricing-period { font-size: 14px; font-weight: 400; color: var(--muted); }
-    .pricing-card.featured .pricing-period { color: rgba(255,255,255,0.6); }
-    .pricing-desc { font-size: 13px; color: var(--muted); margin: 12px 0 20px; line-height: 1.6; }
-    .pricing-card.featured .pricing-desc { color: rgba(255,255,255,0.7); }
-    .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-bottom: 28px; }
-    .pricing-features li { font-size: 13px; color: var(--text); display: flex; align-items: flex-start; gap: 8px; }
-    .pricing-card.featured .pricing-features li { color: rgba(255,255,255,0.85); }
-    .pricing-features li::before { content: '✓'; color: var(--green); font-weight: 800; flex-shrink: 0; }
-    .pricing-card.featured .pricing-features li::before { color: #86efac; }
-    .pricing-cta {
-      display: block; text-align: center; padding: 12px;
-      border-radius: 10px; font-size: 14px; font-weight: 700;
-      background: var(--bg3); color: var(--accent); border: 1px solid var(--border);
-      text-decoration: none; cursor: pointer;
-      transition: background 0.2s, border-color 0.2s;
-      font-family: 'Inter', sans-serif;
-    }
-    .pricing-cta:hover { background: var(--border); border-color: var(--accent); }
-    .pricing-cta.primary {
-      background: #fff; color: var(--indigo-600);
-      border: none; box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-    }
-    .pricing-cta.primary:hover { background: rgba(255,255,255,0.9); }
-
-    /* ======== STATS / COUNTER ======== */
-    .stats-section { padding: 60px 5%; background: var(--indigo-900); text-align: center; }
-    .stats-grid { display: flex; align-items: center; justify-content: center; gap: 80px; flex-wrap: wrap; }
-    .stat-item {}
-    .stat-num { font-size: 56px; font-weight: 900; color: #fff; letter-spacing: -0.03em; line-height: 1; }
-    .stat-num span { color: var(--indigo-400); }
-    .stat-label { font-size: 14px; color: rgba(255,255,255,0.5); margin-top: 6px; }
-
-    /* ======== QUIZ ======== */
-    .quiz-section { background: #f8faff; border-top: 1px solid #dbeafe; border-bottom: 1px solid #dbeafe; padding: 72px 5%; }
-
-    /* ======== SIGNUP ======== */
-    .signup-section { padding: 100px 5%; background: var(--bg2); border-top: 1px solid var(--border); display: flex; justify-content: center; }
-    .signup-card {
-      background: var(--bg); border: 1px solid var(--border); border-radius: 20px;
-      padding: 52px 48px; width: 100%; max-width: 460px;
-      box-shadow: 0 16px 48px rgba(99,102,241,0.1);
-    }
-    .signup-header { text-align: center; margin-bottom: 36px; }
-    .signup-logo { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 20px; }
-    .signup-logo-mark {
-      width: 40px; height: 40px; background: linear-gradient(135deg, var(--indigo-600), var(--indigo-500));
-      border-radius: 10px; display: flex; align-items: center; justify-content: center;
-      font-size: 18px; font-weight: 900; color: #fff;
-    }
-    .signup-logo-text { font-size: 18px; font-weight: 800; color: var(--accent); }
-    .signup-logo-sub { font-size: 11px; color: var(--indigo-600); font-weight: 600; display: block; }
-    .signup-header h2 { font-size: 24px; font-weight: 800; color: var(--accent); margin-bottom: 6px; }
-    .signup-header p { font-size: 14px; color: var(--muted); }
-    .form-group { margin-bottom: 18px; }
-    .form-label { display: block; font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
-    .form-input {
-      width: 100%; background: var(--bg2); border: 1px solid var(--border);
-      border-radius: 10px; padding: 13px 16px;
-      font-family: 'Inter', sans-serif; font-size: 15px; color: var(--text);
-      outline: none; transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .form-input:focus { border-color: var(--indigo-500); box-shadow: 0 0 0 3px rgba(99,102,241,0.1); }
-    .form-input::placeholder { color: var(--muted); }
-    .btn-signup {
-      width: 100%; background: linear-gradient(135deg, var(--indigo-600), var(--indigo-500));
-      color: #fff; border: none; border-radius: 10px; padding: 15px;
-      font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 800;
-      cursor: pointer; margin-top: 8px; transition: opacity 0.2s, transform 0.15s;
-    }
-    .btn-signup:hover { opacity: 0.9; transform: translateY(-1px); }
-    .signup-success {
-      display: none; text-align: center; padding: 20px;
-      background: rgba(22,163,74,0.08); border: 1px solid rgba(22,163,74,0.2);
-      border-radius: 12px; margin-top: 16px;
-    }
-    .signup-success .success-emoji { font-size: 32px; margin-bottom: 8px; }
-    .signup-success p { font-size: 15px; font-weight: 700; color: var(--green); }
-    .signup-divider { text-align: center; font-size: 13px; color: var(--muted); margin: 20px 0; position: relative; }
-    .signup-divider::before, .signup-divider::after { content: ''; position: absolute; top: 50%; width: 40%; height: 1px; background: var(--border); }
-    .signup-divider::before { left: 0; }
-    .signup-divider::after { right: 0; }
-    .signup-footer { text-align: center; font-size: 13px; color: var(--muted); }
-    .signup-footer a { color: var(--indigo-600); text-decoration: none; font-weight: 600; }
-    .signup-footer a:hover { text-decoration: underline; }
+    .waitlist-success .success-big { font-size: 48px; margin-bottom: 16px; }
+    .waitlist-success h3 { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 8px; }
+    .waitlist-success p { font-size: 15px; color: rgba(255,255,255,0.7); }
 
     /* ======== FOOTER ======== */
-    footer { background: var(--indigo-900); padding: 40px 5%; text-align: center; }
-    .footer-logo-mark { width: 36px; height: 36px; background: linear-gradient(135deg, var(--indigo-600), var(--indigo-500)); border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 900; color: #fff; margin-bottom: 16px; }
-    footer p { font-size: 13px; color: rgba(255,255,255,0.4); }
-    footer p a { color: var(--indigo-400); text-decoration: none; }
-    footer p a:hover { text-decoration: underline; }
+    footer {
+      background: #0f0e1a; color: rgba(255,255,255,0.5);
+      padding: 48px 5%; text-align: center;
+    }
+    .footer-logo { font-size: 20px; font-weight: 800; color: #818cf8; margin-bottom: 12px; }
+    footer p { font-size: 13px; line-height: 1.7; }
+    footer a { color: rgba(255,255,255,0.4); text-decoration: none; }
+    footer a:hover { color: rgba(255,255,255,0.7); }
+
+    /* ======== SOCIAL PROOF BANNER ======== */
+    .proof-banner { background: var(--indigo-900); padding: 20px 5%; display: flex; align-items: center; justify-content: center; gap: 40px; flex-wrap: wrap; }
+    .proof-item { display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,0.8); font-size: 14px; font-weight: 600; }
+    .proof-item span.number { font-size: 22px; font-weight: 900; color: #818cf8; }
 
     /* ======== RESPONSIVE ======== */
-    @media (max-width: 960px) {
-      .features-grid { grid-template-columns: 1fr; max-width: 500px; }
-      .testimonials-grid { grid-template-columns: 1fr; max-width: 500px; }
-      .modules-grid { grid-template-columns: repeat(2, 1fr); }
-      .pricing-grid { grid-template-columns: 1fr; max-width: 420px; }
+    @media (max-width: 900px) {
+      .features-grid, .steps-grid, .testimonials-grid, .types-grid { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
       .dashboard-ui { grid-template-columns: 1fr; }
       .db-sidebar { display: none; }
-      .sim-ui { grid-template-columns: 1fr; }
-      .sim-profile { display: none; }
-      .stats-grid { gap: 40px; }
+      .db-modules-grid, .db-bottom-row { grid-template-columns: 1fr; }
+      .waitlist-card { padding: 32px 24px; }
     }
-    @media (max-width: 640px) {
-      .hero { padding-top: 60px; }
-      .hero h1 { font-size: 38px; }
-      .hero-proof { flex-direction: column; gap: 8px; }
+    @media (max-width: 680px) {
+      nav { padding: 0 4%; }
+      .nav-link { display: none; }
+      .hero { padding: 60px 5% 40px; }
+      .proof-banner { gap: 20px; }
+    }
+    @media (max-width: 480px) {
+      .hero h1 { font-size: 32px; }
       .hero-ctas { flex-direction: column; }
       .btn-hero-primary, .btn-hero-ghost { width: 100%; justify-content: center; }
-      .modules-grid { grid-template-columns: 1fr; }
-      .signup-card { padding: 36px 24px; }
-      .nav-right .nav-link { display: none; }
-      .db-modules-grid { grid-template-columns: 1fr; }
-      .db-bottom-row { grid-template-columns: 1fr; }
+      .types-grid { grid-template-columns: 1fr 1fr; }
     }
-  
-    /* MOBILE — max-width 768px */
-    @media (max-width: 768px) {
-      nav, .navbar, header nav { flex-wrap: wrap; padding: 12px 16px; gap: 8px; }
-      .nav-links, .nav-menu { display: none; }
-      .nav-cta, .btn-nav { font-size: 12px; padding: 8px 14px; }
-      .hero, section.hero { padding: 60px 20px 40px; min-height: auto; }
-      .hero h1, .hero-title { font-size: clamp(28px, 8vw, 48px) !important; line-height: 1.2; }
-      .hero-sub, .hero p { font-size: 15px !important; }
-      .hero-actions, .cta-group { flex-direction: column; gap: 10px; }
-      .hero-actions a, .cta-group a, .hero-actions button { width: 100%; text-align: center; }
-      .grid, .features-grid, .cards-grid, .pricing-grid, .two-col, .three-col, .stats-grid, .testimonials-grid { grid-template-columns: 1fr !important; }
-      section, .section { padding: 40px 20px !important; }
-      .trust-bar, .stats-bar, .social-proof { flex-wrap: wrap; gap: 8px; padding: 12px 16px; }
-      .feature-card, .card { padding: 20px !important; }
-      .mockup, .dashboard-preview, .browser-mockup { transform: scale(0.7); transform-origin: top center; margin-bottom: -60px; }
-      .pricing-card { margin: 0 !important; }
-      footer, .footer { flex-direction: column; text-align: center; gap: 16px; padding: 24px 20px; }
-      .footer-grid, .footer-cols { grid-template-columns: 1fr 1fr !important; }
-      .calculator, .form-section { padding: 20px !important; }
-      img { max-width: 100%; height: auto; }
-      .particle, .blob, .hero-blob { display: none; }
-      .lang-toggle { font-size: 11px; padding: 4px 8px; }
-    }
-    /* SMALL MOBILE — max-width 480px */
-    @media (max-width: 480px) {
-      .hero h1, .hero-title { font-size: 26px !important; }
-      .mockup, .dashboard-preview, .browser-mockup { display: none; }
-    }
-</style>
+  </style>
 </head>
 <body>
 
@@ -940,17 +467,16 @@
       </svg>
     </a>
     <div class="nav-right">
-      <a href="#features" class="nav-link" data-fr="Pourquoi" data-en="Why">Pourquoi</a>
-      <a href="#modules" class="nav-link" data-fr="Modules" data-en="Modules">Modules</a>
-      <a href="#pricing" class="nav-link" data-fr="Tarifs" data-en="Pricing">Tarifs</a>
-      <a href="#signup" class="nav-cta" data-fr="Commencer gratuitement →" data-en="Start for free →">Commencer gratuitement →</a>
+      <a href="#how" class="nav-link" data-fr="Comment ça marche" data-en="How it works">Comment ça marche</a>
+      <a href="#types" class="nav-link" data-fr="Pour qui" data-en="For who">Pour qui</a>
+      <a href="#waitlist" class="nav-cta" data-fr="Rejoindre la liste →" data-en="Join the waitlist →">Rejoindre la liste →</a>
       <button class="lang-toggle" onclick="toggleLang()">EN</button>
     </div>
   </nav>
 
   <!-- ======== HERO ======== -->
   <section class="hero">
-    <!-- Floating emojis -->
+    <!-- Background decorations — z-index:0 -->
     <div class="float-emoji">🎯</div>
     <div class="float-emoji">💬</div>
     <div class="float-emoji">⭐</div>
@@ -961,90 +487,108 @@
     <div class="hero-content">
       <div class="hero-eyebrow">
         <span></span>
-        Formation IA · collecte.ai · 6 profils de fundraisers
+        <span data-fr="Accès anticipé · Liste d'attente ouverte" data-en="Early access · Waitlist open">Accès anticipé · Liste d'attente ouverte</span>
       </div>
-      <h1 data-fr="Maîtrise l'art<br>de la collecte." data-en="Master the art<br>of fundraising.">
-        Maîtrise l'art<br>de la collecte.
-        <span class="line2" data-fr="Quel que soit ton canal." data-en="Whatever your channel.">Quel que soit ton canal.</span>
+
+      <h1 data-fr="Deviens le fundraiser<br>que tu aurais voulu<br>avoir face à toi." data-en="Become the fundraiser<br>you'd want to<br>face yourself.">
+        Deviens le fundraiser<br>que tu aurais voulu<br>avoir face à toi.
       </h1>
-      <p class="hero-sub" data-fr="F2F, téléphone, événements, grands donateurs — une plateforme pour tous les fundraisers." data-en="F2F, phone, events, major donors — one platform for every fundraiser.">
-        F2F, téléphone, événements, grands donateurs — une plateforme pour tous les fundraisers.
+
+      <p class="hero-sub" data-fr="collecte.ai simule de vraies conversations avec des donateurs IA. Pratique, améliore-toi, mesure tes progrès. Pour tous les types de collecte." data-en="collecte.ai simulates real conversations with AI donors. Practice, improve, measure your progress. For every type of fundraising.">
+        collecte.ai simule de vraies conversations avec des donateurs IA. Pratique, améliore-toi, mesure tes progrès. Pour tous les types de collecte.
       </p>
 
       <div class="hero-ctas">
-        <a href="#signup" class="btn-hero-primary" data-fr="Commencer gratuitement →" data-en="Start for free →">Commencer gratuitement →</a>
-        <a href="#dashboard-preview" class="btn-hero-ghost" data-fr="▶ Voir la démo" data-en="▶ Watch demo">▶ Voir la démo</a>
+        <a href="#waitlist" class="btn-hero-primary" data-fr="Rejoindre la liste d'attente →" data-en="Join the waitlist →">Rejoindre la liste d'attente →</a>
+        <a href="#dashboard-preview" class="btn-hero-ghost" data-fr="▶ Voir une démonstration" data-en="▶ See a demo">▶ Voir une démonstration</a>
       </div>
 
-      <!-- Social proof pills -->
       <div class="hero-proof">
-        <div class="proof-pill">⭐ 4.8/5 satisfaction</div>
-        <div class="proof-pill">🎓 500+ fundraisers formés</div>
-        <div class="proof-pill">🔥 F2F, téléphone, événements</div>
-        <div class="proof-pill">📊 87% taux de satisfaction</div>
+        <div class="proof-pill">🤖 <span data-fr="IA conversationnelle" data-en="Conversational AI">IA conversationnelle</span></div>
+        <div class="proof-pill">📊 <span data-fr="Score en temps réel" data-en="Real-time scoring">Score en temps réel</span></div>
+        <div class="proof-pill">🏆 <span data-fr="Certification reconnue" data-en="Recognized certification">Certification reconnue</span></div>
       </div>
     </div>
 
-    <!-- XP Bar at bottom of hero -->
+    <!-- XP Bar — z-index:1 stays on top of background, but below nav -->
     <div class="hero-xp-section">
       <div class="xp-label-row">
         <div class="xp-level-badge">
           <div class="xp-level-num">3</div>
-          <span>Niveau 3 — Fundraiser Confirmé</span>
+          <span data-fr="Niveau 3 — Fundraiser Confirmé" data-en="Level 3 — Confirmed Fundraiser">Niveau 3 — Fundraiser Confirmé</span>
         </div>
         <span class="xp-pct">2 340 / 3 000 XP</span>
       </div>
-      <div class="xp-bar-track">
-        <div class="xp-bar-fill"></div>
-      </div>
-      <div class="xp-sub">🚀 660 XP avant le Niveau 4 · 7 jours de streak 🔥</div>
+      <div class="xp-bar-track"><div class="xp-bar-fill"></div></div>
+      <div class="xp-sub" data-fr="🚀 660 XP avant le Niveau 4 · 7 jours de streak 🔥" data-en="🚀 660 XP to Level 4 · 7-day streak 🔥">🚀 660 XP avant le Niveau 4 · 7 jours de streak 🔥</div>
     </div>
   </section>
 
-  <!-- ======== POURQUOI COLLECTE.AI ======== -->
+  <!-- ======== SOCIAL PROOF BANNER ======== -->
+  <div class="proof-banner">
+    <div class="proof-item">
+      <span class="number" id="counterBanner">847</span>
+      <span data-fr="fundraisers sur la liste d'attente" data-en="fundraisers on the waitlist">fundraisers sur la liste d'attente</span>
+    </div>
+    <div class="proof-item">
+      🌍 <span data-fr="Testé en France et en Belgique" data-en="Tested in France and Belgium">Testé en France et en Belgique</span>
+    </div>
+    <div class="proof-item">
+      ⭐ <span data-fr="4.9/5 par les beta testeurs" data-en="4.9/5 from beta testers">4.9/5 par les beta testeurs</span>
+    </div>
+  </div>
+
+  <!-- ======== COMMENT ÇA MARCHE ======== -->
+  <section class="how-section" id="how">
+    <div class="section-header">
+      <div class="section-eyebrow" data-fr="Comment ça marche" data-en="How it works">Comment ça marche</div>
+      <h2 class="section-title" data-fr="Simple. Efficace. Immersif." data-en="Simple. Effective. Immersive.">Simple. Efficace. Immersif.</h2>
+      <p class="section-sub" data-fr="Trois étapes pour transformer ta pratique du terrain." data-en="Three steps to transform your field practice.">Trois étapes pour transformer ta pratique du terrain.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-icon">🎭</div>
+        <div class="step-num">1</div>
+        <h3 data-fr="Choisis ton profil de donateur" data-en="Choose your donor profile">Choisis ton profil de donateur</h3>
+        <p data-fr="Hostile, Sceptique, Pressé, Curieux — des profils IA qui simulent de vraies personnalités de terrain, canal par canal." data-en="Hostile, Skeptical, Rushed, Curious — AI profiles that simulate real field personalities, channel by channel.">Hostile, Sceptique, Pressé, Curieux — des profils IA qui simulent de vraies personnalités de terrain, canal par canal.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-icon">💬</div>
+        <div class="step-num">2</div>
+        <h3 data-fr="Engage la conversation" data-en="Engage the conversation">Engage la conversation</h3>
+        <p data-fr="L'IA réagit en temps réel à ce que tu dis. Chaque réponse compte. Comme sur le terrain — mais sans risquer tes chiffres." data-en="The AI reacts in real time to what you say. Every response matters. Just like the field — but without risking your numbers.">L'IA réagit en temps réel à ce que tu dis. Chaque réponse compte. Comme sur le terrain — mais sans risquer tes chiffres.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-icon">📈</div>
+        <div class="step-num">3</div>
+        <h3 data-fr="Reçois ton score détaillé" data-en="Get your detailed score">Reçois ton score détaillé</h3>
+        <p data-fr="Empathie, clarté, gestion des objections, closing. Tu sais exactement où tu perds les gens — et comment corriger." data-en="Empathy, clarity, objection handling, closing. You know exactly where you lose people — and how to fix it.">Empathie, clarté, gestion des objections, closing. Tu sais exactement où tu perds les gens — et comment corriger.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== FEATURES ======== -->
   <section class="features-section" id="features">
     <div class="section-header">
       <div class="section-eyebrow" data-fr="Pourquoi collecte.ai" data-en="Why collecte.ai">Pourquoi collecte.ai</div>
-      <h2 class="section-title" data-fr="La formation qui change vraiment&lt;br&gt;tes résultats terrain." data-en="Training that actually changes&lt;br&gt;your field results.">La formation qui change vraiment<br>tes résultats terrain.</h2>
-      <p class="section-sub">Plus de PowerPoints génériques. Une plateforme IA adaptée à chaque type de collecte — avec des simulations qui ressemblent au vrai terrain.</p>
+      <h2 class="section-title" data-fr="La formation qui change vraiment<br>tes résultats terrain." data-en="Training that actually changes<br>your field results.">La formation qui change vraiment<br>tes résultats terrain.</h2>
+      <p class="section-sub" data-fr="Fini les PowerPoints génériques. Place aux simulations qui ressemblent au vrai terrain." data-en="No more generic slideshows. Real simulations that feel like the actual field.">Fini les PowerPoints génériques. Place aux simulations qui ressemblent au vrai terrain.</p>
     </div>
     <div class="features-grid">
       <div class="feature-card">
         <div class="feature-icon feature-icon-1">🎯</div>
         <h3 data-fr="6 profils de fundraisers" data-en="6 fundraiser profiles">6 profils de fundraisers</h3>
-        <p data-fr="Porte-à-porte, téléphone, réception, événements, grands donateurs, digital. Chacun son module, ses simulations, sa progression spécifique." data-en="Door-to-door, phone, reception, events, major donors, digital. Each with its own module, simulations and specific progression.">Porte-à-porte, téléphone, réception, événements, grands donateurs, digital. Chacun son module, ses simulations, sa progression spécifique.</p>
+        <p data-fr="F2F, téléphone, réception, événements, grands donateurs, digital. Chaque canal a ses simulations, ses profils IA, sa progression spécifique." data-en="F2F, phone, inbound, events, major donors, digital. Each channel has its own simulations, AI profiles, and progression path.">F2F, téléphone, réception, événements, grands donateurs, digital. Chaque canal a ses simulations, ses profils IA, sa progression spécifique.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon feature-icon-2">🤖</div>
-        <h3 data-fr="IA adaptée à ton canal" data-en="AI adapted to your channel">IA adaptée à ton canal</h3>
-        <p>Les simulations changent selon ton type de collecte. Un appel entrant n'est pas une porte à frapper. Chaque contexte a ses propres profils et scénarios.</p>
+        <h3 data-fr="IA conversationnelle réaliste" data-en="Realistic conversational AI">IA conversationnelle réaliste</h3>
+        <p data-fr="Les simulations changent selon ce que tu dis, en temps réel. Un sceptique devient hostile si tu te plantes. Comme la vraie vie." data-en="Simulations adapt to what you say, in real time. A skeptic turns hostile if you mess up. Just like real life.">Les simulations changent selon ce que tu dis, en temps réel. Un sceptique devient hostile si tu te plantes. Comme la vraie vie.</p>
       </div>
       <div class="feature-card">
         <div class="feature-icon feature-icon-3">📊</div>
-        <h3 data-fr="Progression mesurée" data-en="Measured progress">Progression mesurée</h3>
-        <p>Score après chaque simulation. Empathie, clarté, objections, closing. Tu sais exactement où progresser — et comment y arriver.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======== STATS COUNTER ======== -->
-  <section class="stats-section">
-    <div class="stats-grid">
-      <div class="stat-item">
-        <div class="stat-num"><span id="stat-collecteurs">0</span>+</div>
-        <div class="stat-label">fundraisers formés</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num"><span id="stat-reussite">0</span>%</div>
-        <div class="stat-label">taux de réussite moyen</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num"><span id="stat-simulations">0</span>k+</div>
-        <div class="stat-label">simulations IA réalisées</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-num">4.<span id="stat-note">0</span></div>
-        <div class="stat-label">satisfaction / 5</div>
+        <h3 data-fr="Progression mesurée &amp; certifiée" data-en="Measured &amp; certified progress">Progression mesurée &amp; certifiée</h3>
+        <p data-fr="Score après chaque simulation. Niveaux, XP, badges, certification. Tu sais exactement où tu en es — et tu peux le prouver." data-en="Score after every simulation. Levels, XP, badges, certification. You know exactly where you stand — and you can prove it.">Score après chaque simulation. Niveaux, XP, badges, certification. Tu sais exactement où tu en es — et tu peux le prouver.</p>
       </div>
     </div>
   </section>
@@ -1054,8 +598,8 @@
     <div class="dashboard-preview-inner">
       <div class="section-header">
         <div class="section-eyebrow" data-fr="Tableau de bord" data-en="Dashboard">Tableau de bord</div>
-        <h2 class="section-title" data-fr="Ton espace de progression.&lt;br&gt;Clair, motivant, puissant." data-en="Your progress space.&lt;br&gt;Clear, motivating, powerful.">Ton espace de progression.<br>Clair, motivant, puissant.</h2>
-        <p class="section-sub">Chaque session, chaque score, chaque XP — tout est tracé. Connecte-toi pour accéder à ton tableau de bord complet.</p>
+        <h2 class="section-title" data-fr="Ton espace de progression.<br>Clair, motivant, puissant." data-en="Your progress space.<br>Clear, motivating, powerful.">Ton espace de progression.<br>Clair, motivant, puissant.</h2>
+        <p class="section-sub" data-fr="Chaque session, chaque score, chaque XP — tout est tracé. Visualise ta courbe de progression." data-en="Every session, every score, every XP — all tracked. Visualize your progress curve.">Chaque session, chaque score, chaque XP — tout est tracé. Visualise ta courbe de progression.</p>
       </div>
 
       <div class="mockup-wrapper">
@@ -1071,7 +615,6 @@
           </div>
 
           <div class="dashboard-ui">
-            <!-- Sidebar -->
             <div class="db-sidebar">
               <div class="db-sidebar-logo">collecte.ai</div>
               <div class="db-nav-item active"><span class="db-nav-icon">📊</span> Tableau de bord</div>
@@ -1088,55 +631,48 @@
               </div>
             </div>
 
-            <!-- Main -->
             <div class="db-main">
               <div class="db-topbar">
-                <div class="db-greeting">Bonjour Alexandre 👋 — Tu es sur une belle lancée !</div>
+                <div class="db-greeting" data-fr="Bonjour Alexandre 👋 — Tu es sur une belle lancée !" data-en="Hey Alexandre 👋 — You're on a roll!">Bonjour Alexandre 👋 — Tu es sur une belle lancée !</div>
                 <div class="db-badges">
                   <span class="db-badge db-badge-streak">🔥 7 jours</span>
                   <span class="db-badge db-badge-xp">⚡ 2 340 XP</span>
                 </div>
               </div>
-
-              <!-- XP Card -->
               <div class="db-xp-card">
                 <div class="db-level-badge">3</div>
                 <div class="db-xp-text">
-                  <div class="db-xp-name">Niveau 3 — Fundraiser Confirmé</div>
-                  <div class="db-xp-progress-label">2 340 / 3 000 XP · 660 XP avant le niveau 4</div>
+                  <div class="db-xp-name" data-fr="Niveau 3 — Fundraiser Confirmé" data-en="Level 3 — Confirmed Fundraiser">Niveau 3 — Fundraiser Confirmé</div>
+                  <div class="db-xp-progress-label" data-fr="2 340 / 3 000 XP · 660 XP avant le niveau 4" data-en="2,340 / 3,000 XP · 660 XP to level 4">2 340 / 3 000 XP · 660 XP avant le niveau 4</div>
                   <div class="db-xp-bar"><div class="db-xp-bar-fill"></div></div>
                 </div>
                 <div class="db-xp-pct">78%</div>
               </div>
-
-              <!-- Modules -->
               <div class="db-modules-grid">
                 <div class="db-module">
                   <div class="db-module-title" style="color:#16a34a;">✓ Les fondamentaux</div>
-                  <div class="db-module-sub">100% complété · 320 XP gagnés</div>
+                  <div class="db-module-sub" data-fr="100% complété · 320 XP gagnés" data-en="100% complete · 320 XP earned">100% complété · 320 XP gagnés</div>
                   <div class="db-prog-bar"><div class="db-prog-fill" style="width:100%;background:linear-gradient(90deg,#16a34a,#4ade80);"></div></div>
                 </div>
                 <div class="db-module">
                   <div class="db-module-title" style="color:#d97706;">⚡ Gérer les objections</div>
-                  <div class="db-module-sub">65% en cours · +450 XP disponibles</div>
+                  <div class="db-module-sub" data-fr="65% en cours · +450 XP disponibles" data-en="65% in progress · +450 XP available">65% en cours · +450 XP disponibles</div>
                   <div class="db-prog-bar"><div class="db-prog-fill" style="width:65%;background:linear-gradient(90deg,#d97706,#fbbf24);"></div></div>
                 </div>
                 <div class="db-module">
                   <div class="db-module-title">🧠 Profils de donateurs</div>
-                  <div class="db-module-sub">30% · 3 archétypes découverts</div>
+                  <div class="db-module-sub" data-fr="30% · 3 archétypes découverts" data-en="30% · 3 archetypes unlocked">30% · 3 archétypes découverts</div>
                   <div class="db-prog-bar"><div class="db-prog-fill" style="width:30%;background:linear-gradient(90deg,#6366f1,#8b5cf6);"></div></div>
                 </div>
-                <div class="db-module" style="opacity:0.45;">
-                  <div class="db-module-title">🔒 Closing & engagement</div>
-                  <div class="db-module-sub">Niveau 4 requis</div>
+                <div class="db-module" style="opacity:0.5;">
+                  <div class="db-module-title">🔒 Closing &amp; engagement</div>
+                  <div class="db-module-sub" data-fr="Niveau 4 requis" data-en="Level 4 required">Niveau 4 requis</div>
                   <div class="db-prog-bar"><div class="db-prog-fill" style="width:0%;background:var(--border);"></div></div>
                 </div>
               </div>
-
-              <!-- Bottom row -->
               <div class="db-bottom-row">
                 <div class="db-leaderboard">
-                  <div class="db-lb-title">🏆 Classement cette semaine</div>
+                  <div class="db-lb-title">🏆 <span data-fr="Classement cette semaine" data-en="This week's ranking">Classement cette semaine</span></div>
                   <div class="db-lb-item">
                     <div class="db-lb-rank" style="color:#f59e0b;">🥇</div>
                     <div class="db-lb-av" style="background:linear-gradient(135deg,#f59e0b,#d97706);">MC</div>
@@ -1156,21 +692,19 @@
                     <div class="db-lb-xp">2 340 XP</div>
                   </div>
                 </div>
-
                 <div class="db-mission">
-                  <div class="db-mission-title">🎯 Mission du jour</div>
-                  <div class="db-mission-text">Complète 2 simulations avec le profil <strong>Hostile</strong> et obtiens un score &gt; 75%. Récompense : +150 XP 🔥</div>
-                  <button class="db-mission-btn">Lancer la simulation →</button>
+                  <div class="db-mission-title">🎯 <span data-fr="Mission du jour" data-en="Today's mission">Mission du jour</span></div>
+                  <div class="db-mission-text" data-fr="Complète 2 simulations avec le profil Hostile et obtiens un score > 75%. Récompense : +150 XP 🔥" data-en="Complete 2 Hostile simulations with a score > 75%. Reward: +150 XP 🔥">Complète 2 simulations avec le profil <strong>Hostile</strong> et obtiens un score &gt; 75%. Récompense : +150 XP 🔥</div>
+                  <button class="db-mission-btn" data-fr="Lancer la simulation →" data-en="Start simulation →">Lancer la simulation →</button>
                 </div>
               </div>
             </div>
 
-            <!-- Blur gate overlay -->
             <div class="db-blur-overlay">
               <div class="db-gate-message">
-                <div class="db-gate-icon">🔒</div>
-                <div class="db-gate-text" data-fr="Connectez-vous pour accéder au tableau de bord complet" data-en="Log in to access the full dashboard">Connectez-vous pour accéder au tableau de bord complet</div>
-                <a href="#signup" class="db-gate-btn" data-fr="Créer un compte →" data-en="Create an account →">Créer un compte →</a>
+                <div class="db-gate-icon">🚀</div>
+                <div class="db-gate-text" data-fr="Bientôt disponible — rejoins la liste pour être parmi les premiers" data-en="Coming soon — join the list to be among the first">Bientôt disponible — rejoins la liste pour être parmi les premiers</div>
+                <a href="#waitlist" class="db-gate-btn" data-fr="Rejoindre la liste →" data-en="Join the waitlist →">Rejoindre la liste →</a>
               </div>
             </div>
           </div>
@@ -1178,108 +712,55 @@
       </div>
 
       <div class="dashboard-below">
-        <p data-fr="Déjà &lt;strong&gt;500+ fundraisers&lt;/strong&gt; utilisent collecte.ai pour progresser chaque jour." data-en="Already &lt;strong&gt;500+ fundraisers&lt;/strong&gt; use collecte.ai to improve every day.">Déjà <strong>500+ fundraisers</strong> utilisent collecte.ai pour progresser chaque jour.</p>
-        <a href="#signup" class="nav-cta" style="display:inline-flex;padding:14px 32px;font-size:15px;border-radius:12px;">Commencer gratuitement →</a>
+        <p data-fr="Conçu pour les fundraisers qui veulent <strong>mesurer leur progression</strong> — pas juste se former." data-en="Built for fundraisers who want to <strong>measure their progress</strong> — not just train.">Conçu pour les fundraisers qui veulent <strong>mesurer leur progression</strong> — pas juste se former.</p>
+        <a href="#waitlist" class="nav-cta" style="display:inline-flex;padding:14px 32px;font-size:15px;border-radius:12px;" data-fr="Rejoindre la liste d'attente →" data-en="Join the waitlist →">Rejoindre la liste d'attente →</a>
       </div>
     </div>
   </section>
 
-  <!-- ======== SIMULATION PREVIEW ======== -->
-  <section class="simulation-section">
-    <div class="simulation-inner">
-      <div class="section-header">
-        <div class="section-eyebrow" data-fr="Simulations IA" data-en="AI Simulations">Simulations IA</div>
-        <h2 class="section-title" data-fr="Entraîne-toi en conditions réelles.&lt;br&gt;Sans risque pour tes résultats." data-en="Train in real conditions.&lt;br&gt;No risk to your results.">Entraîne-toi en conditions réelles.<br>Sans risque pour tes résultats.</h2>
-        <p class="section-sub">5 profils de donateurs IA, des centaines de scénarios. Le terrain dans ta poche.</p>
+  <!-- ======== FUNDRAISER TYPES ======== -->
+  <section class="types-section" id="types">
+    <div class="section-header">
+      <div class="section-eyebrow" data-fr="Pour tous les fundraisers" data-en="For every fundraiser">Pour tous les fundraisers</div>
+      <h2 class="section-title" data-fr="Quel que soit ton canal.<br>collecte.ai est fait pour toi." data-en="Whatever your channel.<br>collecte.ai is built for you.">Quel que soit ton canal.<br>collecte.ai est fait pour toi.</h2>
+      <p class="section-sub" data-fr="6 profils, 6 expériences de formation sur mesure." data-en="6 profiles, 6 tailored training experiences.">6 profils, 6 expériences de formation sur mesure.</p>
+    </div>
+    <div class="types-grid">
+      <div class="type-card">
+        <div class="type-icon">🚪</div>
+        <h3 data-fr="Fundraiser F2F" data-en="F2F Fundraiser">Fundraiser F2F</h3>
+        <p data-fr="Porte-à-porte, donateurs mensuels, terrain urbain." data-en="Door-to-door, monthly donors, urban field.">Porte-à-porte, donateurs mensuels, terrain urbain.</p>
+        <span class="type-badge">F2F</span>
       </div>
-
-      <div class="sim-ui">
-        <!-- Donor Profile -->
-        <div class="sim-profile">
-          <div class="sim-profile-title">Profil donateur</div>
-          <div class="sim-profile-avatar">👨‍💼</div>
-          <div class="sim-profile-name">Jean-Pierre</div>
-          <div class="sim-profile-tags">
-            <div>
-              <div class="sim-tag-label">Personnalité</div>
-              <div class="sim-tag-val">🧐 Sceptique</div>
-            </div>
-            <div>
-              <div class="sim-tag-label">Difficulté</div>
-              <div class="sim-diff-bar">
-                <div class="sim-diff-dot" style="background:#ef4444;"></div>
-                <div class="sim-diff-dot" style="background:#ef4444;"></div>
-                <div class="sim-diff-dot" style="background:#ef4444;"></div>
-              </div>
-              <div class="sim-tag-val" style="color:#fca5a5;">Élevée ⚡⚡⚡</div>
-            </div>
-            <div>
-              <div class="sim-tag-label">Objections probables</div>
-              <div class="sim-tag-val" style="font-size:11px;line-height:1.5;">"Je n'ai pas les moyens"<br>"Pas de temps"<br>"Je ne fais pas confiance"</div>
-            </div>
-          </div>
-          <div class="sim-status">
-            <div class="sim-status-badge">
-              <div class="sim-status-text">⚠️ Mode simulation actif</div>
-              <div class="sim-status-sub">Tes erreurs ne coûtent rien ici</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Chat -->
-        <div class="sim-chat">
-          <div class="sim-chat-header">
-            <h4>Simulation — Objection : "Pas les moyens"</h4>
-            <span class="sim-chat-badge">Score en direct : 72/100</span>
-          </div>
-
-          <!-- Visible messages -->
-          <div class="sim-messages">
-            <div class="sim-msg">
-              <div class="sim-msg-av" style="background:#ef4444;">JP</div>
-              <div>
-                <div class="sim-bubble sim-bubble-donor">Bonsoir, je n'ai vraiment pas le temps là, et de toute façon je n'ai pas les moyens pour ça.</div>
-                <div class="sim-timestamp">Il y a 2 min</div>
-              </div>
-            </div>
-            <div class="sim-msg user">
-              <div class="sim-msg-av" style="background:#6366f1;">Vous</div>
-              <div>
-                <div class="sim-bubble sim-bubble-user">Je comprends tout à fait. Est-ce que c'est vraiment une question de moyens, ou plutôt de priorité en ce moment ?</div>
-                <div class="sim-timestamp" style="text-align:right;">Il y a 1 min</div>
-              </div>
-            </div>
-            <div class="sim-msg">
-              <div class="sim-msg-av" style="background:#ef4444;">JP</div>
-              <div>
-                <div class="sim-bubble sim-bubble-donor">... Hm. En fait, je ne suis juste pas sûr que mon don serve vraiment à quelque chose.</div>
-                <div class="sim-timestamp">Il y a 45s</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Blurred section -->
-          <div class="sim-blur-wrap">
-            <div class="sim-blur-content">
-              <div class="sim-messages" style="padding:16px 20px;display:flex;flex-direction:column;gap:12px;">
-                <div class="sim-msg user">
-                  <div class="sim-msg-av" style="background:#6366f1;">Vous</div>
-                  <div><div class="sim-bubble sim-bubble-user">C'est exactement la bonne question à se poser. Laissez-moi vous montrer...</div></div>
-                </div>
-                <div class="sim-msg">
-                  <div class="sim-msg-av" style="background:#ef4444;">JP</div>
-                  <div><div class="sim-bubble sim-bubble-donor">D'accord, je vous écoute. Mais soyez bref.</div></div>
-                </div>
-              </div>
-            </div>
-            <div class="sim-lock-overlay">
-              <div class="sim-lock-icon">🔐</div>
-              <div class="sim-lock-text" data-fr="Débloquez la simulation complète" data-en="Unlock the full simulation">Débloquez la simulation complète</div>
-              <div class="sim-lock-sub">Connexion gratuite — accès immédiat</div>
-              <a href="#signup" class="sim-lock-btn" data-fr="Créer un compte gratuit →" data-en="Create a free account →">Créer un compte gratuit →</a>
-            </div>
-          </div>
-        </div>
+      <div class="type-card">
+        <div class="type-icon">📞</div>
+        <h3 data-fr="Télémarketeur" data-en="Phone Fundraiser">Télémarketeur</h3>
+        <p data-fr="Appels sortants, rétention, anti-churn, upgrade donateurs." data-en="Outbound calls, retention, anti-churn, upgrades.">Appels sortants, rétention, anti-churn, upgrade donateurs.</p>
+        <span class="type-badge">Téléphone</span>
+      </div>
+      <div class="type-card">
+        <div class="type-icon">📥</div>
+        <h3 data-fr="Agent de Réception" data-en="Inbound Agent">Agent de Réception</h3>
+        <p data-fr="Sauver les donateurs qui appellent pour annuler. La conversation la plus importante." data-en="Save donors calling to cancel. The most important conversation.">Sauver les donateurs qui appellent pour annuler. La conversation la plus importante.</p>
+        <span class="type-badge">Rétention</span>
+      </div>
+      <div class="type-card">
+        <div class="type-icon">🎪</div>
+        <h3 data-fr="Fundraiser Événementiel" data-en="Events Fundraiser">Fundraiser Événementiel</h3>
+        <p data-fr="Galas, courses, festivals. L'art d'approcher un inconnu dans un contexte social." data-en="Galas, races, festivals. The art of approaching a stranger in a social setting.">Galas, courses, festivals. L'art d'approcher un inconnu dans un contexte social.</p>
+        <span class="type-badge">Événements</span>
+      </div>
+      <div class="type-card">
+        <div class="type-icon">🤝</div>
+        <h3 data-fr="Major Donor Officer" data-en="Major Donor Officer">Major Donor Officer</h3>
+        <p data-fr="Grands donateurs 500€+/mois. La relation avant le don." data-en="Major donors 500€+/month. Relationship before the ask.">Grands donateurs 500€+/mois. La relation avant le don.</p>
+        <span class="type-badge">Grands donateurs</span>
+      </div>
+      <div class="type-card">
+        <div class="type-icon">✉️</div>
+        <h3 data-fr="Fundraiser Digital" data-en="Digital Fundraiser">Fundraiser Digital</h3>
+        <p data-fr="Email, réseaux sociaux, copywriting. Convaincre sans la présence physique." data-en="Email, social media, copywriting. Persuade without physical presence.">Email, réseaux sociaux, copywriting. Convaincre sans la présence physique.</p>
+        <span class="type-badge">Digital</span>
       </div>
     </div>
   </section>
@@ -1287,1338 +768,243 @@
   <!-- ======== TESTIMONIALS ======== -->
   <section class="testimonials" id="avis">
     <div class="section-header">
-      <div class="section-eyebrow" data-fr="Ils ont progressé" data-en="They improved">Ils ont progressé</div>
-      <h2 class="section-title" data-fr="Fundraisers réels.&lt;br&gt;Résultats réels." data-en="Real fundraisers.&lt;br&gt;Real results.">Fundraisers réels.<br>Résultats réels.</h2>
+      <div class="section-eyebrow" data-fr="Beta testeurs" data-en="Beta testers">Beta testeurs</div>
+      <h2 class="section-title" data-fr="Ceux qui l'ont testé<br>ne sont pas revenus en arrière." data-en="Those who tested it<br>never went back.">Ceux qui l'ont testé<br>ne sont pas revenus en arrière.</h2>
     </div>
     <div class="testimonials-grid">
       <div class="testimonial-card">
         <div class="testimonial-stars">★★★★★</div>
-        <div class="testimonial-quote" data-fr=""En 2 semaines sur collecte.ai, mon taux de signature a augmenté de 23%. Le module objections est incroyable — je me sens préparé à tout."" data-en=""In 2 weeks on collecte.ai, my signing rate went up 23%. The objections module is incredible — I feel prepared for anything."">"En 2 semaines sur collecte.ai, mon taux de signature a augmenté de 23%. Le module objections est incroyable — je me sens préparé à tout."</div>
+        <div class="testimonial-quote">"J'ai pratiqué avec le profil Hostile 20 fois. Ma première vraie porte difficile, j'étais prêt. Complètement différent de n'importe quelle formation que j'avais suivie."</div>
         <div class="testimonial-author">
-          <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=80" alt="Lucas M.">
+          <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=80" alt="Antoine M.">
           <div>
-            <div class="testimonial-name" data-fr="Lucas M." data-en="Lucas M.">Lucas M.</div>
-            <div class="testimonial-role" data-fr="Fundraiser BABYLON · Paris" data-en="BABYLON Fundraiser · Paris">Fundraiser BABYLON · Paris</div>
+            <div class="testimonial-name">Antoine M.</div>
+            <div class="testimonial-role">Fundraiser F2F · Paris</div>
           </div>
         </div>
       </div>
       <div class="testimonial-card">
         <div class="testimonial-stars">★★★★★</div>
-        <div class="testimonial-quote">"La simulation avec le profil 'hostile' m'a préparé à tout. Je suis passé de 8% à 15% de conversion en un mois. Aucun coaching en présentiel n'avait réussi ça."</div>
+        <div class="testimonial-quote">"Le scoring m'a montré exactement où je perdais les gens. Mon taux de conversion a augmenté de 18% en six semaines. Aucun coach n'avait réussi ça."</div>
         <div class="testimonial-author">
-          <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80" alt="Camille D.">
+          <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80" alt="Sarah K.">
           <div>
-            <div class="testimonial-name" data-fr="Camille D." data-en="Camille D.">Camille D.</div>
-            <div class="testimonial-role" data-fr="Fundraiser · Lyon" data-en="Fundraiser · Lyon">Fundraiser · Lyon</div>
+            <div class="testimonial-name">Sarah K.</div>
+            <div class="testimonial-role">Team Leader · Bruxelles</div>
           </div>
         </div>
       </div>
       <div class="testimonial-card">
         <div class="testimonial-stars">★★★★★</div>
-        <div class="testimonial-quote">"Le leaderboard m'a rendu accro. J'ouvre l'app tous les matins avant même le café. Mon équipe a progressé de 18% en collectif en 6 semaines."</div>
+        <div class="testimonial-quote">"Enfin un outil qui simule la vraie pression d'une collecte. Pas un cours théorique. Tu fais des erreurs, tu corriges, tu progresses. C'est ça qui forme."</div>
         <div class="testimonial-author">
-          <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80" alt="Théo R.">
+          <img class="testimonial-avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&q=80" alt="Yann P.">
           <div>
-            <div class="testimonial-name" data-fr="Théo R." data-en="Théo R.">Théo R.</div>
-            <div class="testimonial-role" data-fr="Team Leader · Bordeaux" data-en="Team Leader · Bordeaux">Team Leader · Bordeaux</div>
+            <div class="testimonial-name">Yann P.</div>
+            <div class="testimonial-role">Fundraiser événementiel · Lyon</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ======== MODULES PREVIEW ======== -->
-  <section class="modules-section" id="modules">
-    <div class="section-header">
-      <div class="section-eyebrow" data-fr="Programme de formation" data-en="Training programme">Programme de formation</div>
-      <h2 class="section-title" data-fr="Des modules pour chaque&lt;br&gt;type de fundraiser." data-en="Modules for every&lt;br&gt;type of fundraiser.">Des modules pour chaque<br>type de fundraiser.</h2>
-      <p class="section-sub">Sélectionne ton profil. Accède aux contenus et simulations faits pour toi.</p>
-    </div>
+  <!-- ======== WAITLIST ======== -->
+  <section class="waitlist-section" id="waitlist">
+    <div class="waitlist-inner">
+      <div class="section-header" style="margin-bottom:0;">
+        <div class="section-eyebrow" data-fr="🚀 Accès anticipé" data-en="🚀 Early Access">🚀 Accès anticipé</div>
+        <h2 class="section-title" data-fr="Sois parmi les premiers<br>à accéder à collecte.ai." data-en="Be among the first<br>to access collecte.ai.">Sois parmi les premiers<br>à accéder à collecte.ai.</h2>
+        <p class="section-sub" data-fr="collecte.ai est en cours de développement. Rejoins la liste d'attente — on te contacte dès l'ouverture." data-en="collecte.ai is in development. Join the waitlist — we'll reach out as soon as we launch.">collecte.ai est en cours de développement. Rejoins la liste d'attente — on te contacte dès l'ouverture.</p>
+      </div>
 
-    <!-- Profile type tabs -->
-    <div style="max-width:1100px;margin:0 auto 32px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
-      <button class="profile-tab active" onclick="switchTab('f2f')" id="tab-f2f" style="display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:100px;border:1px solid var(--border);background:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;">🚪 F2F</button>
-      <button class="profile-tab" onclick="switchTab('telephone')" id="tab-telephone" style="display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:100px;border:1px solid var(--border);background:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;">📞 Téléphone</button>
-      <button class="profile-tab" onclick="switchTab('reception')" id="tab-reception" style="display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:100px;border:1px solid var(--border);background:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;">📥 Réception</button>
-      <button class="profile-tab" onclick="switchTab('evenements')" id="tab-evenements" style="display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:100px;border:1px solid var(--border);background:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;">🎪 Événements</button>
-      <button class="profile-tab" onclick="switchTab('majors')" id="tab-majors" style="display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:100px;border:1px solid var(--border);background:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;">🤝 Grands donateurs</button>
-      <button class="profile-tab" onclick="switchTab('digital')" id="tab-digital" style="display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:100px;border:1px solid var(--border);background:#fff;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:'Inter',sans-serif;">✉️ Digital</button>
-    </div>
-
-    <!-- F2F modules -->
-    <div id="modules-f2f" class="modules-grid module-tab-content">
-      <div class="module-card">
-        <div class="module-icon">🏗️</div>
-        <h3>Les fondamentaux F2F</h3>
-        <p>Ouverture, posture, timing à la porte. Les bases qui font toute la différence sur le terrain.</p>
-        <span class="module-tag tag-free">✓ Gratuit</span>
-      </div>
-      <div class="module-card">
-        <div class="lock-badge">🔒</div>
-        <div class="module-icon">🛡️</div>
-        <h3>Gérer les objections</h3>
-        <p>5 objections fréquentes, 15 réponses testées. Transforme les "non" en conversations ouvertes.</p>
-        <span class="module-tag tag-premium">🔒 Premium</span>
-      </div>
-      <div class="module-card">
-        <div class="lock-badge">🔒</div>
-        <div class="module-icon">👥</div>
-        <h3>Profils de donateurs</h3>
-        <p>5 archétypes F2F. Identifie en 30 secondes comment approcher chaque personnalité.</p>
-        <span class="module-tag tag-premium">🔒 Premium</span>
-      </div>
-      <div class="module-card">
-        <div class="lock-badge">🔒</div>
-        <div class="module-icon">🎯</div>
-        <h3>Closing & engagement</h3>
-        <p>La technique des 2 options. Transformer l'intérêt en engagement durable mensuel.</p>
-        <span class="module-tag tag-premium">🔒 Premium</span>
-      </div>
-    </div>
-
-    <!-- Téléphone modules -->
-    <div id="modules-telephone" class="modules-grid module-tab-content" style="display:none;">
-      <div class="module-card">
-        <div class="module-icon">📞</div>
-        <h3>L'accroche téléphonique</h3>
-        <p>Les 10 premières secondes d'un appel sortant. Créer l'intérêt avant que la personne raccroche.</p>
-        <span class="module-tag tag-free">✓ Gratuit</span>
-      </div>
-      <div class="module-card">
-        <div class="lock-badge">🔒</div>
-        <div class="module-icon">📋</div>
-        <h3>Scripts courts qui convertissent</h3>
-        <p>Pas de scripts rigides — des cadres flexibles pour chaque situation : churn, upgrade, réactivation.</p>
-        <span class="module-tag tag-premium">🔒 Premium</span>
-      </div>
-      <div class="module-card">
-        <div class="lock-badge">🔒</div>
-        <div class="module-icon">⏸️</div>
-        <h3>"Je vais y réfléchir"</h3>
-        <p>La phrase la plus courante au téléphone. Savoir rester dans la conversation sans forcer.</p>
-        <span class="module-tag tag-premium">🔒 Premium</span>
-      </div>
-      <div class="module-card">
-        <div class="lock-badge">🔒</div>
-        <div class="module-icon">✅</div>
-        <h3>Closing au téléphone</h3>
-        <p>Conclure un engagement sans se voir. Les techniques qui fonctionnent à distance.</p>
-        <span class="module-tag tag-premium">🔒 Premium</span>
-      </div>
-    </div>
-
-    <!-- Réception modules -->
-    <div id="modules-reception" class="modules-grid module-tab-content" style="display:none;">
-      <div class="module-card">
-        <div class="module-icon">🧘</div>
-        <h3>Désescalade & écoute active</h3>
-        <p>30 secondes pour changer le ton d'un appel. La posture d'accueil qui désamorce la frustration.</p>
-        <span class="module-tag tag-free">✓ Gratuit</span>
-      </div>
-      <div class="module-card">
-        <div class="lock-badge">🔒</div>
-        <div class="module-icon">❤️</div>
-        <h3>Rétention : comprendre la vraie raison</h3>
-        <p>Un donateur qui annule dit rarement la vraie raison. Apprends à creuser avec empathie.</p>
-        <span class="module-tag tag-premium">🔒 Premium</span>
-      </div>
-      <div class="module-card">
-        <div class="lock-badge">🔒</div>
-        <div class="module-icon">🔄</div>
-        <h3>L'offre de pause</h3>
-        <p>Proposer une suspension temporaire plutôt qu'une annulation. Le script qui sauve 40% des appels.</p>
-        <span class="module-tag tag-premium">🔒 Premium</span>
-      </div>
-      <div class="module-card">
-        <div class="lock-badge">🔒</div>
-        <div class="module-icon">📉</div>
-        <h3>Réduction & down-sell</h3>
-        <p>Proposer un montant réduit pour garder le donateur. Mieux que zéro — et ça fidélise.</p>
-        <span class="module-tag tag-premium">🔒 Premium</span>
-      </div>
-    </div>
-
-    <!-- Événements modules -->
-    <div id="modules-evenements" class="modules-grid module-tab-content" style="display:none;">
-      <div class="module-card">
-        <div class="module-icon">🎉</div>
-        <h3>L'approche naturelle en événement</h3>
-        <p>Aborder un inconnu dans un contexte social sans sonner "commercial". L'art de la conversation légère.</p>
-        <span class="module-tag tag-free">✓ Gratuit</span>
-      </div>
-      <div class="module-card">
-        <div class="lock-badge">🔒</div>
-        <div class="module-icon">⚡</div>
-        <h3>Le pitch ultra-court</h3>
-        <p>60 secondes max. Émotions, impact, invitation. La structure qui fonctionne dans un gala ou une course.</p>
-        <span class="module-tag tag-premium">🔒 Premium</span>
-      </div>
-      <div class="module-card">
-        <div class="lock-badge">🔒</div>
-        <div class="module-icon">📱</div>
-        <h3>QR Code & engagement digital</h3>
-        <p>Du contact en présentiel à la signature en ligne. Simplifier le passage à l'acte au maximum.</p>
-        <span class="module-tag tag-premium">🔒 Premium</span>
-      </div>
-      <div class="module-card">
-        <div class="lock-badge">🔒</div>
-        <div class="module-icon">🌊</div>
-        <h3>Lire l'énergie d'une salle</h3>
-        <p>Chaque événement a une dynamique différente. Comment adapter ton approche en temps réel.</p>
-        <span class="module-tag tag-premium">🔒 Premium</span>
-      </div>
-    </div>
-
-    <!-- Grands donateurs modules -->
-    <div id="modules-majors" class="modules-grid module-tab-content" style="display:none;">
-      <div class="module-card">
-        <div class="module-icon">🤝</div>
-        <h3>La relation avant le don</h3>
-        <p>Avec un grand donateur, pas de pitch immédiat. Construire la confiance en plusieurs échanges.</p>
-        <span class="module-tag tag-free">✓ Gratuit</span>
-      </div>
-      <div class="module-card">
-        <div class="lock-badge">🔒</div>
-        <div class="module-icon">📊</div>
-        <h3>Impact storytelling</h3>
-        <p>Les grands donateurs veulent voir l'impact de leur argent. Chiffres, histoires, preuves concrètes.</p>
-        <span class="module-tag tag-premium">🔒 Premium</span>
-      </div>
-      <div class="module-card">
-        <div class="lock-badge">🔒</div>
-        <div class="module-icon">🏛️</div>
-        <h3>Gouvernance & transparence</h3>
-        <p>Répondre aux questions précises sur la structure, les frais, l'utilisation des fonds. Sans hésitation.</p>
-        <span class="module-tag tag-premium">🔒 Premium</span>
-      </div>
-      <div class="module-card">
-        <div class="lock-badge">🔒</div>
-        <div class="module-icon">🎁</div>
-        <h3>Legs & dons majeurs</h3>
-        <p>Aborder les sujets complexes : legs testamentaires, dons en capital. La conversation longue terme.</p>
-        <span class="module-tag tag-premium">🔒 Premium</span>
-      </div>
-    </div>
-
-    <!-- Digital modules -->
-    <div id="modules-digital" class="modules-grid module-tab-content" style="display:none;">
-      <div class="module-card">
-        <div class="module-icon">✉️</div>
-        <h3>Psychologie du donateur digital</h3>
-        <p>Ce qui pousse à cliquer, à donner, à partager en ligne. Les leviers du comportement digital.</p>
-        <span class="module-tag tag-free">✓ Gratuit</span>
-      </div>
-      <div class="module-card">
-        <div class="lock-badge">🔒</div>
-        <div class="module-icon">📝</div>
-        <h3>Email de collecte — analyse IA</h3>
-        <p>Colle ton email, l'IA le score sur 10 critères : objet, accroche, CTA, urgence, clarté. Feedback immédiat.</p>
-        <span class="module-tag tag-premium">🔒 Premium</span>
-      </div>
-      <div class="module-card">
-        <div class="lock-badge">🔒</div>
-        <div class="module-icon">📣</div>
-        <h3>Posts réseaux sociaux</h3>
-        <p>L'IA analyse tes posts : engagement estimé, message principal, forces et faiblesses.</p>
-        <span class="module-tag tag-premium">🔒 Premium</span>
-      </div>
-      <div class="module-card">
-        <div class="lock-badge">🔒</div>
-        <div class="module-icon">🔁</div>
-        <h3>Rétention & relance email</h3>
-        <p>Les séquences email qui gardent les donateurs engagés. Templates, timing, personnalisation.</p>
-        <span class="module-tag tag-premium">🔒 Premium</span>
-      </div>
-    </div>
-
-  </section>
-
-  <!-- ======== TEASER SIMULATION ======== -->
-  <section class="teaser-section" id="essayer">
-    <div class="section-header">
-      <div class="section-eyebrow">Simulation gratuite</div>
-      <h2 class="section-title">Essayez maintenant —&nbsp;sans inscription</h2>
-      <p class="section-sub">Choisissez un profil de donateur et engagez la conversation. Voyez jusqu'où vous allez avant de créer votre compte.</p>
-    </div>
-
-    <!-- Profile selector -->
-    <div class="teaser-profiles-wrap">
-      <div class="teaser-profiles" id="teaserProfiles">
-
-        <!-- Jean-Pierre -->
-        <div class="profile-card" data-profile="sceptique" onclick="selectProfile('sceptique')">
-          <div class="profile-avatar">
-            <svg viewBox="0 0 120 120" width="80" height="80">
-              <rect width="120" height="120" rx="16" fill="#7c3aed"/>
-              <ellipse cx="60" cy="32" rx="27" ry="15" fill="#999"/>
-              <ellipse cx="60" cy="28" rx="22" ry="10" fill="#bbb"/>
-              <circle cx="60" cy="54" r="26" fill="#FDBCB4"/>
-              <ellipse cx="60" cy="32" rx="27" ry="13" fill="#aaa"/>
-              <circle cx="60" cy="54" r="26" fill="#FDBCB4"/>
-              <circle cx="51" cy="50" r="3.5" fill="#333"/>
-              <circle cx="69" cy="50" r="3.5" fill="#333"/>
-              <circle cx="52" cy="49" r="1.2" fill="#fff"/>
-              <circle cx="70" cy="49" r="1.2" fill="#fff"/>
-              <line x1="44" y1="41" x2="57" y2="44" stroke="#555" stroke-width="2.5" stroke-linecap="round"/>
-              <line x1="63" y1="44" x2="76" y2="41" stroke="#555" stroke-width="2.5" stroke-linecap="round"/>
-              <line x1="53" y1="63" x2="67" y2="63" stroke="#c0876a" stroke-width="2.2" stroke-linecap="round"/>
-              <rect x="36" y="79" width="48" height="28" rx="8" fill="#4a3a7a"/>
-              <path d="M36 91 Q60 85 84 91" stroke="#3a2a6a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-              <text x="60" y="114" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.85)">Jean-Pierre</text>
-            </svg>
+      <div class="waitlist-card">
+        <div id="waitlistFormWrap">
+          <div class="waitlist-card-header">
+            <div class="waitlist-card-title" data-fr="Rejoindre la liste d'attente" data-en="Join the waitlist">Rejoindre la liste d'attente</div>
+            <div class="waitlist-card-sub" data-fr="Gratuit. Aucune carte requise. On te prévient en premier." data-en="Free. No credit card. You'll be the first to know.">Gratuit. Aucune carte requise. On te prévient en premier.</div>
           </div>
-          <div class="profile-info">
-            <div class="profile-name">Jean-Pierre</div>
-            <div class="profile-type">Le Sceptique</div>
-            <div class="profile-env">🚪 Porte-à-porte</div>
-            <div class="profile-difficulty">
-              <span class="diff-dot active"></span><span class="diff-dot active"></span><span class="diff-dot active"></span><span class="diff-dot"></span><span class="diff-dot"></span>
-            </div>
-          </div>
-          <button class="profile-try-btn" onclick="event.stopPropagation(); selectProfile(this.closest('[data-profile]').dataset.profile)">Essayer →</button>
-        </div>
 
-        <!-- Marie -->
-        <div class="profile-card" data-profile="ouvert" onclick="selectProfile('ouvert')">
-          <div class="profile-avatar">
-            <svg viewBox="0 0 120 120" width="80" height="80">
-              <rect width="120" height="120" rx="16" fill="#16a34a"/>
-              <circle cx="60" cy="54" r="26" fill="#f5cba7"/>
-              <ellipse cx="60" cy="30" rx="26" ry="16" fill="#5c3317"/>
-              <path d="M34 54 Q34 30 60 30 Q86 30 86 54" fill="#5c3317"/>
-              <path d="M34 56 Q32 75 40 82 Q45 86 46 90 Q55 95 60 95 Q65 95 74 90 Q75 86 80 82 Q88 75 86 56" fill="#f5cba7"/>
-              <path d="M46 90 Q55 98 60 98 Q65 98 74 90" fill="#5c3317" stroke="none"/>
-              <circle cx="51" cy="50" r="3.2" fill="#333"/>
-              <circle cx="69" cy="50" r="3.2" fill="#333"/>
-              <circle cx="52" cy="49" r="1.1" fill="#fff"/>
-              <circle cx="70" cy="49" r="1.1" fill="#fff"/>
-              <line x1="46" y1="42" x2="57" y2="43" stroke="#7a5230" stroke-width="2" stroke-linecap="round"/>
-              <line x1="63" y1="43" x2="74" y2="42" stroke="#7a5230" stroke-width="2" stroke-linecap="round"/>
-              <path d="M52 62 Q60 68 68 62" stroke="#c07850" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-              <rect x="36" y="79" width="48" height="28" rx="8" fill="#15803d"/>
-              <text x="60" y="114" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.85)">Marie</text>
-            </svg>
-          </div>
-          <div class="profile-info">
-            <div class="profile-name">Marie</div>
-            <div class="profile-type">L'Ouverte</div>
-            <div class="profile-env">🚪 Porte-à-porte</div>
-            <div class="profile-difficulty">
-              <span class="diff-dot active"></span><span class="diff-dot"></span><span class="diff-dot"></span><span class="diff-dot"></span><span class="diff-dot"></span>
-            </div>
-          </div>
-          <button class="profile-try-btn" onclick="event.stopPropagation(); selectProfile(this.closest('[data-profile]').dataset.profile)">Essayer →</button>
-        </div>
-
-        <!-- Thomas -->
-        <div class="profile-card" data-profile="presse" onclick="selectProfile('presse')">
-          <div class="profile-avatar">
-            <svg viewBox="0 0 120 120" width="80" height="80">
-              <rect width="120" height="120" rx="16" fill="#d97706"/>
-              <circle cx="60" cy="54" r="26" fill="#FDBCB4"/>
-              <rect x="34" y="26" width="52" height="20" rx="4" fill="#2d2d2d"/>
-              <ellipse cx="60" cy="28" rx="26" ry="9" fill="#2d2d2d"/>
-              <circle cx="51" cy="49" r="3.2" fill="#333"/>
-              <circle cx="69" cy="53" r="3.2" fill="#333"/>
-              <circle cx="52" cy="48" r="1.1" fill="#fff"/>
-              <circle cx="70" cy="52" r="1.1" fill="#fff"/>
-              <line x1="46" y1="41" x2="57" y2="42" stroke="#555" stroke-width="1.8" stroke-linecap="round"/>
-              <line x1="63" y1="43" x2="74" y2="44" stroke="#555" stroke-width="1.8" stroke-linecap="round"/>
-              <line x1="53" y1="62" x2="67" y2="61" stroke="#c0876a" stroke-width="1.8" stroke-linecap="round"/>
-              <rect x="36" y="79" width="48" height="28" rx="8" fill="#1e40af"/>
-              <line x1="60" y1="82" x2="60" y2="104" stroke="#93c5fd" stroke-width="1.5"/>
-              <text x="60" y="114" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.85)">Thomas</text>
-            </svg>
-          </div>
-          <div class="profile-info">
-            <div class="profile-name">Thomas</div>
-            <div class="profile-type">Le Pressé</div>
-            <div class="profile-env">📞 Téléphone</div>
-            <div class="profile-difficulty">
-              <span class="diff-dot active"></span><span class="diff-dot active"></span><span class="diff-dot active"></span><span class="diff-dot active"></span><span class="diff-dot"></span>
-            </div>
-          </div>
-          <button class="profile-try-btn" onclick="event.stopPropagation(); selectProfile(this.closest('[data-profile]').dataset.profile)">Essayer →</button>
-        </div>
-
-        <!-- Bernard -->
-        <div class="profile-card" data-profile="hostile" onclick="selectProfile('hostile')">
-          <div class="profile-avatar">
-            <svg viewBox="0 0 120 120" width="80" height="80">
-              <rect width="120" height="120" rx="16" fill="#dc2626"/>
-              <circle cx="60" cy="54" r="26" fill="#e8c9b0"/>
-              <ellipse cx="60" cy="30" rx="26" ry="13" fill="#ddd"/>
-              <ellipse cx="60" cy="28" rx="22" ry="9" fill="#eee"/>
-              <ellipse cx="52" cy="27" rx="8" ry="5" fill="#ccc"/>
-              <ellipse cx="68" cy="27" rx="8" ry="5" fill="#ccc"/>
-              <circle cx="51" cy="51" r="3.5" fill="#333"/>
-              <circle cx="69" cy="51" r="3.5" fill="#333"/>
-              <circle cx="52" cy="50" r="1.2" fill="#fff"/>
-              <circle cx="70" cy="50" r="1.2" fill="#fff"/>
-              <line x1="43" y1="40" x2="58" y2="45" stroke="#333" stroke-width="3" stroke-linecap="round"/>
-              <line x1="62" y1="45" x2="77" y2="40" stroke="#333" stroke-width="3" stroke-linecap="round"/>
-              <path d="M54 64 Q60 60 66 64" stroke="#a07060" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-              <rect x="36" y="79" width="48" height="28" rx="8" fill="#7f1d1d"/>
-              <rect x="100" y="72" width="18" height="38" rx="3" fill="#f8f4ef" stroke="#ccc" stroke-width="1"/>
-              <rect x="102" y="79" width="14" height="2" rx="1" fill="#e0d8cc"/>
-              <rect x="102" y="84" width="10" height="2" rx="1" fill="#e0d8cc"/>
-              <text x="60" y="114" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.85)">Bernard</text>
-            </svg>
-          </div>
-          <div class="profile-info">
-            <div class="profile-name">Bernard</div>
-            <div class="profile-type">L'Hostile</div>
-            <div class="profile-env">🚪 Porte-à-porte</div>
-            <div class="profile-difficulty">
-              <span class="diff-dot active"></span><span class="diff-dot active"></span><span class="diff-dot active"></span><span class="diff-dot active"></span><span class="diff-dot active"></span>
-            </div>
-          </div>
-          <button class="profile-try-btn" onclick="event.stopPropagation(); selectProfile(this.closest('[data-profile]').dataset.profile)">Essayer →</button>
-        </div>
-
-        <!-- Sophie -->
-        <div class="profile-card" data-profile="curieux" onclick="selectProfile('curieux')">
-          <div class="profile-avatar">
-            <svg viewBox="0 0 120 120" width="80" height="80">
-              <rect width="120" height="120" rx="16" fill="#3b82f6"/>
-              <circle cx="60" cy="54" r="26" fill="#FDBCB4"/>
-              <ellipse cx="60" cy="30" rx="24" ry="14" fill="#1a1a1a"/>
-              <path d="M36 38 Q48 22 72 26 Q84 30 86 48" fill="#1a1a1a"/>
-              <circle cx="51" cy="50" r="3.2" fill="#333"/>
-              <circle cx="69" cy="50" r="3.2" fill="#333"/>
-              <circle cx="52" cy="49" r="1.1" fill="#fff"/>
-              <circle cx="70" cy="49" r="1.1" fill="#fff"/>
-              <line x1="46" y1="41" x2="57" y2="42" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
-              <line x1="63" y1="42" x2="74" y2="43" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
-              <circle cx="51" cy="46" r="4.5" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
-              <circle cx="69" cy="46" r="4.5" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
-              <path d="M53 62 Q60 67 67 62" stroke="#c0876a" stroke-width="2" fill="none" stroke-linecap="round"/>
-              <rect x="36" y="79" width="48" height="28" rx="8" fill="#1d4ed8"/>
-              <rect x="75" y="76" width="20" height="14" rx="2" fill="#fff" stroke="#ddd" stroke-width="1"/>
-              <line x1="77" y1="80" x2="93" y2="80" stroke="#bbb" stroke-width="1"/>
-              <line x1="77" y1="83" x2="90" y2="83" stroke="#bbb" stroke-width="1"/>
-              <line x1="77" y1="86" x2="88" y2="86" stroke="#bbb" stroke-width="1"/>
-              <text x="60" y="114" text-anchor="middle" font-family="Inter,sans-serif" font-size="8.5" fill="rgba(255,255,255,0.85)">Sophie</text>
-            </svg>
-          </div>
-          <div class="profile-info">
-            <div class="profile-name">Sophie</div>
-            <div class="profile-type">La Curieuse</div>
-            <div class="profile-env">🎪 Événement</div>
-            <div class="profile-difficulty">
-              <span class="diff-dot active"></span><span class="diff-dot active"></span><span class="diff-dot"></span><span class="diff-dot"></span><span class="diff-dot"></span>
-            </div>
-          </div>
-          <button class="profile-try-btn" onclick="event.stopPropagation(); selectProfile(this.closest('[data-profile]').dataset.profile)">Essayer →</button>
-        </div>
-
-      </div>
-      <p class="teaser-tip">💡 <strong>Conseil :</strong> Commencez par <em>L'Ouverte</em> si c'est votre premier essai.</p>
-    </div>
-
-    <!-- Simulation arena -->
-    <div class="teaser-arena" id="teaserArena" style="display:none;">
-      <div class="teaser-arena-inner">
-
-        <!-- Left: Avatar + state -->
-        <div class="teaser-avatar-col">
-          <div class="teaser-env-label" id="teaserEnvLabel"></div>
-          <div class="teaser-avatar-stage" id="teaserAvatarStage">
-            <div class="teaser-avatar-svg" id="teaserAvatarSvg"></div>
-          </div>
-          <div class="teaser-emotional-state" id="teaserEmotionalState">
-            <span class="state-label">État :</span>
-            <span class="state-value" id="teaserStateValue">😐 Neutre</span>
-          </div>
-          <button class="teaser-change-profile" onclick="resetSimulation()">← Changer de profil</button>
-        </div>
-
-        <!-- Right: Chat -->
-        <div class="teaser-chat-col">
-          <div class="teaser-chat-header">
-            <div class="teaser-chat-name" id="teaserChatName"></div>
-            <div class="teaser-chat-count" id="teaserChatCount">0 / 3 échanges</div>
-          </div>
-          <div class="teaser-chat-messages" id="teaserMessages"></div>
-          <div class="teaser-chat-input-row" id="teaserInputRow">
-            <input
-              type="text"
-              class="teaser-input"
-              id="teaserInput"
-              placeholder="Votre réponse au donateur..."
-              maxlength="300"
-              onkeydown="if(event.key==='Enter')sendTeaserMessage()"
-            />
-            <button class="teaser-send-btn" onclick="sendTeaserMessage()" id="teaserSendBtn">Envoyer →</button>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Gate overlay -->
-      <div class="teaser-gate" id="teaserGate" style="display:none;">
-        <div class="gate-card">
-          <div class="gate-icon">🎯</div>
-          <h3 class="gate-title">Votre simulation est en bonne voie</h3>
-          <div class="gate-score-label">Score partiel estimé</div>
-          <div class="gate-score-number" id="gateScoreNumber">72</div>
-          <div class="gate-score-bar-wrap">
-            <div class="gate-score-bar" id="gateScoreBar" style="width:72%"></div>
-          </div>
-          <p class="gate-sub">Pour voir votre score complet et continuer avec ce profil :</p>
-          <form class="gate-form" onsubmit="gateSignup(event)">
-            <input type="email" class="gate-input" placeholder="Votre email" required autocomplete="email"/>
-            <input type="password" class="gate-input" placeholder="Créez un mot de passe" required autocomplete="new-password" minlength="8"/>
-            <button type="submit" class="gate-submit-btn">Créer mon compte gratuit →</button>
+          <form class="waitlist-form" id="waitlistForm" onsubmit="submitWaitlist(event)">
+            <input type="text" class="wl-input" id="wlPrenom" placeholder="Prénom" data-placeholder-fr="Prénom" data-placeholder-en="First name" required autocomplete="given-name">
+            <input type="email" class="wl-input" id="wlEmail" placeholder="Email professionnel" data-placeholder-fr="Email professionnel" data-placeholder-en="Professional email" required autocomplete="email">
+            <input type="text" class="wl-input" id="wlOrga" placeholder="Organisation / Agence (optionnel)" data-placeholder-fr="Organisation / Agence (optionnel)" data-placeholder-en="Organization / Agency (optional)" autocomplete="organization">
+            <select class="wl-select" id="wlType" required>
+              <option value="" disabled selected data-fr="Type de fundraiser..." data-en="Fundraiser type...">Type de fundraiser...</option>
+              <option value="Fundraiser individuel" data-fr="Fundraiser individuel" data-en="Individual Fundraiser">Fundraiser individuel</option>
+              <option value="Team leader / Manager" data-fr="Team leader / Manager" data-en="Team leader / Manager">Team leader / Manager</option>
+              <option value="Directeur Collecte (ONG)" data-fr="Directeur Collecte (ONG)" data-en="Fundraising Director (NGO)">Directeur Collecte (ONG)</option>
+              <option value="Agence de collecte" data-fr="Agence de collecte" data-en="Fundraising Agency">Agence de collecte</option>
+              <option value="Formateur / Coach" data-fr="Formateur / Coach" data-en="Trainer / Coach">Formateur / Coach</option>
+            </select>
+            <div id="wlError" style="display:none;font-size:13px;color:#fca5a5;margin-top:-4px;"></div>
+            <button type="submit" class="wl-submit" id="wlBtn" data-fr="Rejoindre la liste →" data-en="Join the waitlist →">Rejoindre la liste →</button>
           </form>
-          <p class="gate-social-proof">"Rejoignez 2 847 fundraisers qui progressent chaque semaine"</p>
-          <a href="#signup" class="gate-login-link">Déjà un compte ? Se connecter →</a>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- ======== PRICING ======== -->
-  <section class="pricing" id="pricing">
-    <div class="section-header">
-      <div class="section-eyebrow" data-fr="Tarifs" data-en="Pricing">Tarifs</div>
-      <h2 class="section-title" data-fr="Commence gratuitement.&lt;br&gt;Évolue quand tu es prêt." data-en="Start for free.&lt;br&gt;Upgrade when you're ready.">Commence gratuitement.<br>Évolue quand tu es prêt.</h2>
-      <p class="section-sub">Pas de carte de crédit requise pour démarrer. L'accès premium se débloque quand ça fait sens.</p>
-    </div>
-    <div class="pricing-grid">
-      <div class="pricing-card">
-        <div class="pricing-tier" data-fr="Gratuit" data-en="Free">Gratuit</div>
-        <div class="pricing-price">€0<span class="pricing-period">/mois</span></div>
-        <div class="pricing-desc">Pour découvrir la plateforme et les fondamentaux.</div>
-        <ul class="pricing-features">
-          <li>1 module complet (Les fondamentaux)</li>
-          <li>3 simulations IA / mois</li>
-          <li>Score de conversation basique</li>
-          <li>Accès au classement (lecture)</li>
-          <li>Profil de progression</li>
-        </ul>
-        <a href="#signup" class="pricing-cta" data-fr="Commencer gratuitement →" data-en="Start for free →">Commencer gratuitement →</a>
-      </div>
-
-      <div class="pricing-card featured">
-        <div class="featured-badge">⭐ Le plus populaire</div>
-        <div class="pricing-tier" data-fr="Pro" data-en="Pro">Pro</div>
-        <div class="pricing-price">€19<span class="pricing-period">/mois</span></div>
-        <div class="pricing-desc">Pour les fundraisers qui veulent vraiment performer.</div>
-        <ul class="pricing-features">
-          <li>Tous les modules débloqués</li>
-          <li>Simulations IA illimitées</li>
-          <li>Feedback détaillé (empathie, objections, closing)</li>
-          <li>Classement complet + badges</li>
-          <li>XP boosté ×2 le week-end</li>
-          <li>Accès aux replays de simulation</li>
-        </ul>
-        <a href="#signup" class="pricing-cta primary" data-fr="Essai 14 jours gratuits →" data-en="14-day free trial →">Essai 14 jours gratuits →</a>
-      </div>
-
-      <div class="pricing-card">
-        <div class="pricing-tier" data-fr="Équipe" data-en="Team">Équipe</div>
-        <div class="pricing-price">€49<span class="pricing-period">/mois</span></div>
-        <div class="pricing-desc">Pour les managers qui veulent suivre leur équipe.</div>
-        <ul class="pricing-features">
-          <li>Tout le plan Pro</li>
-          <li>Dashboard manager (stats équipe)</li>
-          <li>Statistiques équipe comparatives</li>
-          <li>Intégration relance.ai</li>
-          <li>Support prioritaire</li>
-          <li>Rapports mensuels automatiques</li>
-        </ul>
-        <a href="mailto:contact@collecte.ai" class="pricing-cta" data-fr="Contacter l'équipe →" data-en="Contact the team →">Contacter l'équipe →</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======== QUIZ ======== -->
-  <section class="quiz-section" id="quiz-section">
-    <div style="max-width:680px;margin:0 auto;">
-      <div style="text-align:center;margin-bottom:40px;">
-        <div style="font-size:11px;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:#4f46e5;margin-bottom:10px;">Test gratuit · 2 minutes</div>
-        <h2 style="font-size:clamp(22px,3.5vw,36px);font-weight:900;color:#111827;letter-spacing:-.02em;margin-bottom:10px;">Testez votre niveau de fundraiser</h2>
-        <p style="font-size:15px;color:#6b7280;max-width:440px;margin:0 auto;">5 questions. Résultat immédiat. Découvrez où vous en êtes — vraiment.</p>
-      </div>
-      <div id="quiz-wrap" style="background:white;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06);">
-        <div style="height:5px;background:#e5e7eb;"><div id="quiz-progress" style="height:100%;background:#4f46e5;transition:width .3s;width:0%;"></div></div>
-        <div style="padding:32px;" id="quiz-question-wrap">
-          <div style="font-size:12px;font-weight:700;color:#9ca3af;margin-bottom:6px;" id="quiz-counter">Question 1 / 5</div>
-          <div style="font-size:18px;font-weight:800;color:#111827;line-height:1.4;margin-bottom:24px;" id="quiz-q-text">—</div>
-          <div style="display:flex;flex-direction:column;gap:10px;" id="quiz-answers"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======== SIGNUP / CREATE ACCOUNT ======== -->
-  <section class="signup-section" id="signup">
-    <div class="signup-card">
-      <div class="signup-header">
-        <div class="signup-logo">
-          <div class="signup-logo-mark">C</div>
-          <div>
-            <div class="signup-logo-text">collecte.ai</div>
-            <span class="signup-logo-sub">Formation F2F · IA</span>
+          <div class="waitlist-counter">
+            <strong id="waitlistCounter">847</strong> <span data-fr="fundraisers déjà sur la liste" data-en="fundraisers already on the list">fundraisers déjà sur la liste</span>
+          </div>
+          <div class="waitlist-review">
+            ★★★★★ <strong data-fr='"Exactement ce que le secteur attendait."' data-en='"Exactly what the sector needed."'>"Exactement ce que le secteur attendait."</strong>
+            <span data-fr="— Beta testeur" data-en="— Beta tester">— Beta testeur</span>
           </div>
         </div>
-        <h2 data-fr="Créer un compte gratuit" data-en="Create a free account">Créer un compte gratuit</h2>
-        <p data-fr="Accès immédiat · Aucune carte requise" data-en="Immediate access · No credit card required">Accès immédiat · Aucune carte requise</p>
-      </div>
 
-      <form id="signupForm" onsubmit="handleSignup(event)">
-        <div class="form-group" id="prenomGroup">
-          <label class="form-label">Prénom</label>
-          <input type="text" class="form-input" id="signupPrenom" placeholder="Votre prénom" required>
+        <div class="waitlist-success" id="waitlistSuccess">
+          <div class="success-big">✅</div>
+          <h3 data-fr="Tu es sur la liste !" data-en="You're on the list!">Tu es sur la liste !</h3>
+          <p data-fr="On te contacte dès l'ouverture. Surveille ta boîte mail." data-en="We'll reach out as soon as we launch. Watch your inbox.">On te contacte dès l'ouverture. Surveille ta boîte mail.</p>
+          <p style="margin-top:12px;font-size:13px;color:rgba(255,255,255,0.5);" data-fr="Tu es le/la fundraiser n°" data-en="You're fundraiser #">Tu es le/la fundraiser n°</p>
+          <p style="font-size:28px;font-weight:900;color:#818cf8;" id="successNumber">848</p>
         </div>
-        <div class="form-group">
-          <label class="form-label">Adresse email</label>
-          <input type="email" class="form-input" id="signupEmail" placeholder="prenom.nom@email.fr" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Mot de passe</label>
-          <input type="password" class="form-input" id="signupPassword" placeholder="Minimum 8 caractères" required minlength="8">
-        </div>
-
-        <!-- PROFILE TYPE STEP -->
-        <div class="profile-type-step" id="profileTypeStep">
-          <div class="profile-type-title" data-fr="Quel type de fundraiser es-tu ?" data-en="What type of fundraiser are you?">Quel type de fundraiser es-tu ?</div>
-          <div class="profile-type-sub">Ta formation sera adaptée à ton canal.</div>
-          <div class="profile-type-grid">
-            <div class="profile-type-card" onclick="selectProfileType('f2f', this)">
-              <div class="check-mark">✓</div>
-              <div class="profile-type-icon">🚪</div>
-              <div class="profile-type-label" data-fr="Fundraiser F2F" data-en="F2F Fundraiser">Fundraiser F2F</div>
-              <div class="profile-type-desc">Porte-à-porte, donateurs mensuels</div>
-            </div>
-            <div class="profile-type-card" onclick="selectProfileType('telephone_sortant', this)">
-              <div class="check-mark">✓</div>
-              <div class="profile-type-icon">📞</div>
-              <div class="profile-type-label" data-fr="Télémarketeur Sortant" data-en="Outbound Caller">Télémarketeur Sortant</div>
-              <div class="profile-type-desc">Appels sortants, anti-churn</div>
-            </div>
-            <div class="profile-type-card" onclick="selectProfileType('reception', this)">
-              <div class="check-mark">✓</div>
-              <div class="profile-type-icon">📥</div>
-              <div class="profile-type-label" data-fr="Agent de Réception" data-en="Inbound Agent">Agent de Réception</div>
-              <div class="profile-type-desc">Sauver les donateurs qui annulent</div>
-            </div>
-            <div class="profile-type-card" onclick="selectProfileType('evenementiel', this)">
-              <div class="check-mark">✓</div>
-              <div class="profile-type-icon">🎪</div>
-              <div class="profile-type-label" data-fr="Animateur Événementiel" data-en="Events Fundraiser">Animateur Événementiel</div>
-              <div class="profile-type-desc">Galas, courses, événements</div>
-            </div>
-            <div class="profile-type-card" onclick="selectProfileType('major_donor', this)">
-              <div class="check-mark">✓</div>
-              <div class="profile-type-icon">🤝</div>
-              <div class="profile-type-label" data-fr="Major Donor Officer" data-en="Major Donor Officer">Major Donor Officer</div>
-              <div class="profile-type-desc">Grands donateurs 500€+/mois</div>
-            </div>
-            <div class="profile-type-card" onclick="selectProfileType('digital', this)">
-              <div class="check-mark">✓</div>
-              <div class="profile-type-icon">✉️</div>
-              <div class="profile-type-label" data-fr="Fundraiser Digital" data-en="Digital Fundraiser">Fundraiser Digital</div>
-              <div class="profile-type-desc">Email, réseaux sociaux, copywrting</div>
-            </div>
-          </div>
-          <button type="button" class="btn-confirm-profile" id="btnConfirmProfile" onclick="confirmProfileTypeAndSubmit()">Créer mon compte gratuit →</button>
-        </div>
-
-        <div id="signupError" style="display:none;background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:10px 14px;font-size:13px;color:#dc2626;margin-bottom:12px;"></div>
-        <button type="submit" class="btn-signup" id="signupBtn">Continuer →</button>
-      </form>
-
-      <div class="signup-success" id="signupSuccess">
-        <div class="success-emoji">🎉</div>
-        <p>Compte créé ✓ Bienvenue sur collecte.ai !</p>
-        <p style="font-size:13px;color:#16a34a;margin-top:8px;">Vérifiez votre boîte mail pour confirmer votre compte.</p>
-        <p style="font-size:13px;margin-top:12px;"><a href="dashboard.html" style="color:#4f46e5;font-weight:700;">Accéder au tableau de bord →</a></p>
-      </div>
-
-      <div class="signup-divider">ou</div>
-      <div class="signup-footer">
-        Déjà un compte ? <a href="#" onclick="toggleLoginForm(true)">Se connecter →</a>
-        &nbsp;·&nbsp; <a href="#" onclick="handleForgotPassword()" style="font-size:12px;color:var(--muted);">Mot de passe oublié</a>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- ======== FOOTER ======== -->
   <footer>
-    <div class="footer-logo-mark">C</div>
-    <p data-fr="© 2026 collecte.ai — La formation IA pour tous les fundraisers." data-en="© 2026 collecte.ai — AI training for every type of fundraiser.">© 2026 collecte.ai — La formation IA pour tous les fundraisers.</p>
-    <p style="margin-top:8px;"><a href="dashboard.html">Tableau de bord</a> · <a href="#">Simulations IA</a> · <a href="../babylon/website/index.html">BABYLON Agency</a></p>
-    <p style="margin-top:12px;font-size:12px;opacity:0.5;">Un produit <strong>BABYLON Group</strong> · 🔒 Hébergé en France · RGPD conforme</p>
+    <div class="footer-logo">collecte.ai</div>
+    <p data-fr="La formation IA pour les fundraisers" data-en="AI training for fundraisers">La formation IA pour les fundraisers</p>
+    <p style="margin-top:12px;">
+      <a href="mailto:contact@collecte.ai">contact@collecte.ai</a>
+      &nbsp;·&nbsp; <a href="#">Mentions légales</a>
+      &nbsp;·&nbsp; <a href="#">Confidentialité</a>
+    </p>
+    <p style="margin-top:16px;font-size:12px;opacity:0.4;" data-fr="© 2026 collecte.ai — Tous droits réservés" data-en="© 2026 collecte.ai — All rights reserved">© 2026 collecte.ai — Tous droits réservés</p>
   </footer>
 
-  <!-- Supabase CDN + backend modules -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="../collecte-backend/supabase-config.js"></script>
-  <script src="../collecte-backend/auth.js"></script>
   <script>
-    /* ======== INIT ======== */
-    let supabaseReady = false;
-    document.addEventListener('DOMContentLoaded', async () => {
-      try {
-        initSupabase();
-        supabaseReady = true;
-
-        // If already logged in, redirect to dashboard
-        const session = await Auth.getSession();
-        if (session) {
-          const params = new URLSearchParams(window.location.search);
-          const returnTo = params.get('returnTo');
-          window.location.href = returnTo === 'simulation' ? 'simulation.html' : 'dashboard.html';
-          return;
-        }
-
-        // Show login form if returnTo param is present
-        const params = new URLSearchParams(window.location.search);
-        if (params.get('returnTo')) {
-          toggleLoginForm(true);
-        }
-      } catch (e) {
-        console.warn('Supabase init (non-blocking):', e);
-      }
-    });
-
     /* ======== LANG TOGGLE ======== */
     let currentLang = 'fr';
+
     function setLang(lang) {
       currentLang = lang;
+      // Update html lang attribute
+      document.documentElement.lang = lang;
+      // Update all data-fr/data-en elements
       document.querySelectorAll('[data-fr]').forEach(el => {
         const val = lang === 'fr' ? el.dataset.fr : (el.dataset.en || el.dataset.fr);
+        if (!val) return;
         const clean = val
           .replace(/&amp;lt;/g, '<').replace(/&amp;gt;/g, '>')
-          .replace(/&amp;amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+          .replace(/&amp;amp;/g, '&').replace(/&lt;br&gt;/g, '<br>')
+          .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
         el.innerHTML = clean;
       });
+      // Update placeholders
       document.querySelectorAll('[data-placeholder-fr]').forEach(el => {
-        el.placeholder = lang === 'fr' ? el.dataset.placeholderFr : (el.dataset.placeholderEn || el.dataset.placeholderFr);
+        el.placeholder = lang === 'fr'
+          ? (el.dataset.placeholderFr || '')
+          : (el.dataset.placeholderEn || el.dataset.placeholderFr || '');
       });
-      document.querySelectorAll('.lang-btn, .lang-toggle').forEach(btn => {
+      // Update select options
+      document.querySelectorAll('select option[data-fr]').forEach(opt => {
+        opt.textContent = lang === 'fr' ? opt.dataset.fr : (opt.dataset.en || opt.dataset.fr);
+      });
+      // Toggle button label
+      document.querySelectorAll('.lang-toggle').forEach(btn => {
         btn.textContent = lang === 'fr' ? 'EN' : 'FR';
       });
       localStorage.setItem('lang', lang);
     }
+
     function toggleLang() { setLang(currentLang === 'fr' ? 'en' : 'fr'); }
+
     document.addEventListener('DOMContentLoaded', () => {
       setLang(localStorage.getItem('lang') || 'fr');
+      // Load real waitlist counter
+      loadCounter();
     });
 
-    /* ======== FORM STATE ======== */
-    let isLoginMode = false;
+    /* ======== WAITLIST COUNTER ======== */
+    let liveCount = 847;
 
-    function toggleLoginForm(forceLogin = false) {
-      isLoginMode = forceLogin || !isLoginMode;
-      const header = document.querySelector('.signup-header h2');
-      const subtext = document.querySelector('.signup-header p');
-      const btn = document.getElementById('signupBtn');
-      const footer = document.querySelector('.signup-footer');
-      const prenomGroup = document.getElementById('prenomGroup');
-
-      if (isLoginMode) {
-        header.textContent = 'Se connecter';
-        subtext.textContent = 'Accédez à votre espace formation';
-        btn.textContent = 'Se connecter →';
-        btn.style.display = 'block';
-        footer.innerHTML = 'Pas encore de compte ? <a href="#" onclick="toggleLoginForm(false)">Créer un compte gratuit →</a>';
-        if (prenomGroup) prenomGroup.style.display = 'none';
-        const profileStep = document.getElementById('profileTypeStep');
-        if (profileStep) profileStep.classList.remove('show');
-        profileTypeStep1Complete = false;
-        selectedProfileType = null;
-      } else {
-        header.textContent = 'Créer un compte gratuit';
-        subtext.textContent = 'Accès immédiat · Aucune carte requise';
-        btn.textContent = 'Continuer →';
-        btn.style.display = 'block';
-        footer.innerHTML = 'Déjà un compte ? <a href="#" onclick="toggleLoginForm(true)">Se connecter →</a>';
-        if (prenomGroup) prenomGroup.style.display = 'block';
+    async function loadCounter() {
+      try {
+        const res = await fetch('/api/waitlist-count');
+        if (res.ok) {
+          const data = await res.json();
+          liveCount = data.count;
+          document.getElementById('waitlistCounter').textContent = liveCount.toLocaleString('fr-FR');
+          document.getElementById('counterBanner').textContent = liveCount.toLocaleString('fr-FR');
+        }
+      } catch(e) {
+        // Fallback: check localStorage
+        const local = parseInt(localStorage.getItem('wl_count') || '0');
+        liveCount = 847 + local;
+        document.getElementById('waitlistCounter').textContent = liveCount.toLocaleString('fr-FR');
+        document.getElementById('counterBanner').textContent = liveCount.toLocaleString('fr-FR');
       }
     }
 
-    /* ======== MODULE TABS ======== */
-    function switchTab(tab) {
-      document.querySelectorAll('.module-tab-content').forEach(el => el.style.display = 'none');
-      document.querySelectorAll('.profile-tab').forEach(btn => btn.classList.remove('active'));
-      const content = document.getElementById('modules-' + tab);
-      if (content) content.style.display = 'grid';
-      const tabBtn = document.getElementById('tab-' + tab);
-      if (tabBtn) tabBtn.classList.add('active');
-    }
-
-    /* ======== PROFILE TYPE SELECTOR ======== */
-    let selectedProfileType = null;
-    let profileTypeStep1Complete = false;
-
-    function selectProfileType(type, el) {
-      selectedProfileType = type;
-      document.querySelectorAll('.profile-type-card').forEach(c => c.classList.remove('selected'));
-      el.classList.add('selected');
-      document.getElementById('btnConfirmProfile').classList.add('show');
-    }
-
-    function confirmProfileTypeAndSubmit() {
-      if (!selectedProfileType) return;
-      // Trigger the actual signup with the selected profile type
-      document.getElementById('signupBtn').click();
-    }
-
-    /* ======== SIGNUP / LOGIN FORM ======== */
-    async function handleSignup(e) {
+    /* ======== WAITLIST SUBMIT ======== */
+    async function submitWaitlist(e) {
       e.preventDefault();
-      const btn = document.getElementById('signupBtn');
-      const email = document.getElementById('signupEmail').value.trim();
-      const password = document.getElementById('signupPassword').value;
-      const prenomInput = document.getElementById('signupPrenom');
-      const prenom = prenomInput ? prenomInput.value.trim() : '';
-      const errorEl = document.getElementById('signupError');
+      const btn = document.getElementById('wlBtn');
+      const errEl = document.getElementById('wlError');
+      const prenom = document.getElementById('wlPrenom').value.trim();
+      const email = document.getElementById('wlEmail').value.trim();
+      const organisation = document.getElementById('wlOrga').value.trim();
+      const type = document.getElementById('wlType').value;
 
-      // If not in login mode and profile type step not shown yet, show it
-      if (!isLoginMode && !profileTypeStep1Complete) {
-        // Validate fields first
-        if (!prenom) { if (errorEl) { errorEl.textContent = 'Veuillez entrer votre prénom.'; errorEl.style.display = 'block'; } return; }
-        if (!email || !password) { if (errorEl) { errorEl.textContent = 'Veuillez remplir tous les champs.'; errorEl.style.display = 'block'; } return; }
-        if (errorEl) errorEl.style.display = 'none';
-        // Show profile type step
-        profileTypeStep1Complete = true;
-        document.getElementById('profileTypeStep').classList.add('show');
-        btn.style.display = 'none';
+      if (!prenom || !email || !type) {
+        errEl.textContent = currentLang === 'fr' ? 'Merci de remplir tous les champs requis.' : 'Please fill in all required fields.';
+        errEl.style.display = 'block';
         return;
       }
-
-      if (errorEl) errorEl.style.display = 'none';
+      errEl.style.display = 'none';
       btn.disabled = true;
-      btn.textContent = isLoginMode ? 'Connexion...' : 'Création du compte...';
-      btn.style.opacity = '0.7';
+      btn.textContent = currentLang === 'fr' ? 'Inscription en cours...' : 'Joining...';
 
+      const payload = { prenom, email, organisation, type };
+
+      let newId = liveCount + 1;
+      let success = false;
+
+      // Try server first
       try {
-        if (!supabaseReady) {
-          throw new Error('Service non disponible. Réessayez dans quelques secondes.');
+        const res = await fetch('/api/waitlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+          const data = await res.json();
+          newId = data.id || newId;
+          liveCount = data.count || liveCount + 1;
+          success = true;
         }
+      } catch(e) { /* server unavailable — use localStorage fallback */ }
 
-        if (isLoginMode) {
-          // LOGIN
-          await Auth.signIn(email, password);
-          const params = new URLSearchParams(window.location.search);
-          const returnTo = params.get('returnTo');
-          window.location.href = returnTo === 'simulation' ? 'simulation.html' : 'dashboard.html';
-        } else {
-          // SIGNUP
-          if (!prenom) throw new Error('Veuillez entrer votre prénom.');
-          await Auth.signUp(email, password, prenom, { fundraiser_type: selectedProfileType || 'f2f' });
-          document.getElementById('signupForm').style.display = 'none';
-          document.getElementById('signupSuccess').style.display = 'block';
-        }
-
-      } catch (err) {
-        btn.disabled = false;
-        btn.textContent = isLoginMode ? 'Se connecter →' : (profileTypeStep1Complete ? 'Continuer →' : 'Continuer →');
-        btn.style.opacity = '1';
-
-        let msg = err.message || 'Une erreur est survenue.';
-        // Translate common Supabase errors
-        if (msg.includes('Invalid login credentials')) msg = 'Email ou mot de passe incorrect.';
-        if (msg.includes('Email not confirmed')) msg = 'Confirmez votre email avant de vous connecter.';
-        if (msg.includes('already registered')) msg = 'Cet email est déjà utilisé. Connectez-vous !';
-        if (msg.includes('Password should')) msg = 'Mot de passe trop court (minimum 8 caractères).';
-
-        if (errorEl) {
-          errorEl.textContent = msg;
-          errorEl.style.display = 'block';
-        } else {
-          alert(msg);
-        }
+      if (!success) {
+        // Fallback: localStorage (GitHub Pages)
+        const existing = JSON.parse(localStorage.getItem('wl_entries') || '[]');
+        existing.push({ ...payload, timestamp: new Date().toISOString(), source: 'collecte.ai landing' });
+        localStorage.setItem('wl_entries', JSON.stringify(existing));
+        const localCount = parseInt(localStorage.getItem('wl_count') || '0') + 1;
+        localStorage.setItem('wl_count', String(localCount));
+        liveCount = 847 + localCount;
+        newId = liveCount;
       }
+
+      // Show success
+      document.getElementById('waitlistFormWrap').style.display = 'none';
+      const successEl = document.getElementById('waitlistSuccess');
+      successEl.style.display = 'block';
+      document.getElementById('successNumber').textContent = '#' + newId;
+
+      // Update counters
+      document.getElementById('waitlistCounter').textContent = liveCount.toLocaleString('fr-FR');
+      document.getElementById('counterBanner').textContent = liveCount.toLocaleString('fr-FR');
     }
 
-    async function handleForgotPassword() {
-      const email = document.getElementById('signupEmail').value.trim();
-      if (!email) { alert('Entrez votre email d\'abord.'); return; }
-      try {
-        await Auth.forgotPassword(email);
-        alert('Email de réinitialisation envoyé ! Vérifiez votre boîte mail.');
-      } catch (e) {
-        alert('Erreur: ' + e.message);
-      }
-    }
-
-    /* ======== INTERSECTION OBSERVER — Feature cards ======== */
+    /* ======== INTERSECTION OBSERVER — animate cards ======== */
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
+        if (entry.isIntersecting) entry.target.classList.add('visible');
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.12 });
 
-    document.querySelectorAll('.feature-card, .testimonial-card').forEach(el => observer.observe(el));
-
-    /* ======== COUNTER ANIMATION ======== */
-    function animateCounter(el, target, duration, decimals = 0) {
-      const start = Date.now();
-      const step = () => {
-        const elapsed = Date.now() - start;
-        const progress = Math.min(elapsed / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        const current = target * eased;
-        el.textContent = decimals > 0 ? current.toFixed(decimals) : Math.round(current).toLocaleString('fr-FR');
-        if (progress < 1) requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
-    }
-
-    const statsObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          animateCounter(document.getElementById('stat-collecteurs'), 500, 1800);
-          animateCounter(document.getElementById('stat-reussite'), 87, 1600);
-          animateCounter(document.getElementById('stat-simulations'), 12, 1400);
-          animateCounter(document.getElementById('stat-note'), 8, 1500, 0);
-          statsObserver.disconnect();
-        }
-      });
-    }, { threshold: 0.3 });
-    const statsSection = document.querySelector('.stats-section');
-    if (statsSection) statsObserver.observe(statsSection);
-
-    /* ======== QUIZ ======== */
-    const QUIZ = [
-      { q: "Un donateur vous dit 'je n'ai pas les moyens'. Vous répondez...?", options: [{ text: "\"Je comprends. Bonne journée !\"", correct: false },{ text: "\"Même 1€ par jour peut changer une vie.\"", correct: false },{ text: "\"Est-ce que c'est vraiment une question de moyens, ou plutôt de priorité en ce moment ?\"", correct: true },{ text: "\"On a des formules à partir de 5€ par mois.\"", correct: false }], explanation: "La bonne technique : reformuler pour comprendre la vraie objection." },
-      { q: "Quelle est la meilleure heure pour frapper à une porte ?", options: [{ text: "10h–12h en semaine", correct: false },{ text: "14h–16h le week-end", correct: false },{ text: "17h–19h30 en semaine", correct: true },{ text: "9h le samedi matin", correct: false }], explanation: "17h–19h30 en semaine = retour du travail. Contact rate 30% plus élevé." },
-      { q: "Un donateur hésite. Vous proposez...?", options: [{ text: "De laisser une plaquette et repasser demain", correct: false },{ text: "Un don unique pour commencer", correct: false },{ text: "\"Est-ce que 5€ par mois ça vous paraît raisonnable pour démarrer ?\"", correct: true },{ text: "De le rappeler la semaine prochaine", correct: false }], explanation: "Proposer le montant minimal avec une question fermée. L'hésitation n'est pas un non." },
-      { q: "Combien de temps dure un pitch F2F idéal ?", options: [{ text: "30 secondes — soyez direct", correct: false },{ text: "3–5 minutes — le temps de créer la connexion", correct: true },{ text: "10 minutes — plus de contexte = plus de confiance", correct: false },{ text: "Aussi longtemps que nécessaire", correct: false }], explanation: "3–5 minutes : assez pour créer une connexion émotionnelle, pas assez pour perdre l'attention." },
-      { q: "Quelle phrase déclenche le plus souvent un 'oui' ?", options: [{ text: "\"C'est une cause vraiment importante...\"", correct: false },{ text: "\"Beaucoup de vos voisins contribuent déjà.\"", correct: false },{ text: "\"Est-ce que [impact concret] vous touche ?\"", correct: true },{ text: "\"Pour seulement le prix d'un café par jour...\"", correct: false }], explanation: "La question sur l'impact personnel crée une connexion émotionnelle directe." }
-    ];
-    let current = 0, score = 0;
-    function renderQ() {
-      const q = QUIZ[current];
-      document.getElementById('quiz-counter').textContent = `Question ${current+1} / ${QUIZ.length}`;
-      document.getElementById('quiz-q-text').textContent = q.q;
-      document.getElementById('quiz-progress').style.width = (current / QUIZ.length * 100) + '%';
-      const wrap = document.getElementById('quiz-answers');
-      wrap.innerHTML = '';
-      q.options.forEach((opt, i) => {
-        const btn = document.createElement('button');
-        btn.textContent = opt.text;
-        btn.style.cssText = 'width:100%;padding:12px 16px;border:2px solid #e5e7eb;border-radius:10px;background:white;font-family:Inter,sans-serif;font-size:14px;color:#374151;text-align:left;cursor:pointer;transition:all .15s;line-height:1.4;';
-        btn.onmouseover = () => { if (!btn.disabled) btn.style.borderColor = '#4f46e5'; };
-        btn.onmouseout = () => { if (!btn.disabled && !btn.dataset.chosen) btn.style.borderColor = '#e5e7eb'; };
-        btn.onclick = () => answerQ(opt.correct, q.explanation, i);
-        wrap.appendChild(btn);
-      });
-    }
-    function answerQ(correct, explanation, idx) {
-      if (correct) score++;
-      const btns = document.getElementById('quiz-answers').querySelectorAll('button');
-      btns.forEach((b, i) => {
-        b.disabled = true;
-        if (QUIZ[current].options[i].correct) { b.style.background = '#f0fdf4'; b.style.borderColor = '#16a34a'; b.style.color = '#15803d'; }
-      });
-      btns[idx].style.background = correct ? '#f0fdf4' : '#fef2f2';
-      btns[idx].style.borderColor = correct ? '#16a34a' : '#dc2626';
-      btns[idx].style.color = correct ? '#15803d' : '#dc2626';
-      const exp = document.createElement('div');
-      exp.style.cssText = 'margin-top:14px;padding:12px 14px;background:#eef2ff;border-radius:8px;font-size:13px;color:#3730a3;line-height:1.6;';
-      exp.textContent = (correct ? '✅ ' : '💡 ') + explanation;
-      document.getElementById('quiz-answers').appendChild(exp);
-      const nextBtn = document.createElement('button');
-      nextBtn.textContent = current < QUIZ.length - 1 ? 'Question suivante →' : 'Voir mon résultat →';
-      nextBtn.style.cssText = 'margin-top:14px;width:100%;padding:12px;background:#4f46e5;color:white;border:none;border-radius:8px;font-family:Inter,sans-serif;font-size:14px;font-weight:700;cursor:pointer;';
-      nextBtn.onclick = () => { current++; if (current < QUIZ.length) renderQ(); else showResult(); };
-      document.getElementById('quiz-answers').appendChild(nextBtn);
-    }
-    function showResult() {
-      document.getElementById('quiz-progress').style.width = '100%';
-      const levels = [
-        { min:0, max:2, label:'Débutant', emoji:'🌱', msg:'Vous avez le potentiel. collecte.ai va structurer votre approche.', color:'#f97316' },
-        { min:3, max:4, label:'Intermédiaire', emoji:'⚡', msg:'Bonne base ! Quelques techniques clés à affiner avec nos modules.', color:'#4f46e5' },
-        { min:5, max:5, label:'Expert', emoji:'🏆', msg:'Vous maîtrisez les fondamentaux. Le niveau supérieur vous attend.', color:'#16a34a' }
-      ];
-      const level = levels.find(l => score >= l.min && score <= l.max) || levels[0];
-      document.getElementById('quiz-question-wrap').innerHTML = `
-        <div style="text-align:center;padding:8px 0;">
-          <div style="font-size:48px;margin-bottom:12px;">${level.emoji}</div>
-          <div style="font-size:14px;font-weight:700;color:${level.color};text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">Niveau ${level.label}</div>
-          <div style="font-size:32px;font-weight:900;color:#111827;margin-bottom:8px;">${score} / 5</div>
-          <p style="font-size:15px;color:#6b7280;max-width:380px;margin:0 auto 24px;">${level.msg}</p>
-          <a href="#signup" style="display:inline-block;background:#4f46e5;color:#fff;padding:12px 28px;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;margin-top:8px;">Accéder à ma formation personnalisée →</a>
-        </div>
-      `;
-    }
-    renderQ();
-  </script>
-
-  <!-- ======== TEASER SIMULATION SCRIPT ======== -->
-  <script>
-  (function() {
-    // ── Profile definitions ──────────────────────────────────────────────
-    const PROFILES = {
-      sceptique: {
-        name: 'Jean-Pierre',
-        title: 'Le Sceptique',
-        env: 'door',
-        envLabel: '🚪 Vous sonnez à la porte de Jean-Pierre…',
-        envClass: 'env-door',
-        color: '#7c3aed',
-        scripts: [
-          "Oui ?",
-          "Hmm. C'est gentil de dire ça, mais vous êtes le 3ème à sonner ce mois-ci pour une association. Comment je sais que l'argent va vraiment là où vous dites ?",
-          "Je vois beaucoup de chiffres dans les brochures. Vous avez des preuves indépendantes, pas juste vos propres communications ?",
-          "D'accord… c'est plus solide que ce que j'entends habituellement. Je vous écoute encore une minute."
-        ],
-        gateMsg: "Vous avez bien commencé. Créez votre compte pour voir votre score et continuer la simulation."
-      },
-      ouvert: {
-        name: 'Marie',
-        title: "L'Ouverte",
-        env: 'door',
-        envLabel: '🚪 Marie ouvre la porte avec le sourire…',
-        envClass: 'env-door',
-        color: '#16a34a',
-        scripts: [
-          "Bonjour ! Oui, j'ai un moment.",
-          "C'est une belle cause. Qu'est-ce qui vous a amené à travailler pour eux ?",
-          "Ça me touche vraiment. Et concrètement, ça représente quoi, un don mensuel ?",
-          "Je ne m'y attendais pas à cette heure, mais je suis content que vous soyez passé."
-        ],
-        gateMsg: "Bonne connexion avec ce profil ! Créez votre compte pour voir votre score détaillé."
-      },
-      presse: {
-        name: 'Thomas',
-        title: 'Le Pressé',
-        env: 'phone',
-        envLabel: '📞 Thomas décroche. Vous avez 60 secondes…',
-        envClass: 'env-phone',
-        color: '#d97706',
-        scripts: [
-          "Oui, vite.",
-          "OK. Et ?",
-          "Combien ?",
-          "Je dois y aller dans 30 secondes."
-        ],
-        gateMsg: "Vous gérez bien la pression. Créez votre compte pour voir votre score."
-      },
-      hostile: {
-        name: 'Bernard',
-        title: "L'Hostile",
-        env: 'door',
-        envLabel: '🚪 Bernard entrouvre la porte, méfiant…',
-        envClass: 'env-door',
-        color: '#dc2626',
-        scripts: [
-          "Encore un démarchage… j'allais justement fermer.",
-          "Les associations, j'en ai ras-le-bol. La dernière fois j'ai donné et je n'ai jamais eu de nouvelles.",
-          "Pourquoi je vous ferais confiance à vous plutôt qu'aux autres ?",
-          "Hmm. C'est honnête au moins."
-        ],
-        gateMsg: "Bravo — tenir avec un profil hostile, c'est difficile. Créez votre compte pour votre score complet."
-      },
-      curieux: {
-        name: 'Sophie',
-        title: 'La Curieuse',
-        env: 'event',
-        envLabel: '🎪 Sophie s'approche, carnet en main…',
-        envClass: 'env-event',
-        color: '#3b82f6',
-        scripts: [
-          "Oh, bonjour ! Quelle organisation ?",
-          "Intéressant. Et comment ils mesurent l'impact exactement ?",
-          "Et les frais de structure, c'est quel pourcentage ?",
-          "OK, et si je veux en savoir plus sur leurs projets spécifiques ?"
-        ],
-        gateMsg: "Vous gérez bien les questions détaillées. Créez votre compte pour voir votre analyse complète."
-      }
-    };
-
-    // ── SVG Avatars (full size 120px) ──────────────────────────────────────
-    const AVATARS = {
-      sceptique: `<svg viewBox="0 0 120 120" width="120" height="120">
-        <rect width="120" height="120" rx="16" fill="#7c3aed"/>
-        <ellipse cx="60" cy="30" rx="27" ry="14" fill="#aaa"/>
-        <ellipse cx="60" cy="27" rx="22" ry="9" fill="#bbb"/>
-        <circle cx="60" cy="54" r="26" fill="#FDBCB4"/>
-        <circle cx="51" cy="50" r="3.5" fill="#333"/>
-        <circle cx="69" cy="50" r="3.5" fill="#333"/>
-        <circle cx="52" cy="49" r="1.2" fill="#fff"/>
-        <circle cx="70" cy="49" r="1.2" fill="#fff"/>
-        <line x1="44" y1="41" x2="57" y2="44.5" stroke="#555" stroke-width="2.5" stroke-linecap="round"/>
-        <line x1="63" y1="44.5" x2="76" y2="41" stroke="#555" stroke-width="2.5" stroke-linecap="round"/>
-        <line x1="53" y1="63" x2="67" y2="63" stroke="#c0876a" stroke-width="2.2" stroke-linecap="round"/>
-        <rect x="36" y="79" width="48" height="28" rx="8" fill="#4a3a7a"/>
-        <path d="M36 91 Q60 85 84 91" stroke="#3a2a6a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-        <text x="60" y="115" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.85)">Jean-Pierre</text>
-      </svg>`,
-      ouvert: `<svg viewBox="0 0 120 120" width="120" height="120">
-        <rect width="120" height="120" rx="16" fill="#16a34a"/>
-        <circle cx="60" cy="54" r="26" fill="#f5cba7"/>
-        <path d="M34 54 Q34 28 60 28 Q86 28 86 54" fill="#5c3317"/>
-        <path d="M46 90 Q55 98 60 98 Q65 98 74 90" fill="#5c3317"/>
-        <circle cx="51" cy="50" r="3.2" fill="#333"/>
-        <circle cx="69" cy="50" r="3.2" fill="#333"/>
-        <circle cx="52" cy="49" r="1.1" fill="#fff"/>
-        <circle cx="70" cy="49" r="1.1" fill="#fff"/>
-        <line x1="47" y1="42" x2="57" y2="43" stroke="#7a5230" stroke-width="2" stroke-linecap="round"/>
-        <line x1="63" y1="43" x2="73" y2="42" stroke="#7a5230" stroke-width="2" stroke-linecap="round"/>
-        <path d="M52 62 Q60 69 68 62" stroke="#c07850" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-        <rect x="36" y="79" width="48" height="28" rx="8" fill="#15803d"/>
-        <text x="60" y="115" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.85)">Marie</text>
-      </svg>`,
-      presse: `<svg viewBox="0 0 120 120" width="120" height="120">
-        <rect width="120" height="120" rx="16" fill="#d97706"/>
-        <circle cx="60" cy="54" r="26" fill="#FDBCB4"/>
-        <rect x="34" y="26" width="52" height="20" rx="4" fill="#2d2d2d"/>
-        <ellipse cx="60" cy="28" rx="26" ry="9" fill="#2d2d2d"/>
-        <circle cx="51" cy="49" r="3.2" fill="#333"/>
-        <circle cx="69" cy="53" r="3.2" fill="#333"/>
-        <circle cx="52" cy="48" r="1.1" fill="#fff"/>
-        <circle cx="70" cy="52" r="1.1" fill="#fff"/>
-        <line x1="46" y1="41" x2="57" y2="42" stroke="#555" stroke-width="1.8" stroke-linecap="round"/>
-        <line x1="63" y1="44" x2="74" y2="45" stroke="#555" stroke-width="1.8" stroke-linecap="round"/>
-        <line x1="53" y1="62" x2="67" y2="61" stroke="#c0876a" stroke-width="1.8" stroke-linecap="round"/>
-        <rect x="36" y="79" width="48" height="28" rx="8" fill="#1e40af"/>
-        <line x1="60" y1="82" x2="60" y2="104" stroke="#93c5fd" stroke-width="1.5"/>
-        <text x="60" y="115" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.85)">Thomas</text>
-      </svg>`,
-      hostile: `<svg viewBox="0 0 120 120" width="120" height="120">
-        <rect width="120" height="120" rx="16" fill="#dc2626"/>
-        <circle cx="60" cy="54" r="26" fill="#e8c9b0"/>
-        <ellipse cx="60" cy="28" rx="26" ry="11" fill="#ddd"/>
-        <ellipse cx="52" cy="27" rx="8" ry="5" fill="#ccc"/>
-        <ellipse cx="68" cy="27" rx="8" ry="5" fill="#ccc"/>
-        <circle cx="51" cy="51" r="3.5" fill="#333"/>
-        <circle cx="69" cy="51" r="3.5" fill="#333"/>
-        <circle cx="52" cy="50" r="1.2" fill="#fff"/>
-        <circle cx="70" cy="50" r="1.2" fill="#fff"/>
-        <line x1="43" y1="40" x2="58" y2="45" stroke="#333" stroke-width="3" stroke-linecap="round"/>
-        <line x1="62" y1="45" x2="77" y2="40" stroke="#333" stroke-width="3" stroke-linecap="round"/>
-        <path d="M54 64 Q60 60 66 64" stroke="#a07060" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-        <rect x="36" y="79" width="48" height="28" rx="8" fill="#7f1d1d"/>
-        <text x="60" y="115" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.85)">Bernard</text>
-      </svg>`,
-      curieux: `<svg viewBox="0 0 120 120" width="120" height="120">
-        <rect width="120" height="120" rx="16" fill="#3b82f6"/>
-        <circle cx="60" cy="54" r="26" fill="#FDBCB4"/>
-        <path d="M36 38 Q48 22 72 26 Q84 30 86 48 Q84 28 60 26 Q38 24 36 38Z" fill="#1a1a1a"/>
-        <circle cx="51" cy="50" r="3.2" fill="#333"/>
-        <circle cx="69" cy="50" r="3.2" fill="#333"/>
-        <circle cx="52" cy="49" r="1.1" fill="#fff"/>
-        <circle cx="70" cy="49" r="1.1" fill="#fff"/>
-        <circle cx="51" cy="46" r="4.5" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
-        <circle cx="69" cy="46" r="4.5" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
-        <line x1="56" y1="46" x2="64" y2="46" stroke="#1a1a1a" stroke-width="1.5"/>
-        <line x1="46" y1="41" x2="57" y2="42" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
-        <line x1="63" y1="42" x2="74" y2="43" stroke="#222" stroke-width="2.2" stroke-linecap="round"/>
-        <path d="M53 62 Q60 67 67 62" stroke="#c0876a" stroke-width="2" fill="none" stroke-linecap="round"/>
-        <rect x="36" y="79" width="48" height="28" rx="8" fill="#1d4ed8"/>
-        <rect x="75" y="76" width="20" height="14" rx="2" fill="#fff" stroke="#ddd" stroke-width="1"/>
-        <line x1="77" y1="80" x2="93" y2="80" stroke="#bbb" stroke-width="1"/>
-        <line x1="77" y1="83" x2="90" y2="83" stroke="#bbb" stroke-width="1"/>
-        <line x1="77" y1="86" x2="88" y2="86" stroke="#bbb" stroke-width="1"/>
-        <text x="60" y="115" text-anchor="middle" font-family="Inter,sans-serif" font-size="9" fill="rgba(255,255,255,0.85)">Sophie</text>
-      </svg>`
-    };
-
-    // ── State ──────────────────────────────────────────────────────────────
-    let currentProfile = null;
-    let exchangeCount = 0;      // # of user messages sent
-    let waitingForDonor = false;
-    const MAX_EXCHANGES = 3;
-
-    // Empathy / quality keywords
-    const EMPATHY_WORDS = ['comprends','comprendre','touche','sensible','important','merci','reconnaissant','difficile','humain','impact','aide','solidarité','famille','enfants','vie','avenir'];
-    const SPECIFICITY_WORDS = ['%','euro','€','million','millier','projet','programme','résultat','audit','label','don','mensuel','annuel','chaque mois'];
-    const QUESTION_WORDS = ['?','comment','pourquoi','quand','quel','quelle','est-ce que','pouvez-vous'];
-
-    function calcScore(msgs) {
-      let s = 50;
-      msgs.forEach(m => {
-        const t = m.toLowerCase();
-        if (t.length > 60) s += 4;
-        if (t.length > 120) s += 4;
-        EMPATHY_WORDS.forEach(w => { if (t.includes(w)) s += 3; });
-        SPECIFICITY_WORDS.forEach(w => { if (t.includes(w)) s += 4; });
-        QUESTION_WORDS.forEach(w => { if (t.includes(w)) s += 2; });
-      });
-      return Math.min(98, Math.max(32, s));
-    }
-
-    function getEmotionalState(msgs) {
-      if (!msgs || msgs.length === 0) return '😐 Neutre';
-      const last = msgs[msgs.length - 1].toLowerCase();
-      const hasEmpathy = EMPATHY_WORDS.some(w => last.includes(w));
-      const hasSpecific = SPECIFICITY_WORDS.some(w => last.includes(w));
-      const hasQuestion = QUESTION_WORDS.some(w => last.includes(w));
-      if (exchangeCount >= 3) return '💭 Réfléchit sérieusement';
-      if (exchangeCount === 2 && (hasEmpathy || hasSpecific)) return '🤔 Intrigué';
-      if (hasEmpathy && hasSpecific) return '🤔 Intrigué';
-      if (hasQuestion) return '👂 Écoute';
-      if (hasEmpathy || hasSpecific) return '🙂 Attentif';
-      return '😐 Neutre';
-    }
-
-    // ── DOM helpers ────────────────────────────────────────────────────────
-    function $(id) { return document.getElementById(id); }
-
-    function appendBubble(text, type, sender) {
-      const msgs = $('teaserMessages');
-      const wrap = document.createElement('div');
-      wrap.className = `chat-bubble-wrap ${type}-wrap`;
-      wrap.innerHTML = `<div class="bubble-sender">${sender}</div><div class="chat-bubble ${type}">${text}</div>`;
-      msgs.appendChild(wrap);
-      msgs.scrollTop = msgs.scrollHeight;
-    }
-
-    function showTyping() {
-      const msgs = $('teaserMessages');
-      const t = document.createElement('div');
-      t.id = 'typingIndicator';
-      t.className = 'typing-indicator';
-      t.innerHTML = '<span></span><span></span><span></span>';
-      msgs.appendChild(t);
-      msgs.scrollTop = msgs.scrollHeight;
-    }
-
-    function removeTyping() {
-      const t = $('typingIndicator');
-      if (t) t.remove();
-    }
-
-    // ── Profile selection ──────────────────────────────────────────────────
-    window.selectProfile = function(profileKey) {
-      currentProfile = profileKey;
-      exchangeCount = 0;
-      waitingForDonor = false;
-
-      const p = PROFILES[profileKey];
-
-      // Highlight selected card
-      document.querySelectorAll('.profile-card').forEach(c => {
-        c.classList.toggle('selected', c.dataset.profile === profileKey);
-      });
-
-      // Show arena
-      const arena = $('teaserArena');
-      arena.style.display = 'block';
-      arena.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-      // Set env class on avatar col
-      const avatarCol = arena.querySelector('.teaser-avatar-col');
-      avatarCol.className = 'teaser-avatar-col ' + p.envClass;
-
-      // Set avatar SVG
-      $('teaserAvatarSvg').innerHTML = AVATARS[profileKey];
-
-      // Set env label
-      $('teaserEnvLabel').textContent = p.envLabel;
-
-      // Set chat name
-      $('teaserChatName').textContent = `${p.name} — ${p.title}`;
-      $('teaserChatCount').textContent = '0 / 3 échanges';
-
-      // Clear messages
-      $('teaserMessages').innerHTML = '';
-
-      // Hide gate
-      $('teaserGate').style.display = 'none';
-
-      // Reset emotional state
-      $('teaserStateValue').textContent = '😐 Neutre';
-
-      // Enable input
-      $('teaserInput').disabled = false;
-      $('teaserSendBtn').disabled = false;
-      $('teaserInput').value = '';
-      $('teaserInput').placeholder = 'Votre réponse au donateur…';
-
-      // Show first donor message after a brief delay
-      setTimeout(() => {
-        appendBubble(p.scripts[0], 'donor', p.name);
-      }, 600);
-
-      setTimeout(() => { $('teaserInput').focus(); }, 700);
-    };
-
-    // ── Send message ───────────────────────────────────────────────────────
-    window.sendTeaserMessage = function() {
-      if (!currentProfile || waitingForDonor) return;
-      const input = $('teaserInput');
-      const text = input.value.trim();
-      if (!text) return;
-
-      const p = PROFILES[currentProfile];
-
-      // Append user bubble
-      appendBubble(text, 'user', 'Vous');
-      input.value = '';
-      exchangeCount++;
-      $('teaserChatCount').textContent = `${exchangeCount} / 3 échanges`;
-
-      // Update emotional state
-      const allUserMsgs = Array.from($('teaserMessages').querySelectorAll('.chat-bubble.user')).map(b => b.textContent);
-      $('teaserStateValue').textContent = getEmotionalState(allUserMsgs);
-
-      if (exchangeCount >= MAX_EXCHANGES) {
-        // Show last scripted response then trigger gate
-        waitingForDonor = true;
-        $('teaserSendBtn').disabled = true;
-        $('teaserInput').disabled = true;
-
-        showTyping();
-        setTimeout(() => {
-          removeTyping();
-          appendBubble(p.scripts[3], 'donor', p.name);
-          // Short pause then show gate
-          setTimeout(() => showGate(allUserMsgs.concat([text])), 1200);
-        }, 1800);
-      } else {
-        // Normal response
-        waitingForDonor = true;
-        $('teaserSendBtn').disabled = true;
-        $('teaserInput').disabled = true;
-
-        showTyping();
-        const responseIdx = exchangeCount; // scripts[1], [2]…
-        setTimeout(() => {
-          removeTyping();
-          appendBubble(p.scripts[responseIdx], 'donor', p.name);
-          waitingForDonor = false;
-          $('teaserSendBtn').disabled = false;
-          $('teaserInput').disabled = false;
-          setTimeout(() => $('teaserInput').focus(), 100);
-        }, 1500 + Math.random() * 500);
-      }
-    };
-
-    // ── Gate ───────────────────────────────────────────────────────────────
-    function showGate(userMsgs) {
-      const score = calcScore(userMsgs);
-      $('gateScoreNumber').textContent = score;
-      // Animate bar
-      setTimeout(() => {
-        $('gateScoreBar').style.width = score + '%';
-      }, 100);
-      $('teaserGate').style.display = 'flex';
-    }
-
-    window.gateSignup = function(e) {
-      e.preventDefault();
-      // Redirect to signup / show thank you
-      window.location.href = '#signup';
-    };
-
-    // ── Reset ──────────────────────────────────────────────────────────────
-    window.resetSimulation = function() {
-      $('teaserArena').style.display = 'none';
-      currentProfile = null;
-      document.querySelectorAll('.profile-card').forEach(c => c.classList.remove('selected'));
-      $('teaserProfiles').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    };
-
-  })();
+    document.querySelectorAll('.feature-card, .testimonial-card, .step-card').forEach(el => observer.observe(el));
   </script>
 </body>
 </html>
