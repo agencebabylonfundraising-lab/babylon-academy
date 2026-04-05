@@ -97,17 +97,17 @@
     }
 
     /* Floating emojis — z-index 0 so they never overlap text */
-    .float-emoji {
+    .hero-float-emoji {
       position: absolute; font-size: 2rem; user-select: none; pointer-events: none;
       filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
-      z-index: 0;
+      z-index: 0 !important; pointer-events: none;
     }
-    .float-emoji:nth-child(1) { top: 15%; left: 8%; animation: float1 7s ease-in-out infinite; }
-    .float-emoji:nth-child(2) { top: 25%; right: 10%; animation: float2 9s ease-in-out infinite 1s; }
-    .float-emoji:nth-child(3) { bottom: 30%; left: 12%; animation: float3 8s ease-in-out infinite 2s; }
-    .float-emoji:nth-child(4) { bottom: 25%; right: 8%; animation: float4 10s ease-in-out infinite 0.5s; }
-    .float-emoji:nth-child(5) { top: 60%; left: 6%; animation: float1 6s ease-in-out infinite 3s; font-size: 1.5rem; opacity: 0.5; }
-    .float-emoji:nth-child(6) { top: 10%; right: 22%; animation: float3 11s ease-in-out infinite 1.5s; font-size: 1.4rem; opacity: 0.4; }
+    .hero-float-emoji:nth-child(1) { top: 15%; left: 8%; animation: float1 7s ease-in-out infinite; }
+    .hero-float-emoji:nth-child(2) { top: 25%; right: 10%; animation: float2 9s ease-in-out infinite 1s; }
+    .hero-float-emoji:nth-child(3) { bottom: 30%; left: 12%; animation: float3 8s ease-in-out infinite 2s; }
+    .hero-float-emoji:nth-child(4) { bottom: 25%; right: 8%; animation: float4 10s ease-in-out infinite 0.5s; }
+    .hero-float-emoji:nth-child(5) { top: 60%; left: 6%; animation: float1 6s ease-in-out infinite 3s; font-size: 1.5rem; opacity: 0.5; }
+    .hero-float-emoji:nth-child(6) { top: 10%; right: 22%; animation: float3 11s ease-in-out infinite 1.5s; font-size: 1.4rem; opacity: 0.4; }
     @keyframes float1 { 0%,100%{transform:translateY(0) rotate(-3deg)} 50%{transform:translateY(-24px) rotate(3deg)} }
     @keyframes float2 { 0%,100%{transform:translateY(0) rotate(5deg)} 50%{transform:translateY(-18px) rotate(-5deg)} }
     @keyframes float3 { 0%,100%{transform:translateY(0) rotate(-2deg)} 50%{transform:translateY(-20px) rotate(4deg)} }
@@ -190,6 +190,91 @@
     .xp-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #818cf8, #c4b5fd); border-radius: 4px; animation: xpLoad 2s cubic-bezier(0.4,0,0.2,1) 0.8s forwards; }
     @keyframes xpLoad { to { width: 78%; } }
     .xp-sub { font-size: 10px; color: rgba(255,255,255,0.45); margin-top: 6px; text-align: center; }
+
+    /* Hero content z-index safety */
+    .hero > * { position: relative; z-index: 1; }
+    .hero-content, .hero-inner { position: relative; z-index: 2; }
+    .hero-xp-section { position: relative; z-index: 2; }
+
+    /* ======== HERO MOCKUP (in-hero app preview) ======== */
+    .hero-mockup {
+      position: relative; z-index: 1;
+      width: 100%; max-width: 920px; margin: 40px auto 0;
+      border-radius: 16px; overflow: hidden;
+      box-shadow: 0 32px 100px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.12);
+    }
+    .hero-mockup .browser-chrome { background: #1a1827; }
+    .hero-mockup .dashboard-ui { min-height: 340px; }
+
+    /* ======== RESULTS BAR ======== */
+    .results-bar {
+      background: var(--indigo-900); padding: 0;
+    }
+    .results-bar-inner {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      max-width: 100%;
+    }
+    .result-item {
+      text-align: center; padding: 36px 24px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+    }
+    .result-item:last-child { border-right: none; }
+    .result-num { font-size: 38px; font-weight: 900; color: #818cf8; line-height: 1; margin-bottom: 8px; }
+    .result-label { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.8); line-height: 1.4; }
+    .result-sub { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 4px; }
+
+    /* ======== SIMULATION PREVIEW ======== */
+    .sim-preview-section { padding: 80px 5%; background: var(--bg); }
+    .sim-preview-inner { max-width: 640px; margin: 0 auto; }
+    .sim-preview-card {
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 20px; overflow: hidden;
+      box-shadow: 0 12px 40px rgba(99,102,241,0.12);
+      margin-top: 40px;
+    }
+    .sim-preview-header {
+      background: linear-gradient(135deg, #1e1b4b, #312e81);
+      padding: 16px 22px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .sim-donor-info { display: flex; align-items: center; gap: 12px; }
+    .sim-donor-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(239,68,68,0.15); border: 2px solid rgba(239,68,68,0.35);
+      display: flex; align-items: center; justify-content: center; font-size: 20px;
+      flex-shrink: 0;
+    }
+    .sim-donor-name { font-size: 14px; font-weight: 800; color: #fff; }
+    .sim-donor-label { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 2px; }
+    .sim-difficulty { display: flex; align-items: center; gap: 4px; }
+    .sim-difficulty-dot { width: 8px; height: 8px; border-radius: 50%; background: #ef4444; }
+    .sim-difficulty-label { font-size: 11px; font-weight: 700; color: #fca5a5; margin-left: 4px; white-space: nowrap; }
+    .sim-preview-body { padding: 28px 24px; }
+    .sim-message-bubble {
+      background: #fef2f2; border: 1px solid #fecaca;
+      border-radius: 12px 12px 12px 4px; padding: 16px 20px;
+      margin-bottom: 20px;
+    }
+    .sim-message-label { font-size: 11px; font-weight: 700; color: #ef4444; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.08em; }
+    .sim-message-text { font-size: 15px; color: var(--text); line-height: 1.6; font-style: italic; }
+    .sim-response-area {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 14px 18px; margin-bottom: 16px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .sim-response-placeholder { font-size: 14px; color: var(--muted); flex: 1; }
+    .sim-send-btn {
+      background: var(--indigo-600); color: #fff;
+      border: none; border-radius: 8px; padding: 9px 18px;
+      font-size: 13px; font-weight: 700; font-family: 'Inter', sans-serif;
+      cursor: default; white-space: nowrap; flex-shrink: 0;
+    }
+    .sim-cta-link { text-align: center; padding-top: 4px; }
+    .sim-cta-link a {
+      font-size: 14px; font-weight: 700; color: var(--indigo-600);
+      text-decoration: none; display: inline-flex; align-items: center; gap: 6px;
+    }
+    .sim-cta-link a:hover { text-decoration: underline; }
 
     /* ======== SECTION COMMONS ======== */
     .section-header { text-align: center; margin-bottom: 60px; }
@@ -433,23 +518,45 @@
 
     /* ======== RESPONSIVE ======== */
     @media (max-width: 900px) {
-      .features-grid, .steps-grid, .testimonials-grid, .types-grid { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
+      .features-grid, .steps-grid, .testimonials-grid { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
+      .types-grid { grid-template-columns: 1fr 1fr; max-width: 600px; margin-left: auto; margin-right: auto; }
       .dashboard-ui { grid-template-columns: 1fr; }
       .db-sidebar { display: none; }
       .db-modules-grid, .db-bottom-row { grid-template-columns: 1fr; }
       .waitlist-card { padding: 32px 24px; }
+      .results-bar-inner { grid-template-columns: 1fr; }
+      .result-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+      .result-item:last-child { border-bottom: none; }
     }
-    @media (max-width: 680px) {
+    @media (max-width: 768px) {
       nav { padding: 0 4%; }
       .nav-link { display: none; }
-      .hero { padding: 60px 5% 40px; }
+      .hero { padding: 48px 16px 32px; }
+      .hero h1 { font-size: clamp(28px, 8vw, 42px) !important; }
+      .hero-sub { font-size: 15px !important; }
+      .hero-ctas { flex-direction: column; gap: 10px; }
+      .btn-hero-primary, .btn-hero-ghost { width: 100%; justify-content: center; }
+      .hero-float-emoji { display: none; }
+      .hero-mockup {
+        transform: scale(0.65);
+        transform-origin: top center;
+        margin-bottom: -120px;
+      }
+      .features-grid, .feature-cards { grid-template-columns: 1fr !important; }
+      .types-grid { grid-template-columns: 1fr 1fr !important; }
+      .waitlist-inner { flex-direction: column; }
+      .waitlist-form { padding: 24px 16px; }
+      .testimonials-grid { grid-template-columns: 1fr !important; }
+      section { padding: 40px 16px !important; }
+      .container { padding: 0 16px; }
       .proof-banner { gap: 20px; }
+      .sim-response-area { flex-direction: column; align-items: flex-start; }
+      .sim-send-btn { width: 100%; text-align: center; }
     }
     @media (max-width: 480px) {
-      .hero h1 { font-size: 32px; }
-      .hero-ctas { flex-direction: column; }
-      .btn-hero-primary, .btn-hero-ghost { width: 100%; justify-content: center; }
-      .types-grid { grid-template-columns: 1fr 1fr; }
+      .hero-mockup { display: none; }
+      .types-grid { grid-template-columns: 1fr !important; }
+      .sim-difficulty-label { display: none; }
     }
   </style>
 </head>
@@ -477,12 +584,12 @@
   <!-- ======== HERO ======== -->
   <section class="hero">
     <!-- Background decorations — z-index:0 -->
-    <div class="float-emoji">🎯</div>
-    <div class="float-emoji">💬</div>
-    <div class="float-emoji">⭐</div>
-    <div class="float-emoji">🏆</div>
-    <div class="float-emoji">🔥</div>
-    <div class="float-emoji">⚡</div>
+    <div class="hero-float-emoji">🎯</div>
+    <div class="hero-float-emoji">💬</div>
+    <div class="hero-float-emoji">⭐</div>
+    <div class="hero-float-emoji">🏆</div>
+    <div class="hero-float-emoji">🔥</div>
+    <div class="hero-float-emoji">⚡</div>
 
     <div class="hero-content">
       <div class="hero-eyebrow">
@@ -490,12 +597,12 @@
         <span data-fr="Accès anticipé · Liste d'attente ouverte" data-en="Early access · Waitlist open">Accès anticipé · Liste d'attente ouverte</span>
       </div>
 
-      <h1 data-fr="Deviens le fundraiser<br>que tu aurais voulu<br>avoir face à toi." data-en="Become the fundraiser<br>you'd want to<br>face yourself.">
-        Deviens le fundraiser<br>que tu aurais voulu<br>avoir face à toi.
+      <h1 data-fr="Pratique. Améliore-toi.<br>Deviens meilleur." data-en="Practice. Improve.<br>Become better.">
+        Pratique. Améliore-toi.<br>Deviens meilleur.
       </h1>
 
-      <p class="hero-sub" data-fr="collecte.ai simule de vraies conversations avec des donateurs IA. Pratique, améliore-toi, mesure tes progrès. Pour tous les types de collecte." data-en="collecte.ai simulates real conversations with AI donors. Practice, improve, measure your progress. For every type of fundraising.">
-        collecte.ai simule de vraies conversations avec des donateurs IA. Pratique, améliore-toi, mesure tes progrès. Pour tous les types de collecte.
+      <p class="hero-sub" data-fr="Simulations IA avec de vrais profils de donateurs. Pour tous les fundraisers." data-en="AI simulations with real donor profiles. For every fundraiser.">
+        Simulations IA avec de vrais profils de donateurs. Pour tous les fundraisers.
       </p>
 
       <div class="hero-ctas">
@@ -507,6 +614,105 @@
         <div class="proof-pill">🤖 <span data-fr="IA conversationnelle" data-en="Conversational AI">IA conversationnelle</span></div>
         <div class="proof-pill">📊 <span data-fr="Score en temps réel" data-en="Real-time scoring">Score en temps réel</span></div>
         <div class="proof-pill">🏆 <span data-fr="Certification reconnue" data-en="Recognized certification">Certification reconnue</span></div>
+      </div>
+    </div>
+
+    <!-- Hero Dashboard Mockup -->
+    <div class="hero-mockup">
+      <div class="mockup-browser" style="border:none;border-radius:0;">
+        <div class="browser-chrome" style="background:#1a1827;">
+          <div class="chrome-dots">
+            <div class="chrome-dot" style="background:#ff5f57;"></div>
+            <div class="chrome-dot" style="background:#febc2e;"></div>
+            <div class="chrome-dot" style="background:#28c840;"></div>
+          </div>
+          <div class="chrome-url">🔒 app.collecte.ai/dashboard</div>
+          <div class="chrome-secure">● Connecté</div>
+        </div>
+        <div class="dashboard-ui">
+          <div class="db-sidebar">
+            <div class="db-sidebar-logo">collecte.ai</div>
+            <div class="db-nav-item active"><span class="db-nav-icon">📊</span> Tableau de bord</div>
+            <div class="db-nav-item"><span class="db-nav-icon">💬</span> Simulations IA <span style="background:#6366f1;color:#fff;font-size:8px;font-weight:800;padding:1px 5px;border-radius:4px;margin-left:auto;">NEW</span></div>
+            <div class="db-nav-item"><span class="db-nav-icon">🏆</span> Classement</div>
+            <div class="db-nav-item"><span class="db-nav-icon">📈</span> Mes stats</div>
+            <div class="db-user">
+              <div class="db-user-av">AK</div>
+              <div>
+                <div class="db-user-name">Alexandre K.</div>
+                <div class="db-user-sub">⭐ Niveau 3 · 7j streak</div>
+              </div>
+            </div>
+          </div>
+          <div class="db-main">
+            <div class="db-topbar">
+              <div class="db-greeting">Bonjour Alexandre 👋 — Tu es sur une belle lancée !</div>
+              <div class="db-badges">
+                <span class="db-badge db-badge-streak">🔥 7 jours</span>
+                <span class="db-badge db-badge-xp">⚡ 2 340 XP</span>
+              </div>
+            </div>
+            <div class="db-xp-card">
+              <div class="db-level-badge">3</div>
+              <div class="db-xp-text">
+                <div class="db-xp-name">Niveau 3 — Fundraiser Confirmé</div>
+                <div class="db-xp-progress-label">2 340 / 3 000 XP · 660 XP avant le niveau 4</div>
+                <div class="db-xp-bar"><div class="db-xp-bar-fill"></div></div>
+              </div>
+              <div class="db-xp-pct">78%</div>
+            </div>
+            <div class="db-modules-grid">
+              <div class="db-module">
+                <div class="db-module-title" style="color:#16a34a;">✓ Les fondamentaux</div>
+                <div class="db-module-sub">100% complété · 320 XP gagnés</div>
+                <div class="db-prog-bar"><div class="db-prog-fill" style="width:100%;background:linear-gradient(90deg,#16a34a,#4ade80);"></div></div>
+              </div>
+              <div class="db-module">
+                <div class="db-module-title" style="color:#d97706;">⚡ Gérer les objections</div>
+                <div class="db-module-sub">65% en cours · +450 XP disponibles</div>
+                <div class="db-prog-bar"><div class="db-prog-fill" style="width:65%;background:linear-gradient(90deg,#d97706,#fbbf24);"></div></div>
+              </div>
+              <div class="db-module">
+                <div class="db-module-title">🧠 Profils de donateurs</div>
+                <div class="db-module-sub">30% · 3 archétypes découverts</div>
+                <div class="db-prog-bar"><div class="db-prog-fill" style="width:30%;background:linear-gradient(90deg,#6366f1,#8b5cf6);"></div></div>
+              </div>
+              <div class="db-module" style="opacity:0.5;">
+                <div class="db-module-title">🔒 Closing &amp; engagement</div>
+                <div class="db-module-sub">Niveau 4 requis</div>
+                <div class="db-prog-bar"><div class="db-prog-fill" style="width:0%;"></div></div>
+              </div>
+            </div>
+            <div class="db-bottom-row">
+              <div class="db-leaderboard">
+                <div class="db-lb-title">🏆 Classement cette semaine</div>
+                <div class="db-lb-item">
+                  <div class="db-lb-rank" style="color:#f59e0b;">🥇</div>
+                  <div class="db-lb-av" style="background:linear-gradient(135deg,#f59e0b,#d97706);">MC</div>
+                  <div class="db-lb-name">Marie C.</div>
+                  <div class="db-lb-xp">4 820 XP</div>
+                </div>
+                <div class="db-lb-item">
+                  <div class="db-lb-rank" style="color:#6b7280;">🥈</div>
+                  <div class="db-lb-av" style="background:linear-gradient(135deg,#a78bfa,#7c3aed);">LB</div>
+                  <div class="db-lb-name">Lucas B.</div>
+                  <div class="db-lb-xp">3 910 XP</div>
+                </div>
+                <div class="db-lb-item db-lb-me">
+                  <div class="db-lb-rank" style="color:#6366f1;">4</div>
+                  <div class="db-lb-av" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);">AK</div>
+                  <div class="db-lb-name">Vous ↑+2 🚀</div>
+                  <div class="db-lb-xp">2 340 XP</div>
+                </div>
+              </div>
+              <div class="db-mission">
+                <div class="db-mission-title">🎯 Mission du jour</div>
+                <div class="db-mission-text">Complète 2 simulations avec le profil <strong>Hostile</strong> et obtiens un score &gt; 75%. Récompense : +150 XP 🔥</div>
+                <button class="db-mission-btn">Lancer la simulation →</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -523,6 +729,27 @@
       <div class="xp-sub" data-fr="🚀 660 XP avant le Niveau 4 · 7 jours de streak 🔥" data-en="🚀 660 XP to Level 4 · 7-day streak 🔥">🚀 660 XP avant le Niveau 4 · 7 jours de streak 🔥</div>
     </div>
   </section>
+
+  <!-- ======== RESULTS BAR ======== -->
+  <div class="results-bar">
+    <div class="results-bar-inner">
+      <div class="result-item">
+        <div class="result-num">+23%</div>
+        <div class="result-label">taux de conversion</div>
+        <div class="result-sub">en moyenne après 2 semaines</div>
+      </div>
+      <div class="result-item">
+        <div class="result-num">10 min</div>
+        <div class="result-label">par jour suffisent</div>
+        <div class="result-sub">pour progresser significativement</div>
+      </div>
+      <div class="result-item">
+        <div class="result-num">5</div>
+        <div class="result-label">niveaux de maîtrise</div>
+        <div class="result-sub">du débutant à l'expert</div>
+      </div>
+    </div>
+  </div>
 
   <!-- ======== SOCIAL PROOF BANNER ======== -->
   <div class="proof-banner">
@@ -589,6 +816,49 @@
         <div class="feature-icon feature-icon-3">📊</div>
         <h3 data-fr="Progression mesurée &amp; certifiée" data-en="Measured &amp; certified progress">Progression mesurée &amp; certifiée</h3>
         <p data-fr="Score après chaque simulation. Niveaux, XP, badges, certification. Tu sais exactement où tu en es — et tu peux le prouver." data-en="Score after every simulation. Levels, XP, badges, certification. You know exactly where you stand — and you can prove it.">Score après chaque simulation. Niveaux, XP, badges, certification. Tu sais exactement où tu en es — et tu peux le prouver.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== SIMULATION PREVIEW ======== -->
+  <section class="sim-preview-section">
+    <div class="sim-preview-inner">
+      <div class="section-header">
+        <div class="section-eyebrow">Aperçu simulation</div>
+        <h2 class="section-title">Tu saurais quoi répondre<br>à Bernard ?</h2>
+        <p class="section-sub">C'est exactement ce que collecte.ai t'entraîne à gérer. Les meilleurs fundraisers savent. Les autres improvisent.</p>
+      </div>
+      <div class="sim-preview-card">
+        <div class="sim-preview-header">
+          <div class="sim-donor-info">
+            <div class="sim-donor-avatar">😠</div>
+            <div>
+              <div class="sim-donor-name">Bernard — L'Hostile</div>
+              <div class="sim-donor-label">Profil donateur · Simulation F2F</div>
+            </div>
+          </div>
+          <div class="sim-difficulty">
+            <div class="sim-difficulty-dot"></div>
+            <div class="sim-difficulty-dot"></div>
+            <div class="sim-difficulty-dot"></div>
+            <div class="sim-difficulty-dot"></div>
+            <div class="sim-difficulty-dot"></div>
+            <div class="sim-difficulty-label">Difficulté maximale</div>
+          </div>
+        </div>
+        <div class="sim-preview-body">
+          <div class="sim-message-bubble">
+            <div class="sim-message-label">👤 Bernard dit :</div>
+            <div class="sim-message-text">"Encore un truc associatif... j'allais justement fermer."</div>
+          </div>
+          <div class="sim-response-area">
+            <div class="sim-response-placeholder">💬 Votre réponse...</div>
+            <button class="sim-send-btn">Envoyer</button>
+          </div>
+          <div class="sim-cta-link">
+            <a href="#waitlist">Voir ce que répond le meilleur fundraiser →</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -728,38 +998,38 @@
     <div class="types-grid">
       <div class="type-card">
         <div class="type-icon">🚪</div>
-        <h3 data-fr="Fundraiser F2F" data-en="F2F Fundraiser">Fundraiser F2F</h3>
-        <p data-fr="Porte-à-porte, donateurs mensuels, terrain urbain." data-en="Door-to-door, monthly donors, urban field.">Porte-à-porte, donateurs mensuels, terrain urbain.</p>
+        <h3>Fundraiser F2F</h3>
+        <p>Tu sais pitcher. Mais pas toujours pourquoi ça marche — ou pas.</p>
         <span class="type-badge">F2F</span>
       </div>
       <div class="type-card">
         <div class="type-icon">📞</div>
-        <h3 data-fr="Télémarketeur" data-en="Phone Fundraiser">Télémarketeur</h3>
-        <p data-fr="Appels sortants, rétention, anti-churn, upgrade donateurs." data-en="Outbound calls, retention, anti-churn, upgrades.">Appels sortants, rétention, anti-churn, upgrade donateurs.</p>
+        <h3>Télémarketeur</h3>
+        <p>L'appel qui sauve un donateur commence dans les 8 premières secondes.</p>
         <span class="type-badge">Téléphone</span>
       </div>
       <div class="type-card">
         <div class="type-icon">📥</div>
-        <h3 data-fr="Agent de Réception" data-en="Inbound Agent">Agent de Réception</h3>
-        <p data-fr="Sauver les donateurs qui appellent pour annuler. La conversation la plus importante." data-en="Save donors calling to cancel. The most important conversation.">Sauver les donateurs qui appellent pour annuler. La conversation la plus importante.</p>
+        <h3>Agent de Réception</h3>
+        <p>Quelqu'un appelle pour annuler. Tu as 30 secondes pour changer la donne.</p>
         <span class="type-badge">Rétention</span>
       </div>
       <div class="type-card">
         <div class="type-icon">🎪</div>
-        <h3 data-fr="Fundraiser Événementiel" data-en="Events Fundraiser">Fundraiser Événementiel</h3>
-        <p data-fr="Galas, courses, festivals. L'art d'approcher un inconnu dans un contexte social." data-en="Galas, races, festivals. The art of approaching a stranger in a social setting.">Galas, courses, festivals. L'art d'approcher un inconnu dans un contexte social.</p>
+        <h3>Fundraiser Événementiel</h3>
+        <p>Un stand, une foule, et la pression de signer avant la fin de la journée.</p>
         <span class="type-badge">Événements</span>
       </div>
       <div class="type-card">
         <div class="type-icon">🤝</div>
-        <h3 data-fr="Major Donor Officer" data-en="Major Donor Officer">Major Donor Officer</h3>
-        <p data-fr="Grands donateurs 500€+/mois. La relation avant le don." data-en="Major donors 500€+/month. Relationship before the ask.">Grands donateurs 500€+/mois. La relation avant le don.</p>
+        <h3>Grands Donateurs</h3>
+        <p>Un seul RDV peut valoir des milliers d'euros de dons annuels. Prépare-toi.</p>
         <span class="type-badge">Grands donateurs</span>
       </div>
       <div class="type-card">
         <div class="type-icon">✉️</div>
-        <h3 data-fr="Fundraiser Digital" data-en="Digital Fundraiser">Fundraiser Digital</h3>
-        <p data-fr="Email, réseaux sociaux, copywriting. Convaincre sans la présence physique." data-en="Email, social media, copywriting. Persuade without physical presence.">Email, réseaux sociaux, copywriting. Convaincre sans la présence physique.</p>
+        <h3>Fundraiser Digital</h3>
+        <p>Tes emails convertissent. Mais lesquels, et pourquoi ? Apprends à le savoir.</p>
         <span class="type-badge">Digital</span>
       </div>
     </div>
@@ -827,7 +1097,6 @@
           <form class="waitlist-form" id="waitlistForm" onsubmit="submitWaitlist(event)">
             <input type="text" class="wl-input" id="wlPrenom" placeholder="Prénom" data-placeholder-fr="Prénom" data-placeholder-en="First name" required autocomplete="given-name">
             <input type="email" class="wl-input" id="wlEmail" placeholder="Email professionnel" data-placeholder-fr="Email professionnel" data-placeholder-en="Professional email" required autocomplete="email">
-            <input type="text" class="wl-input" id="wlOrga" placeholder="Organisation / Agence (optionnel)" data-placeholder-fr="Organisation / Agence (optionnel)" data-placeholder-en="Organization / Agency (optional)" autocomplete="organization">
             <select class="wl-select" id="wlType" required>
               <option value="" disabled selected data-fr="Type de fundraiser..." data-en="Fundraiser type...">Type de fundraiser...</option>
               <option value="Fundraiser individuel" data-fr="Fundraiser individuel" data-en="Individual Fundraiser">Fundraiser individuel</option>
@@ -943,7 +1212,6 @@
       const errEl = document.getElementById('wlError');
       const prenom = document.getElementById('wlPrenom').value.trim();
       const email = document.getElementById('wlEmail').value.trim();
-      const organisation = document.getElementById('wlOrga').value.trim();
       const type = document.getElementById('wlType').value;
 
       if (!prenom || !email || !type) {
@@ -955,7 +1223,7 @@
       btn.disabled = true;
       btn.textContent = currentLang === 'fr' ? 'Inscription en cours...' : 'Joining...';
 
-      const payload = { prenom, email, organisation, type };
+      const payload = { prenom, email, type };
 
       let newId = liveCount + 1;
       let success = false;
